@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import vn.edu.vnuk.vnuk_sharing.MainActivity;
 import vn.edu.vnuk.vnuk_sharing.R;
 
 import java.text.SimpleDateFormat;
@@ -17,6 +16,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -35,18 +35,25 @@ import android.widget.Toast;
 public class DeadlinesScreen extends AppCompatActivity {
 
     TextView txtDate,txtTime;
-    EditText editCv,editNd;
+    EditText editDl,editCt;
     Button btnDate,btnTime,btnAdd;
-    ArrayList<DeadlineInWeek>arrJob=new ArrayList<DeadlineInWeek>();
-    ArrayAdapter<DeadlineInWeek>adapter=null;
+    ArrayList<DeadlinesInWeek>arrJob=new ArrayList<DeadlinesInWeek>();
+    ArrayAdapter<DeadlinesInWeek>adapter=null;
     ListView lv;
     Calendar cal;
     Date dateFinish;
     Date hourFinish;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deadlines_screen);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Deadlines Notification");
 
         getFormWidgets();
         getDefaultInfor();
@@ -58,13 +65,13 @@ public class DeadlinesScreen extends AppCompatActivity {
     {
         txtDate=(TextView) findViewById(R.id.txtdate);
         txtTime=(TextView) findViewById(R.id.txttime);
-        editCv=(EditText) findViewById(R.id.editdealine);
-        editNd=(EditText) findViewById(R.id.editcontent);
+        editDl=(EditText) findViewById(R.id.editdeadline);
+        editCt=(EditText) findViewById(R.id.editcontent);
         btnDate=(Button) findViewById(R.id.btndate);
         btnTime=(Button) findViewById(R.id.btntime);
         btnAdd=(Button) findViewById(R.id.btndeadline);
         lv=(ListView) findViewById(R.id.lvdeadline);
-        adapter=new ArrayAdapter<DeadlineInWeek>
+        adapter=new ArrayAdapter<DeadlinesInWeek>
                 (this,
                         android.R.layout.simple_list_item_1,
                         arrJob);
@@ -90,7 +97,7 @@ public class DeadlinesScreen extends AppCompatActivity {
         dft=new SimpleDateFormat("HH:mm",Locale.getDefault());
         txtTime.setTag(dft.format(cal.getTime()));
 
-        editCv.requestFocus();
+        editDl.requestFocus();
 
         dateFinish=cal.getTime();
         hourFinish=cal.getTime();
@@ -147,6 +154,7 @@ public class DeadlinesScreen extends AppCompatActivity {
         }
 
     }
+
     public void showDatePickerDialog()
     {
         OnDateSetListener callback=new OnDateSetListener() {
@@ -162,15 +170,16 @@ public class DeadlinesScreen extends AppCompatActivity {
 
         String s=txtDate.getText()+"";
         String strArrtmp[]=s.split("/");
-        int ngay=Integer.parseInt(strArrtmp[0]);
-        int thang=Integer.parseInt(strArrtmp[1])-1;
-        int nam=Integer.parseInt(strArrtmp[2]);
+        int date=Integer.parseInt(strArrtmp[0]);
+        int month=Integer.parseInt(strArrtmp[1])-1;
+        int year=Integer.parseInt(strArrtmp[2]);
         DatePickerDialog pic=new DatePickerDialog(
                 DeadlinesScreen.this,
-                callback, nam, thang, ngay);
-        pic.setTitle("Chọn ngày hoàn thành");
+                callback, year, month, date);
+        pic.setTitle("Pick date ");
         pic.show();
     }
+
 
     public void showTimePickerDialog()
     {
@@ -195,24 +204,24 @@ public class DeadlinesScreen extends AppCompatActivity {
 
         String s=txtTime.getTag()+"";
         String strArr[]=s.split(":");
-        int gio=Integer.parseInt(strArr[0]);
-        int phut=Integer.parseInt(strArr[1]);
+        int hour=Integer.parseInt(strArr[0]);
+        int minute=Integer.parseInt(strArr[1]);
         TimePickerDialog time=new TimePickerDialog(
                 DeadlinesScreen.this,
-                callback, gio, phut, true);
-        time.setTitle("Chọn giờ hoàn thành");
+                callback, hour, minute, true);
+        time.setTitle("Pick time");
         time.show();
     }
 
     public void processAddJob()
     {
-        String title=editCv.getText()+"";
-        String description=editNd.getText()+"";
-        DeadlineInWeek job=new DeadlineInWeek(title, description, dateFinish, hourFinish);
+        String title=editDl.getText()+"";
+        String description=editCt.getText()+"";
+        DeadlinesInWeek job=new DeadlinesInWeek(title, description, dateFinish, hourFinish);
         arrJob.add(job);
         adapter.notifyDataSetChanged();
-        editCv.setText("");
-        editNd.setText("");
-        editCv.requestFocus();
+        editDl.setText("");
+        editCt.setText("");
+        editDl.requestFocus();
     }
 }

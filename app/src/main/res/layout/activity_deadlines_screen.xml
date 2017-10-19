@@ -1,19 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="vn.edu.vnuk.vnuk_sharing.Functional.Announcements">
+    tools:context="vn.edu.vnuk.vnuk_sharing.Functional.DeadlinesScreen">
 
-    <TextView
-        android:id="@+id/textView1"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#008000"
-        android:gravity="center"
-        android:text="Quản lý công việc hàng tuần"
-        android:textColor="#FFFFFF" />
+        android:layout_alignParentTop="true"
+        android:background="@color/Cardinal"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -30,10 +33,10 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reason" />
+                android:text="Subject" />
 
             <EditText
-                android:id="@+id/editdealine"
+                android:id="@+id/editdeadline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
@@ -135,8 +138,10 @@
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#008000"
+        android:background="@color/Cardinal"
+        android:padding="@dimen/size_normal"
         android:text="List deadline:"
+        android:textSize="@dimen/size_big"
         android:textColor="#FFFFFF" />
 
     <ListView
