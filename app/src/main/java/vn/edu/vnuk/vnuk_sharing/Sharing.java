@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import vn.edu.vnuk.vnuk_sharing.Functional.FunctionalScreen;
+
 
 public class Sharing extends Fragment {
 

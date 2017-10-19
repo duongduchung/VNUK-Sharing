@@ -15,8 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FunctionalScreen" />
-        <activity android:name=".SyllabusScreen"></activity>
+        <activity android:name=".Functional.FunctionalScreen"/>
+        <activity android:name=".Functional.SyllabusScreen"/>
+        <activity android:name=".Functional.Announcements"/>
+        <activity android:name=".Functional.DeadlinesScreen"/>
     </application>
 
 </manifest>

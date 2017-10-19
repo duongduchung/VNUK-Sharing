@@ -5,7 +5,7 @@
     android:id="@+id/activity_functional_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.edu.vnuk.vnuk_sharing.FunctionalScreen">
+    tools:context="vn.edu.vnuk.vnuk_sharing.Functional.FunctionalScreen">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -22,7 +22,13 @@
         android:layout_below="@+id/toolbar"
         android:id="@+id/list_view_function"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="400px">
 
     </ListView>
+
+    <TextView
+        android:id="@+id/lbThu"
+        android:layout_below="@+id/list_view_function"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
