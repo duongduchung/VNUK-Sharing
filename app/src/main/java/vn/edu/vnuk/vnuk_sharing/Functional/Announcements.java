@@ -52,7 +52,7 @@ public class Announcements extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Deadlines Notification");
+        getSupportActionBar().setTitle("Day off Notification");
 
         getFormWidgets();
         getDefaultInfor();
