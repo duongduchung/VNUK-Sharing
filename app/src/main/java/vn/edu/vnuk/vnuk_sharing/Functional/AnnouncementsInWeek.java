@@ -1,12 +1,11 @@
 package vn.edu.vnuk.vnuk_sharing.Functional;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 
-public class DeadlineInWeek {
+public class AnnouncementsInWeek {
     private String title;
     private String desciption;
     private Date dateFinish;
@@ -35,15 +34,15 @@ public class DeadlineInWeek {
     public void setHourFinish(Date hourFinish) {
         this.hourFinish = hourFinish;
     }
-    public DeadlineInWeek(String title, String desciption, Date dateFinish,
-                     Date hourFinish) {
+    public AnnouncementsInWeek(String title, String desciption, Date dateFinish,
+                          Date hourFinish) {
         super();
         this.title = title;
         this.desciption = desciption;
         this.dateFinish = dateFinish;
         this.hourFinish = hourFinish;
     }
-    public DeadlineInWeek() {
+    public AnnouncementsInWeek() {
         super();
     }
 
