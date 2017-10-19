@@ -22,29 +22,40 @@
         android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
         <ImageView
             android:id="@+id/imageView"
-            android:layout_margin="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:layout_width="256dp"
+            android:layout_height="232dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/pdf" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/lb_name_file"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="lb_name_file"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <TextView
+            android:id="@+id/lb_size_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lb_size_file"
+            android:layout_gravity="center_horizontal"
+            />
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Create"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"            />
     </LinearLayout>
-
-
-
 
 </RelativeLayout>
