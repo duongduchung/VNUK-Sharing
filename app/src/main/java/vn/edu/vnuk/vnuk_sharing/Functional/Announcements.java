@@ -1,6 +1,5 @@
 package vn.edu.vnuk.vnuk_sharing.Functional;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
