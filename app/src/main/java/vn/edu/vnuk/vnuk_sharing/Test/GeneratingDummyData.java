@@ -14,6 +14,7 @@ import vn.edu.vnuk.vnuk_sharing.DataStructure.ClassOfCourse;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
 
 public class GeneratingDummyData {
@@ -23,24 +24,13 @@ public class GeneratingDummyData {
     }
 
     // tao child courses
-    public void generateCourseOnFirebaseDatabase(DatabaseReference databaseReference){
-        Course course = generateCourse();
-        DatabaseReference coursesKey = databaseReference.child("root").child("courses").push();
-        coursesKey.child("id").setValue(course.getId());
-        coursesKey.child("idTeacher").setValue(course.getIdTeacher());
-        coursesKey.child("name").setValue(course.getName());
-        coursesKey.child("classOfCourse").setValue(course.getClassOfCourse());
+    public void generateCourseOnFirebaseDatabase(int numberOfCourses, DatabaseReference databaseReference){
+        Course course;
+        DatabaseReference coursesKey = databaseReference.child("root").child("courses");
 
-        int count = 0;
-        for(Deadline deadline : course.getListOfDeadlines()){
-            coursesKey.child("deadlines").child(String.valueOf(count)).setValue(deadline);
-            count++;
-        }
-
-        count = 0;
-        for(Annoucement annoucement : course.getListOfAnnoucements()){
-            coursesKey.child("annoucements").child(String.valueOf(count)).setValue(annoucement);
-            count++;
+        for(int i = 0; i < numberOfCourses; i++){
+            course = generateCourse(i);
+            coursesKey.push().setValue(course);
         }
     }
     public ArrayList<Deadline> generateListDeadlines(int numberOfDeadlines){
@@ -90,10 +80,10 @@ public class GeneratingDummyData {
 
         return classOfCourse;
     }
-    public Course generateCourse(){
+    public Course generateCourse(int id){
         Course course = new Course();
 
-        course.setId(1);
+        course.setId(id);
         course.setName("Course");
         course.setClassOfCourse(generateClassOfCourse());
         course.setListOfDeadlines(generateListDeadlines(5));
@@ -109,8 +99,8 @@ public class GeneratingDummyData {
         DatabaseReference databaseChildClasses;
 
         for(ClassOfCourse classOfCourse : classOfCourseArrayList) {
-            databaseChildClasses = databaseReference.child("root").child("classes").push();
-            databaseChildClasses.setValue(classOfCourse);
+            databaseChildClasses = databaseReference.child("root").child("classes");
+            databaseChildClasses.push().setValue(classOfCourse);
 
         }
     }
@@ -129,16 +119,38 @@ public class GeneratingDummyData {
         return classOfCourseArrayList;
     }
 
-    // tao child users
-    public void generateUsersOnFirebaseDatabase(DatabaseReference databaseReference){
+    // tao child users và teacher
+    public void generateUsersOnFirebaseDatabase(int numberOfCourses, DatabaseReference databaseReference){
         ArrayList<User> userArrayList = generateListUsers(10);
 
-        DatabaseReference database;
+        DatabaseReference database, databaseTeacher;
+        Teacher teacher;
 
         for (User user: userArrayList) {
             database = databaseReference.child("root").child("users").push();
             database.setValue(user);
+
+            // teacher
+            if(user.getAccess() == 1){
+                teacher = generateATeacher(user.getId(), numberOfCourses);
+                databaseTeacher = databaseReference.child("root").child("teachers").push();
+                databaseTeacher.setValue(teacher);
+            }
         }
+    }
+    public Teacher generateATeacher(int id, int numberOfCourseIds){
+        Teacher teacher = new Teacher();
+
+        teacher.setId(id);
+        ArrayList<Integer> listOfCourseIds = new ArrayList<Integer>();
+
+        for(int i = 0; i < numberOfCourseIds; i++){
+            listOfCourseIds.add((new Random()).nextInt(numberOfCourseIds));
+        }
+
+        teacher.setListOfCourseIds(listOfCourseIds);
+
+        return teacher;
     }
     public ArrayList<User> generateListUsers(int numberOfUsers){
         ArrayList<User> userArrayList = new ArrayList<User>();
@@ -157,4 +169,6 @@ public class GeneratingDummyData {
 
         return userArrayList;
     }
+
+
 }

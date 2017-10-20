@@ -8,10 +8,15 @@ import java.util.ArrayList;
 
 public class Teacher{
     private int id;
-    private ArrayList<String> listOfCourseCodes;
+    private ArrayList<Integer> listOfCourseIds;
 
     public Teacher(){
         super();
+    }
+    public Teacher(int id, ArrayList<Integer> listOfCourseIds){
+        super();
+        this.id = id;
+        this.listOfCourseIds = listOfCourseIds;
     }
 
     public void setId(int id){
@@ -20,11 +25,11 @@ public class Teacher{
     public int getId(){
         return this.id;
     }
-    public void setListOfCourseCodes(ArrayList<String> listOfCourseCodes) {
-        this.listOfCourseCodes = listOfCourseCodes;
+    public void setListOfCourseIds(ArrayList<Integer> listOfCourseIds) {
+        this.listOfCourseIds = listOfCourseIds;
     }
-    public ArrayList<String> getListOfCourseCodes() {
-        return listOfCourseCodes;
+    public ArrayList<Integer> getListOfCourseIds() {
+        return listOfCourseIds;
     }
 
     @Override
@@ -33,8 +38,8 @@ public class Teacher{
 
         int count = 0;
 
-        for (String courseCode: listOfCourseCodes) {
-            output += "\n" + "Course " + count + " : " + courseCode;
+        for (Integer courseId: listOfCourseIds) {
+            output += "\n" + "Course " + count + " : " + courseId;
             count++;
         }
 
