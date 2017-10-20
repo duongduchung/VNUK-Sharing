@@ -8,13 +8,13 @@ import java.util.Date;
 
 public class Deadline {
     private int id;
-    private Date dateTime;
+    private String dateTime;
     private String description;
 
     public Deadline(){
         super();
     }
-    public Deadline(int id, Date dateTime, String description){
+    public Deadline(int id, String dateTime, String description){
         super();
         this.id = id;
         this.dateTime = dateTime;
@@ -27,10 +27,10 @@ public class Deadline {
     public int getId() {
         return this.id;
     }
-    public void setDateTime(Date dateTime){
+    public void setDateTime(String dateTime){
         this.dateTime = dateTime;
     }
-    public Date getDateTime(){
+    public String getDateTime(){
         return this.dateTime;
     }
     public void setDescription(String description){

@@ -24,7 +24,7 @@ public class User {
     public void setId(int id){
         this.id = id;
     }
-    public int setId(){
+    public int getId(){
         return this.id;
     }
     public void setUsername(String username){

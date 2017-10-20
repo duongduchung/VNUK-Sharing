@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Course {
     private int id;
-    private String courseCode;
+    private int idTeacher;
     private String name;
     private ClassOfCourse classOfCourse;
     private ArrayList<Deadline> listOfDeadlines;
@@ -17,10 +17,10 @@ public class Course {
     public Course(){
         super();
     }
-    public Course(int id, String courseCode, String name, ClassOfCourse classOfCourse, ArrayList<Deadline> listOfDeadlines, ArrayList<Annoucement> listOfAnnoucements){
+    public Course(int id, int idTeacher, String name, ClassOfCourse classOfCourse, ArrayList<Deadline> listOfDeadlines, ArrayList<Annoucement> listOfAnnoucements){
         super();
         this.id = id;
-        this.courseCode = courseCode;
+        this.idTeacher = idTeacher;
         this.name = name;
         this.classOfCourse = classOfCourse;
         this.listOfDeadlines = listOfDeadlines;
@@ -33,11 +33,11 @@ public class Course {
     public int getId(){
         return this.id;
     }
-    public void setCourseCode(String courseCode){
-        this.courseCode = courseCode;
+    public void setIdTeacher(int idTeacher) {
+        this.idTeacher = idTeacher;
     }
-    public String getCourseCode(){
-        return this.courseCode;
+    public int getIdTeacher() {
+        return idTeacher;
     }
     public void setName(String name){
         this.name = name;

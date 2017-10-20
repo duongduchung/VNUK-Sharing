@@ -9,6 +9,13 @@ import android.widget.Button;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Annoucement;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
+import vn.edu.vnuk.vnuk_sharing.Test.GeneratingDummyData;
+
 
 public class MainActivity extends AppCompatActivity {
     Button btn_login ;
@@ -29,5 +36,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        GeneratingDummyData generatingDummyData = new GeneratingDummyData();
+
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+
+        generatingDummyData.generateCourseOnFirebaseDatabase(database);
+        generatingDummyData.generateListClassOfCoursesOnFirebaseDatabase(database);
+        generatingDummyData.generateUsersOnFirebaseDatabase(database);
     }
 }
