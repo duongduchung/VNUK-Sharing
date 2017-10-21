@@ -5,43 +5,50 @@ package vn.edu.vnuk.vnuk_sharing.DataStructure;
  */
 
 public class Syllabus {
+    private int idCourse;
     private String link;
     private String name;
     private int size;
 
-    public Syllabus(){
-        super();
+    public Syllabus() {
     }
-    public Syllabus(String link, String name, int size){
-        super();
+
+    public Syllabus(int idCourse, String link, String name, int size) {
+        this.idCourse = idCourse;
         this.link = link;
         this.name = name;
         this.size = size;
     }
 
-    public void setLink(String link){
-        this.link = link;
+    public int getIdCourse() {
+        return idCourse;
     }
+
+    public void setIdCourse(int idCourse) {
+        this.idCourse = idCourse;
+    }
+
     public String getLink() {
         return link;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setLink(String link) {
+        this.link = link;
     }
+
     public String getName() {
         return name;
     }
-    public void setSize(int size) {
-        this.size = size;
+
+    public void setName(String name) {
+        this.name = name;
     }
+
     public int getSize() {
         return size;
     }
 
-    @Override
-    public String toString() {
-        return "Link : " + this.link + "\n"
-                + "Name : " + this.name + "\n"
-                + "Size : " + this.size;
+    public void setSize(int size) {
+        this.size = size;
     }
 }

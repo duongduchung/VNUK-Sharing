@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
 
 /**
@@ -29,7 +30,7 @@ public class ReadData {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        databaseReference.child("root").child("users").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("root").child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -41,6 +42,30 @@ public class ReadData {
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
+        });
+
+    }
+
+    public void getAllTeacher(final ArrayList<Teacher> teacherArrayList){
+
+        teacherArrayList.clear();
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        databaseReference.child("root").child("teachers").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    teacherArrayList.add(ds.getValue(Teacher.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
         });
 
     }

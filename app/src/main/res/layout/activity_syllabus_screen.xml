@@ -55,7 +55,19 @@
             android:text="Create"
             android:layout_gravity="center_horizontal"
             android:paddingLeft="50dp"
-            android:paddingRight="50dp"            />
+            android:paddingRight="50dp"/>
+
+        <TextView
+            android:id="@+id/lb_name_file_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/lb_size_file_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 
 </RelativeLayout>

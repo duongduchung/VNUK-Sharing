@@ -8,9 +8,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import vn.edu.vnuk.vnuk_sharing.Data;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
 import vn.edu.vnuk.vnuk_sharing.R;
 
 public class FunctionalScreen extends AppCompatActivity {
@@ -44,18 +51,77 @@ public class FunctionalScreen extends AppCompatActivity {
 
 
                     if(position == 0) {
-                        Intent intent = new Intent(FunctionalScreen.this, SyllabusScreen.class);
-                        startActivity(intent);
+                        FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                                    if(ds.getValue(Syllabus.class).getIdCourse() == Data.currentCourse.getId()) {
+                                        Data.syllabus = ds.getValue(Syllabus.class);
+
+                                        Intent intent = new Intent(FunctionalScreen.this, SyllabusScreen.class);
+                                        startActivity(intent);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                     }
 
                     if(position == 1) {
-                        Intent intent = new Intent(FunctionalScreen.this, Announcements.class);
-                            startActivity(intent);
-                       }
+
+                        Data.announcementArrayList.clear();
+                        FirebaseDatabase.getInstance().getReference().child("root").child("announcements").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                                    if(ds.getValue(Deadline.class).getIdCourse() == Data.currentCourse.getId()) {
+                                        Data.announcementArrayList.add(ds.getValue(Announcement.class));
+                                    }
+                                }
+
+                                Intent intent = new Intent(FunctionalScreen.this, Announcements.class);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
 
                     if(position == 2) {
-                        Intent intent = new Intent(FunctionalScreen.this, DeadlinesScreen.class);
-                        startActivity(intent);
+
+                        Data.deadlineArrayList.clear();
+                        FirebaseDatabase.getInstance().getReference().child("root").child("deadlines").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                                    if(ds.getValue(Deadline.class).getIdCourse() == Data.currentCourse.getId()) {
+                                        Data.deadlineArrayList.add(ds.getValue(Deadline.class));
+                                    }
+                                }
+
+                                Intent intent = new Intent(FunctionalScreen.this, DeadlinesScreen.class);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                     }
                 }
             });

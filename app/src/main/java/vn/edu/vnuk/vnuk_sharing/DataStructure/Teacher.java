@@ -8,42 +8,29 @@ import java.util.ArrayList;
 
 public class Teacher{
     private int id;
-    private ArrayList<Integer> listOfCourseIds;
+    private int idUser;
 
-    public Teacher(){
-        super();
+    public Teacher() {
     }
-    public Teacher(int id, ArrayList<Integer> listOfCourseIds){
-        super();
+
+    public Teacher(int id, int idUser) {
         this.id = id;
-        this.listOfCourseIds = listOfCourseIds;
+        this.idUser = idUser;
     }
 
-    public void setId(int id){
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
     }
-    public int getId(){
-        return this.id;
-    }
-    public void setListOfCourseIds(ArrayList<Integer> listOfCourseIds) {
-        this.listOfCourseIds = listOfCourseIds;
-    }
-    public ArrayList<Integer> getListOfCourseIds() {
-        return listOfCourseIds;
+
+    public int getIdUser() {
+        return idUser;
     }
 
-    @Override
-    public String toString() {
-        String output = "Id : " + this.id;
-
-        int count = 0;
-
-        for (Integer courseId: listOfCourseIds) {
-            output += "\n" + "Course " + count + " : " + courseId;
-            count++;
-        }
-
-        return output;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
-
 }
