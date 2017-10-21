@@ -8,32 +8,27 @@ public class ClassOfCourse {
     private int id;
     private String name;
 
-    public ClassOfCourse(){
-        super();
+    public ClassOfCourse() {
     }
-    public ClassOfCourse(int id, String name){
-        super();
+
+    public ClassOfCourse(int id, int idCourse, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public void setId(int id){
-        this.id = id;
-    }
     public int getId() {
         return id;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setId(int id) {
+        this.id = id;
     }
+
     public String getName() {
         return name;
     }
 
-    @Override
-    public String toString() {
-        return "Id : " + this.id + "\n"
-                + "Name : " + this.name;
+    public void setName(String name) {
+        this.name = name;
     }
-
 }

@@ -1,160 +1,160 @@
 package vn.edu.vnuk.vnuk_sharing.Test;
 
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
-import vn.edu.vnuk.vnuk_sharing.DataStructure.Annoucement;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.ClassOfCourse;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
 
 public class GeneratingDummyData {
 
     public GeneratingDummyData(){
-        super();
     }
 
-    // tao child courses
-    public void generateCourseOnFirebaseDatabase(DatabaseReference databaseReference){
-        Course course = generateCourse();
-        DatabaseReference coursesKey = databaseReference.child("root").child("courses").push();
-        coursesKey.child("id").setValue(course.getId());
-        coursesKey.child("idTeacher").setValue(course.getIdTeacher());
-        coursesKey.child("name").setValue(course.getName());
-        coursesKey.child("classOfCourse").setValue(course.getClassOfCourse());
+    private ArrayList<Integer> listIdCourses = new ArrayList<Integer>();
+    private int idTeacher = 0;
+    private int idUser = 0;
+    private int idCourse = 0;
+    private final int status = 4;
+    private final int numberOfAnnoucements = 10;
+    private final int numberOfDeadlines = 10;
+    private int numberOfClass;
 
-        int count = 0;
-        for(Deadline deadline : course.getListOfDeadlines()){
-            coursesKey.child("deadlines").child(String.valueOf(count)).setValue(deadline);
-            count++;
+    public void createData(int numberOfCourses, int numberOfUsers, int numberOfClasses){
+        this.numberOfClass = numberOfClasses;
+
+        generateListIdCourses(numberOfCourses);
+        generateListClasses(numberOfClasses);
+        generateListUsers(numberOfUsers);
+        generateListCourses(numberOfCourses);
+    }
+
+    public void generateListIdCourses(int numberOfCourses){
+        for(int i = 0; i < numberOfCourses; i++){
+            listIdCourses.add(i);
+        }
+    }
+
+    // generate list classes
+    public void generateListClasses(int numberOfClasses){
+        for(int i = 0; i < numberOfClasses; i++){
+            ClassOfCourse classOfCourse = new ClassOfCourse();
+
+            classOfCourse.setId(i);
+            classOfCourse.setName("Class" + i);
+
+            FirebaseDatabase.getInstance().getReference().child("root").child("classes").push().setValue(classOfCourse);
+        }
+    }
+
+    // generate list users
+    public void generateListUsers(int numberOfUsers){
+        for(int i = 0; i < numberOfUsers; i++){
+            generateSingleUser(idUser);
+            idUser++;
+        }
+    }
+    public User generateSingleUser(int idUser){
+        User user = new User();
+
+        user.setId(idUser);
+        user.setUsername("username" + idUser);
+        user.setPassword("password" + idUser);
+        user.setAccess((new Random()).nextInt(2));
+
+        if(user.getAccess() == 1){
+            generateSingleTeacher(idUser);
         }
 
-        count = 0;
-        for(Annoucement annoucement : course.getListOfAnnoucements()){
-            coursesKey.child("annoucements").child(String.valueOf(count)).setValue(annoucement);
-            count++;
+        FirebaseDatabase.getInstance().getReference().child("root").child("users").push().setValue(user);
+
+        return user;
+    }
+    public Teacher generateSingleTeacher(int idUser){
+        Teacher teacher = new Teacher();
+
+        teacher.setId(idTeacher);
+        idTeacher++;
+        teacher.setIdUser(idUser);
+
+        FirebaseDatabase.getInstance().getReference().child("root").child("teachers").push().setValue(teacher);
+        return teacher;
+    }
+
+    // generate list courses
+    public void generateListCourses(int numberOfCourses){
+        for(int i = 0; i < numberOfCourses; i++){
+            generateSingleCourse(i);
         }
     }
-    public ArrayList<Deadline> generateListDeadlines(int numberOfDeadlines){
-        ArrayList<Deadline> listDeadlines = new ArrayList<Deadline>();
-
-        Deadline deadline;
-
-        for(int i = 0; i < numberOfDeadlines; i++){
-            deadline = new Deadline();
-            deadline.setId(i);
-            deadline.setDateTime(DateFormat.getDateTimeInstance().format(new java.util.Date()));
-            deadline.setDescription("Description " + i);
-            listDeadlines.add(deadline);
-        }
-
-        return listDeadlines;
-    }
-    public ArrayList<Annoucement> generateListAnnoucements(int numberOfAnnoucements){
-        ArrayList<Annoucement> listAnnoucements = new ArrayList<Annoucement>();
-
-        Annoucement annoucement;
-
-        for(int i = 0; i < numberOfAnnoucements; i++){
-            annoucement = new Annoucement();
-            annoucement.setId(i);
-            annoucement.setDateTime(DateFormat.getDateTimeInstance().format(new java.util.Date()));
-            annoucement.setDescription("Description " + i);
-            listAnnoucements.add(annoucement);
-        }
-
-        return listAnnoucements;
-    }
-    public Syllabus generateSyllabus(){
-        Syllabus syllabus = new Syllabus();
-
-        syllabus.setName("File name");
-        syllabus.setLink("Link download");
-        syllabus.setSize(5);
-
-        return syllabus;
-    }
-    public ClassOfCourse generateClassOfCourse(){
-        ClassOfCourse classOfCourse = new ClassOfCourse();
-
-        classOfCourse.setId(1);
-        classOfCourse.setName("Class");
-
-        return classOfCourse;
-    }
-    public Course generateCourse(){
+    public Course generateSingleCourse(int idCourse){
         Course course = new Course();
 
-        course.setId(1);
-        course.setName("Course");
-        course.setClassOfCourse(generateClassOfCourse());
-        course.setListOfDeadlines(generateListDeadlines(5));
-        course.setListOfAnnoucements(generateListAnnoucements(5));
+        course.setId(idCourse);
+        course.setCodeCourse("codeCoure" + idCourse);
+        course.setIdTeacher((new Random()).nextInt(idTeacher));
+        course.setIdClassOfCourse((new Random()).nextInt(numberOfClass));
+        course.setName("course" + idCourse);
+        course.setStatus((new Random()).nextInt(status));
+        course.setAnnoucementIdArrayList(generateListOfAnnoucement((new Random()).nextInt(numberOfAnnoucements), idCourse));
+        course.setDeadlineIdArrayList(generateListOfDeadline((new Random()).nextInt(numberOfAnnoucements), idCourse));
+        generateSyllabus(idCourse);
+
+        FirebaseDatabase.getInstance().getReference().child("root").child("courses").push().setValue(course);
 
         return course;
     }
+    public ArrayList<Integer> generateListOfAnnoucement(int numberOfAnnoucements, int idCourse){
+        ArrayList<Integer> annoucementArrayList = new ArrayList<>();
 
-    // tao child classes
-    public void generateListClassOfCoursesOnFirebaseDatabase(DatabaseReference databaseReference){
-        ArrayList<ClassOfCourse> classOfCourseArrayList = generateListClassOfCourses(10);
+        for(int i = 0; i < numberOfAnnoucements; i++){
+            Announcement announcement = new Announcement();
+            announcement.setId(i);
+            announcement.setIdCourse(idCourse);
+            announcement.setDate(new Date());
+            announcement.setTitle("announcement" + i);
+            announcement.setDescription("description" + i);
 
-        DatabaseReference databaseChildClasses;
-
-        for(ClassOfCourse classOfCourse : classOfCourseArrayList) {
-            databaseChildClasses = databaseReference.child("root").child("classes").push();
-            databaseChildClasses.setValue(classOfCourse);
-
+            FirebaseDatabase.getInstance().getReference().child("root").child("announcements").push().setValue(announcement);
         }
+
+        return annoucementArrayList;
     }
-    public ArrayList<ClassOfCourse> generateListClassOfCourses(int numberOfClasses){
-        ArrayList<ClassOfCourse> classOfCourseArrayList = new ArrayList<ClassOfCourse>();
+    public ArrayList<Integer> generateListOfDeadline(int numberOfDeadlines, int idCourse){
+        ArrayList<Integer> deadlineIdArrayList = new ArrayList<>();
+        for(int i = 0; i < numberOfDeadlines; i++){
+            Deadline deadline = new Deadline();
+            deadline.setId(i);
+            deadline.setIdCourse(idCourse);
+            deadline.setDate((new Date()));
+            deadline.setTitle("deadline" + i);
+            deadline.setDescription("description" + i);
 
-        ClassOfCourse classOfCourse;
-
-        for(int i = 0; i < numberOfClasses; i++){
-            classOfCourse = new ClassOfCourse();
-            classOfCourse.setId(i);
-            classOfCourse.setName("Class name " + i);
-            classOfCourseArrayList.add(classOfCourse);
+            FirebaseDatabase.getInstance().getReference().child("root").child("deadlines").push().setValue(deadline);
         }
 
-        return classOfCourseArrayList;
+        return deadlineIdArrayList;
     }
+    public Syllabus generateSyllabus(int idCourse){
+        Syllabus syllabus = new Syllabus();
 
-    // tao child users
-    public void generateUsersOnFirebaseDatabase(DatabaseReference databaseReference){
-        ArrayList<User> userArrayList = generateListUsers(10);
+        syllabus.setIdCourse(idCourse);
+        syllabus.setName("Syllabus" + idCourse);
+        syllabus.setLink("Link" + idCourse);
+        syllabus.setSize(5000);
 
-        DatabaseReference database;
+        FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").push().setValue(syllabus);
 
-        for (User user: userArrayList) {
-            database = databaseReference.child("root").child("users").push();
-            database.setValue(user);
-        }
-    }
-    public ArrayList<User> generateListUsers(int numberOfUsers){
-        ArrayList<User> userArrayList = new ArrayList<User>();
-
-        Random random = new Random();
-
-        User user;
-        for(int i = 0; i < numberOfUsers; i++){
-            user = new User();
-            user.setId(i);
-            user.setUsername("username" + i);
-            user.setPassword("password" + i);
-            user.setAccess(random.nextInt(2));
-            userArrayList.add(user);
-        }
-
-        return userArrayList;
+        return syllabus;
     }
 }

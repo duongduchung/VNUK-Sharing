@@ -28,6 +28,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import vn.edu.vnuk.vnuk_sharing.Data;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
 import vn.edu.vnuk.vnuk_sharing.R;
 
 
@@ -218,5 +220,15 @@ public class Announcements extends AppCompatActivity {
         editA.setText("");
         editCt.setText("");
         editA.requestFocus();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        for(Announcement announcement : Data.announcementArrayList) {
+            AnnouncementsInWeek job = new AnnouncementsInWeek(announcement.getTitle(), announcement.getDescription(), announcement.getDate() , hourFinish);
+            arrJob.add(job);
+        }
     }
 }

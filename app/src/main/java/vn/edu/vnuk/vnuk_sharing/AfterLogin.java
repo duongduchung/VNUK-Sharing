@@ -1,10 +1,21 @@
 package vn.edu.vnuk.vnuk_sharing;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 
 public class AfterLogin extends AppCompatActivity {
 
@@ -43,6 +54,15 @@ public class AfterLogin extends AppCompatActivity {
 
             }
         });
+
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+
     }
 
 
