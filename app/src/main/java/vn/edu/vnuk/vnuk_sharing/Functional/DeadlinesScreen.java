@@ -218,6 +218,9 @@ public class DeadlinesScreen extends AppCompatActivity {
         String title=editDl.getText()+"";
         String description=editCt.getText()+"";
         DeadlinesInWeek job=new DeadlinesInWeek(title, description, dateFinish, hourFinish);
+        if(editDl.getText().toString().equals("") || editCt.getText().toString().equals("")){
+            return;
+        }
         arrJob.add(job);
         adapter.notifyDataSetChanged();
         editDl.setText("");

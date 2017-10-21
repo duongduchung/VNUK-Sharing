@@ -3,4 +3,16 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="hint_std_id">Student ID</string>
+    <string name="hint_pass">Password</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_help">\?</string>
+    <string name="btn_forgot"><u>Forgot password</u></string>
+    <string name="btn_std_info">Thay đổi thông tin sinh viên</string>
+    <string name="btn_lichhoc">Xem lịch học</string>
+    <string name="btn_diem">Xem điểm</string>
+    <string name="btn_feedback">Feedback</string>
+    <string name="btn_logout">Logout</string>
+    <string name="txt_studyresult">Tổng hợp kết quả học tập \n&amp; rèn luyện đạo đức</string>
 </resources>

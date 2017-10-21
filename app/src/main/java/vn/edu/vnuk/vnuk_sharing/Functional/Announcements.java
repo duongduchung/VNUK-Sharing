@@ -1,21 +1,12 @@
 package vn.edu.vnuk.vnuk_sharing.Functional;
 
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TimePickerDialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
-import vn.edu.vnuk.vnuk_sharing.R;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.TimePickerDialog.OnTimeSetListener;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,12 +22,20 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+import vn.edu.vnuk.vnuk_sharing.R;
+
 
 public class Announcements extends AppCompatActivity {
 
-    TextView txtDate,txtTime;
+    TextView txtDate;
     EditText editA,editCt;
-    Button btnDate,btnTime,btnAdd;
+    Button btnDate,btnAdd;
     ArrayList<AnnouncementsInWeek>arrJob=new ArrayList<AnnouncementsInWeek>();
     ArrayAdapter<AnnouncementsInWeek>adapter=null;
     ListView lv;
@@ -53,7 +52,7 @@ public class Announcements extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Deadlines Notification");
+        getSupportActionBar().setTitle("Day off Notification");
 
         getFormWidgets();
         getDefaultInfor();
@@ -64,11 +63,9 @@ public class Announcements extends AppCompatActivity {
     public void getFormWidgets()
     {
         txtDate=(TextView) findViewById(R.id.txtdate);
-        txtTime=(TextView) findViewById(R.id.txttime);
         editA=(EditText) findViewById(R.id.editannouncement);
         editCt=(EditText) findViewById(R.id.editcontent);
         btnDate=(Button) findViewById(R.id.btndate);
-        btnTime=(Button) findViewById(R.id.btntime);
         btnAdd=(Button) findViewById(R.id.btnannouncement);
         lv=(ListView) findViewById(R.id.lvannouncement);
         adapter=new ArrayAdapter<AnnouncementsInWeek>
@@ -92,10 +89,8 @@ public class Announcements extends AppCompatActivity {
         dft=new SimpleDateFormat("hh:mm a",Locale.getDefault());
         String strTime=dft.format(cal.getTime());
 
-        txtTime.setText(strTime);
 
         dft=new SimpleDateFormat("HH:mm",Locale.getDefault());
-        txtTime.setTag(dft.format(cal.getTime()));
 
         editA.requestFocus();
 
@@ -106,7 +101,6 @@ public class Announcements extends AppCompatActivity {
     public void addEventFormWidgets()
     {
         btnDate.setOnClickListener(new MyButtonEvent());
-        btnTime.setOnClickListener(new MyButtonEvent());
         btnAdd.setOnClickListener(new MyButtonEvent());
         lv.setOnItemClickListener(new MyListViewEvent());
         lv.setOnItemLongClickListener(new MyListViewEvent());
@@ -120,9 +114,6 @@ public class Announcements extends AppCompatActivity {
             {
                 case R.id.btndate:
                     showDatePickerDialog();
-                    break;
-                case R.id.btntime:
-                    showTimePickerDialog();
                     break;
                 case R.id.btnannouncement:
                     processAddJob();
@@ -181,7 +172,7 @@ public class Announcements extends AppCompatActivity {
     }
 
 
-    public void showTimePickerDialog()
+  /*  public void showTimePickerDialog()
     {
         OnTimeSetListener callback=new OnTimeSetListener() {
             public void onTimeSet(TimePicker view,
@@ -212,12 +203,16 @@ public class Announcements extends AppCompatActivity {
         time.setTitle("Pick time");
         time.show();
     }
+*/
 
     public void processAddJob()
     {
         String title=editA.getText()+"";
         String description=editCt.getText()+"";
         AnnouncementsInWeek job=new AnnouncementsInWeek(title, description, dateFinish, hourFinish);
+        if(editA.getText().toString().equals("") || editCt.getText().toString().equals("")){
+            return;
+        }
         arrJob.add(job);
         adapter.notifyDataSetChanged();
         editA.setText("");
