@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import vn.edu.vnuk.vnuk_sharing.Data;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
 import vn.edu.vnuk.vnuk_sharing.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,8 +75,7 @@ public class DeadlinesScreen extends AppCompatActivity {
         btnTime=(Button) findViewById(R.id.btntime);
         btnAdd=(Button) findViewById(R.id.btndeadline);
         lv=(ListView) findViewById(R.id.lvdeadline);
-        adapter=new ArrayAdapter<DeadlinesInWeek>
-                (this,
+        adapter=new ArrayAdapter<DeadlinesInWeek>(this,
                         android.R.layout.simple_list_item_1,
                         arrJob);
         lv.setAdapter(adapter);
@@ -218,10 +221,25 @@ public class DeadlinesScreen extends AppCompatActivity {
         String title=editDl.getText()+"";
         String description=editCt.getText()+"";
         DeadlinesInWeek job=new DeadlinesInWeek(title, description, dateFinish, hourFinish);
+        if(editDl.getText().toString().equals("") || editCt.getText().toString().equals("")){
+            return;
+        }
         arrJob.add(job);
         adapter.notifyDataSetChanged();
         editDl.setText("");
         editCt.setText("");
         editDl.requestFocus();
+    }
+
+    // ngoc
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        for (Deadline deadline : Data.deadlineArrayList) {
+
+            DeadlinesInWeek job = new DeadlinesInWeek(deadline.getTitle() , deadline.getDescription(), deadline.getDate(), hourFinish);
+            arrJob.add(job);
+        }
     }
 }

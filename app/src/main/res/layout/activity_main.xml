@@ -22,6 +22,8 @@
     android:scaleType="fitCenter" />
 
 <EditText
+    android:maxLines="1"
+    android:inputType="text"
     android:layout_below="@+id/vnuk_logo"
     android:id="@+id/std_id"
     android:hint="@string/hint_std_id"
@@ -34,6 +36,8 @@
     android:padding="10dp"/>
 
 <EditText
+    android:maxLines="1"
+    android:inputType="text"
     android:layout_below="@+id/std_id"
     android:id="@+id/std_pass"
     android:layout_width="match_parent"

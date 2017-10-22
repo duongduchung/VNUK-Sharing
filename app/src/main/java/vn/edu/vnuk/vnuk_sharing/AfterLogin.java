@@ -43,5 +43,20 @@ public class AfterLogin extends AppCompatActivity {
 
             }
         });
+
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        //finish();
     }
 }

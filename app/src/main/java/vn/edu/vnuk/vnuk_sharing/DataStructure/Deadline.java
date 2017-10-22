@@ -8,42 +8,59 @@ import java.util.Date;
 
 public class Deadline {
     private int id;
-    private Date dateTime;
+    private int idCourse;
+    private String title;
     private String description;
+    private Date date;
 
-    public Deadline(){
-        super();
+    public Deadline() {
     }
-    public Deadline(int id, Date dateTime, String description){
-        super();
+
+    public Deadline(int id, int idCourse, String title, String description, Date date) {
         this.id = id;
-        this.dateTime = dateTime;
+        this.idCourse = idCourse;
+        this.title = title;
         this.description = description;
+        this.date = date;
     }
 
-    public void setId(int id){
-        this.id = id;
-    }
     public int getId() {
-        return this.id;
-    }
-    public void setDateTime(Date dateTime){
-        this.dateTime = dateTime;
-    }
-    public Date getDateTime(){
-        return this.dateTime;
-    }
-    public void setDescription(String description){
-        this.description = description;
-    }
-    public String getDescription(){
-        return this.description;
+        return id;
     }
 
-    @Override
-    public String toString(){
-        return "Id : " + this.id + "\n"
-                + "Date time : " + this.dateTime + "\n"
-                + "Description : " + this.description;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdCourse() {
+        return idCourse;
+    }
+
+    public void setIdCourse(int idCourse) {
+        this.idCourse = idCourse;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
