@@ -44,6 +44,11 @@ public class GeneratingDummyData {
         }
     }
 
+    public void gerenateAnnoncements(int numberOfAnnoucements){
+        for(int i = 0; i < numberOfAnnoucements; i++){
+            Announcement announcement = new Announcement();
 
+        }
+    }
 
 }

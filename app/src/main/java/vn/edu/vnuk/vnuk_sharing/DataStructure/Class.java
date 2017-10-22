@@ -4,6 +4,8 @@ package vn.edu.vnuk.vnuk_sharing.DataStructure;
  * Created by Quangngoc430 on 10/20/2017.
  */
 
+// root/classes/class-[id]
+
 public class Class {
     private int id;
     private String name;

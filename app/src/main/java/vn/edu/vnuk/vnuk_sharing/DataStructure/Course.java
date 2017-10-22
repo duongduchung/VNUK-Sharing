@@ -12,7 +12,7 @@ public class Course {
     private int id;
     private String codeCourse;
     private int idTeacher;
-    private int idClassOfCourse;
+    private int idClass;
     private String name;
     private int status;
     private ArrayList<Integer> deadlineIdArrayList;
@@ -22,11 +22,11 @@ public class Course {
 
     }
 
-    public Course(int id, String codeCourse, int idTeacher, int idClassOfCourse, String name, int status, ArrayList<Integer> deadlineIdArrayList, ArrayList<Integer> annoucementIdArrayList) {
+    public Course(int id, String codeCourse, int idTeacher, int idClass, String name, int status, ArrayList<Integer> deadlineIdArrayList, ArrayList<Integer> annoucementIdArrayList) {
         this.id = id;
         this.codeCourse = codeCourse;
         this.idTeacher = idTeacher;
-        this.idClassOfCourse = idClassOfCourse;
+        this.idClass = idClass;
         this.name = name;
         this.status = status;
         this.deadlineIdArrayList = deadlineIdArrayList;
@@ -57,12 +57,12 @@ public class Course {
         this.idTeacher = idTeacher;
     }
 
-    public int getIdClassOfCourse() {
-        return idClassOfCourse;
+    public int getIdClass() {
+        return idClass;
     }
 
-    public void setIdClassOfCourse(int idClassOfCourse) {
-        this.idClassOfCourse = idClassOfCourse;
+    public void setIdClass(int idClass) {
+        this.idClass = idClass;
     }
 
     public String getName() {
