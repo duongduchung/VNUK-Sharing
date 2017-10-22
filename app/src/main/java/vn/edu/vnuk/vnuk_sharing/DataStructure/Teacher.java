@@ -9,13 +9,15 @@ import java.util.ArrayList;
 public class Teacher{
     private int id;
     private int idUser;
+    private String name;
 
     public Teacher() {
     }
 
-    public Teacher(int id, int idUser) {
+    public Teacher(int id, int idUser, String name) {
         this.id = id;
         this.idUser = idUser;
+        this.name = name;
     }
 
     public int getId() {
@@ -32,5 +34,13 @@ public class Teacher{
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 }
