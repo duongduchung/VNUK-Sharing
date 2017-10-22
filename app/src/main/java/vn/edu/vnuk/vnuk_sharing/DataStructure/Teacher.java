@@ -10,14 +10,16 @@ public class Teacher{
     private int id;
     private int idUser;
     private String name;
+    private ArrayList<Integer> idCoursesArrayList = new ArrayList<Integer>();
 
     public Teacher() {
     }
 
-    public Teacher(int id, int idUser, String name) {
+    public Teacher(int id, int idUser, String name, ArrayList<Integer> idCoursesArrayList) {
         this.id = id;
         this.idUser = idUser;
         this.name = name;
+        this.idCoursesArrayList = idCoursesArrayList;
     }
 
     public int getId() {
@@ -43,4 +45,26 @@ public class Teacher{
     public void setName(String name){
         this.name = name;
     }
+
+    public ArrayList<Integer> getIdCoursesArrayList(){
+        return idCoursesArrayList;
+    }
+
+    public void setIdCoursesArrayList(ArrayList<Integer> idCoursesArrayList){
+        this.idCoursesArrayList = idCoursesArrayList;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
