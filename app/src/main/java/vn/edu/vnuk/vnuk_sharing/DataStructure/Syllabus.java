@@ -4,6 +4,8 @@ package vn.edu.vnuk.vnuk_sharing.DataStructure;
  * Created by Quangngoc430 on 10/20/2017.
  */
 
+// root/syllabuses/syllabus-[idCourse]
+
 public class Syllabus {
     private int idCourse;
     private String link;

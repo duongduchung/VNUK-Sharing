@@ -65,10 +65,21 @@ public class GeneratingDummyData {
         course.setAnnoucementsCount(gerenateAnnoncements(2 + (new Random()).nextInt(10), id));
         course.setDeadlinesCount(generateDeadlines(2 + (new Random()).nextInt(10), id));
         course.setStatus(1);
+        generateSyllabus(id);
 
         FirebaseDatabase.getInstance().getReference().child("root").child("courses").child("course" + "-" + course.getId()).setValue(course);
 
         return course;
+    }
+    public Syllabus generateSyllabus(int idCourse){
+        Syllabus syllabus = new Syllabus();
+        syllabus.setIdCourse(idCourse);
+        syllabus.setName("Syllabus " + idCourse);
+        syllabus.setSize((new Random()).nextInt(40000));
+        syllabus.setLink("Link syllabus " + idCourse);
+
+        FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").child("syllabus" + "-" + idCourse).setValue(syllabus);
+        return syllabus;
     }
     public int gerenateAnnoncements(int announcementsCount, int idCourse){
         for(int i = 0; i < announcementsCount; i++){

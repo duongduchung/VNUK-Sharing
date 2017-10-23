@@ -51,19 +51,13 @@ public class FunctionalScreen extends AppCompatActivity {
 
 
                     if(position == 0) {
-                        FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").addListenerForSingleValueEvent(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").child("syllabus" + "-" + Data.currentCourse.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                Data.syllabus = dataSnapshot.getValue(Syllabus.class);
 
-                                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    if(ds.getValue(Syllabus.class).getIdCourse() == Data.currentCourse.getId()) {
-                                        Data.syllabus = ds.getValue(Syllabus.class);
-
-                                        Intent intent = new Intent(FunctionalScreen.this, SyllabusScreen.class);
-                                        startActivity(intent);
-                                        break;
-                                    }
-                                }
+                                Intent intent = new Intent(FunctionalScreen.this, SyllabusScreen.class);
+                                startActivity(intent);
                             }
 
                             @Override
@@ -81,10 +75,8 @@ public class FunctionalScreen extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    if(ds.getValue(Deadline.class).getIdCourse() == Data.currentCourse.getId()) {
-                                        Data.announcementArrayList.add(ds.getValue(Announcement.class));
-                                    }
+                                for(int i = 0; i < Data.currentCourse.getAnnoucementsCount(); i++){
+                                    Data.announcementArrayList.add(dataSnapshot.child("announcement" + "-" + Data.currentCourse.getId() + "-" + i).getValue(Announcement.class));
                                 }
 
                                 Intent intent = new Intent(FunctionalScreen.this, Announcements.class);
@@ -106,10 +98,8 @@ public class FunctionalScreen extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    if(ds.getValue(Deadline.class).getIdCourse() == Data.currentCourse.getId()) {
-                                        Data.deadlineArrayList.add(ds.getValue(Deadline.class));
-                                    }
+                                for(int i = 0; i < Data.currentCourse.getAnnoucementsCount(); i++){
+                                    Data.deadlineArrayList.add(dataSnapshot.child("deadline" + "-" + Data.currentCourse.getId() + "-" + i).getValue(Deadline.class));
                                 }
 
                                 Intent intent = new Intent(FunctionalScreen.this, DeadlinesScreen.class);
@@ -121,7 +111,6 @@ public class FunctionalScreen extends AppCompatActivity {
 
                             }
                         });
-
                     }
                 }
             });
