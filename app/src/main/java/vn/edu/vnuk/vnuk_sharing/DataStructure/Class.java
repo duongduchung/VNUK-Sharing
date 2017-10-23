@@ -4,14 +4,16 @@ package vn.edu.vnuk.vnuk_sharing.DataStructure;
  * Created by Quangngoc430 on 10/20/2017.
  */
 
-public class ClassOfCourse {
+// root/classes/class-[id]
+
+public class Class {
     private int id;
     private String name;
 
-    public ClassOfCourse() {
+    public Class() {
     }
 
-    public ClassOfCourse(int id, int idCourse, String name) {
+    public Class(int id, int idCourse, String name) {
         this.id = id;
         this.name = name;
     }

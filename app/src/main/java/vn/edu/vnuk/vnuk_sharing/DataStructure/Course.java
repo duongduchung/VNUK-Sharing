@@ -8,29 +8,31 @@ import java.util.ArrayList;
  * Created by Quangngoc430 on 10/20/2017.
  */
 
+// root/courses/course-[id]
+
 public class Course {
     private int id;
     private String codeCourse;
     private int idTeacher;
-    private int idClassOfCourse;
+    private int idClass;
     private String name;
     private int status;
-    private ArrayList<Integer> deadlineIdArrayList;
-    private ArrayList<Integer> annoucementIdArrayList;
+    private int deadlinesCount;
+    private int annoucementsCount;
 
     public Course() {
 
     }
 
-    public Course(int id, String codeCourse, int idTeacher, int idClassOfCourse, String name, int status, ArrayList<Integer> deadlineIdArrayList, ArrayList<Integer> annoucementIdArrayList) {
+    public Course(int id, String codeCourse, int idTeacher, int idClass, String name, int status, int deadlinesCount, int annoucementsCount) {
         this.id = id;
         this.codeCourse = codeCourse;
         this.idTeacher = idTeacher;
-        this.idClassOfCourse = idClassOfCourse;
+        this.idClass = idClass;
         this.name = name;
         this.status = status;
-        this.deadlineIdArrayList = deadlineIdArrayList;
-        this.annoucementIdArrayList = annoucementIdArrayList;
+        this.deadlinesCount = deadlinesCount;
+        this.annoucementsCount = annoucementsCount;
     }
 
     public int getId() {
@@ -57,12 +59,12 @@ public class Course {
         this.idTeacher = idTeacher;
     }
 
-    public int getIdClassOfCourse() {
-        return idClassOfCourse;
+    public int getIdClass() {
+        return idClass;
     }
 
-    public void setIdClassOfCourse(int idClassOfCourse) {
-        this.idClassOfCourse = idClassOfCourse;
+    public void setIdClass(int idClass) {
+        this.idClass = idClass;
     }
 
     public String getName() {
@@ -81,20 +83,19 @@ public class Course {
         this.status = status;
     }
 
-    public ArrayList<Integer> getDeadlineIdArrayList() {
-        return deadlineIdArrayList;
+    public int getDeadlinesCount() {
+        return deadlinesCount;
     }
 
-    public void setDeadlineIdArrayList(ArrayList<Integer> deadlineIdArrayList) {
-        this.deadlineIdArrayList = deadlineIdArrayList;
+    public void setDeadlinesCount(int deadlinesCount) {
+        this.deadlinesCount = deadlinesCount;
     }
 
-    public ArrayList<Integer> getAnnoucementIdArrayList() {
-        return annoucementIdArrayList;
+    public int getAnnoucementsCount() {
+        return annoucementsCount;
     }
 
-    public void setAnnoucementIdArrayList(ArrayList<Integer> annoucementIdArrayList) {
-        this.annoucementIdArrayList = annoucementIdArrayList;
+    public void setAnnoucementsCount(int annoucementsCount) {
+        this.annoucementsCount = annoucementsCount;
     }
-
 }

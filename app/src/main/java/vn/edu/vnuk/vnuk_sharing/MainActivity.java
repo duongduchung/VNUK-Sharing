@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         final GeneratingDummyData generatingDummyData = new GeneratingDummyData();
-        //generatingDummyData.createData(40, 10, 7);
+        //generatingDummyData.createData(50, 10, 7);
 
     }
     @Override
@@ -70,46 +71,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btn_login : {
 
-                int index = loginApi.checkLogin(userArrayList, edt_username.getText().toString(), edt_password.getText().toString());
+                FirebaseDatabase.getInstance().getReference().child("root").child("users").child("user" + "-" + edt_username.getText().toString() + "-" + edt_password.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            User user = new User();
+                            user = dataSnapshot.getValue(User.class);
 
-                if (index == -1) {
-                    Toast.makeText(getApplicationContext(), "Đăng nhập thất bai", Toast.LENGTH_SHORT).show();
-                } else {
-                    Data.currentUser = userArrayList.get(index);
+                            if(user.getAccess() == 0) {
+                                Toast.makeText(getApplicationContext(), "Đăng nhập student thành công", Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Đăng nhập teacher thành công", Toast.LENGTH_LONG).show();
 
-                    if (Data.currentUser.getAccess() == 1) {
-
-                        ReadData readData = new ReadData();
-                        readData.getAllTeacher(teacherArrayList);
-
-                        FirebaseDatabase.getInstance().getReference().child("root").child("teachers").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    if (ds.getValue(Teacher.class).getIdUser() == Data.currentUser.getId()) {
-                                        Data.currentTeacher = ds.getValue(Teacher.class);
-
-
-
-                                        break;
-                                    }
-                                }
-
-                                FirebaseDatabase.getInstance().getReference().child("root").child("courses").addListenerForSingleValueEvent(new ValueEventListener() {
+                                FirebaseDatabase.getInstance().getReference().child("root").child("teachers").child("teacher" + "-" + user.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for(DataSnapshot ds : dataSnapshot.getChildren()){
-                                            if(Data.currentTeacher.getId() == ds.getValue(Course.class).getIdTeacher()){
-                                                Data.courseArrayList.add(ds.getValue(Course.class));
+                                        Data.currentTeacher = dataSnapshot.getValue(Teacher.class);
+
+                                        FirebaseDatabase.getInstance().getReference().child("root").child("courses").addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                for(Integer integer : Data.currentTeacher.getIdCoursesArrayList()){
+                                                    Data.courseArrayList.add(dataSnapshot.child("course" + "-" + integer).getValue(Course.class));
+                                                }
+
+                                                Intent intent = new Intent(MainActivity.this, AfterLogin.class);
+                                                startActivity(intent);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
 
                                             }
-                                        }
+                                        });
 
-                                        Toast.makeText(getApplicationContext(), "Đăng nhập thành công teacher", Toast.LENGTH_SHORT).show();
-
-                                        Intent intent = new Intent(MainActivity.this, AfterLogin.class);
-                                        startActivity(intent);
                                     }
 
                                     @Override
@@ -118,19 +113,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     }
                                 });
                             }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-
-                        });
-
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Đăng nhập thành công student", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
             break;
         }
