@@ -4,9 +4,9 @@ package vn.edu.vnuk.vnuk_sharing;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -48,6 +48,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //generatingDummyData.createData(40, 10, 7);
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.logout_optional,menu);
+        return true;
+    }
+
 
     @Override
     public void onStart(){
@@ -128,6 +134,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        edt_username.setText("");
+        edt_password.setText("");
     }
 }
 
