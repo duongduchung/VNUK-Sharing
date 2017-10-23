@@ -98,7 +98,7 @@ public class FunctionalScreen extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                for(int i = 0; i < Data.currentCourse.getAnnoucementsCount(); i++){
+                                for(int i = 0; i < Data.currentCourse.getDeadlinesCount(); i++){
                                     Data.deadlineArrayList.add(dataSnapshot.child("deadline" + "-" + Data.currentCourse.getId() + "-" + i).getValue(Deadline.class));
                                 }
 

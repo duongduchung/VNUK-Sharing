@@ -2,6 +2,7 @@ package vn.edu.vnuk.vnuk_sharing.Functional;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import vn.edu.vnuk.vnuk_sharing.Data;
@@ -35,6 +36,13 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class DeadlinesScreen extends AppCompatActivity {
 
@@ -47,8 +55,6 @@ public class DeadlinesScreen extends AppCompatActivity {
     Calendar cal;
     Date dateFinish;
     Date hourFinish;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,17 +224,59 @@ public class DeadlinesScreen extends AppCompatActivity {
 
     public void processAddJob()
     {
-        String title=editDl.getText()+"";
-        String description=editCt.getText()+"";
-        DeadlinesInWeek job=new DeadlinesInWeek(title, description, dateFinish, hourFinish);
-        if(editDl.getText().toString().equals("") || editCt.getText().toString().equals("")){
-            return;
-        }
-        arrJob.add(job);
-        adapter.notifyDataSetChanged();
-        editDl.setText("");
-        editCt.setText("");
-        editDl.requestFocus();
+        Deadline deadline = new Deadline();
+        deadline.setId(Data.deadlineArrayList.size());
+        deadline.setIdCourse(Data.currentCourse.getId());
+        deadline.setDescription(editCt.getText().toString());
+        deadline.setDate(dateFinish);
+        deadline.setTitle(editDl.getText().toString());
+
+
+
+        FirebaseDatabase.getInstance().getReference()
+                .child("root")
+                .child("deadlines")
+                .child("deadline" + "-" + Data.currentCourse.getId() + "-" + (Data.currentCourse.getDeadlinesCount() + 1))
+                .setValue(deadline, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        if(databaseError != null){
+                            //TODO
+                            // loi ko update duoc du lieu;
+
+                        }else{
+
+                            FirebaseDatabase.getInstance().getReference()
+                                    .child("root")
+                                    .child("courses")
+                                    .child("course" + "-" + Data.currentCourse.getId())
+                                    .child("deadlinesCount")
+                                    .setValue(Data.deadlineArrayList.size(), new DatabaseReference.CompletionListener() {
+                                        @Override
+                                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                            if(databaseError == null){
+                                                String title = editDl.getText() + "";
+                                                String description=editCt.getText()+"";
+                                                DeadlinesInWeek job=new DeadlinesInWeek(title, description, dateFinish, hourFinish);
+                                                if(editDl.getText().toString().equals("") || editCt.getText().toString().equals("")){
+                                                    return;
+                                                }
+                                                arrJob.add(job);
+                                                adapter.notifyDataSetChanged();
+                                                editDl.setText("");
+                                                editCt.setText("");
+                                                editDl.requestFocus();
+
+                                                Toast.makeText(getApplicationContext(), "Lưu thành công", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+
+
+
     }
 
     // ngoc
