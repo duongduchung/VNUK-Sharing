@@ -6,6 +6,8 @@ import java.util.Date;
  * Created by Quangngoc430 on 10/20/2017.
  */
 
+// root/deadlines/deadline-[idCourse]-[id]
+
 public class Deadline {
     private int id;
     private int idCourse;

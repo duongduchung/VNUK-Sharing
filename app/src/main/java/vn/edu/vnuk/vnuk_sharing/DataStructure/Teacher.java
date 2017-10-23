@@ -6,8 +6,9 @@ import java.util.ArrayList;
  * Created by Quangngoc430 on 10/20/2017.
  */
 
+// root/teachers/teacher-[idUser]
+
 public class Teacher{
-    private int id;
     private int idUser;
     private String name;
     private ArrayList<Integer> idCoursesArrayList = new ArrayList<Integer>();
@@ -15,19 +16,10 @@ public class Teacher{
     public Teacher() {
     }
 
-    public Teacher(int id, int idUser, String name, ArrayList<Integer> idCoursesArrayList) {
-        this.id = id;
+    public Teacher(int idUser, String name, ArrayList<Integer> idCoursesArrayList) {
         this.idUser = idUser;
         this.name = name;
         this.idCoursesArrayList = idCoursesArrayList;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getIdUser() {

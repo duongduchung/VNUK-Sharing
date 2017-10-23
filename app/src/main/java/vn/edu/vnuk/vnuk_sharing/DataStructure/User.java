@@ -4,6 +4,8 @@ package vn.edu.vnuk.vnuk_sharing.DataStructure;
  * Created by Quangngoc430 on 10/20/2017.
  */
 
+// root/users/user-[username]-[password]
+
 public class User {
     private int id;
     private String username;

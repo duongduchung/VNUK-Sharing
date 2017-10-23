@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         final GeneratingDummyData generatingDummyData = new GeneratingDummyData();
-        //generatingDummyData.createData(40, 10, 7);
+        //generatingDummyData.createData(50, 10, 7);
 
     }
 
@@ -94,10 +94,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                            /*
                                             if(Data.currentTeacher.getId() == ds.getValue(Course.class).getIdTeacher()){
                                                 Data.courseArrayList.add(ds.getValue(Course.class));
 
                                             }
+                                            */
                                         }
 
                                         Toast.makeText(getApplicationContext(), "Đăng nhập thành công teacher", Toast.LENGTH_SHORT).show();
