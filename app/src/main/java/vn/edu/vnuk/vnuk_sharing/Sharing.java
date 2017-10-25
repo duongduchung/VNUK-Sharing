@@ -35,14 +35,13 @@ public class Sharing extends Fragment {
         }
 
         ListView listView = (ListView) view.findViewById(R.id.list_view_classes);
-
+        listView.setAdapter(null);
 
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 classes
         );
-
 
         listView.setAdapter(listViewAdapter);
 
@@ -57,7 +56,6 @@ public class Sharing extends Fragment {
 
         return view;
     }
-
 
 }
 
