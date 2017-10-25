@@ -84,19 +84,17 @@ public class AfterLogin extends AppCompatActivity {
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.setTitle("LOG OUT");
                 alertBuilder.setMessage("Are you sure to log out?");
-                alertBuilder.setCancelable(false);
+               // alertBuilder.setCancelable(false);
                 alertBuilder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int id) {
+
                         finish();
                         Intent i=new Intent();
                         i.putExtra("finish", true);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // To clean up all activities
                         //startActivity(i);
-                       // edt_username.setText("");
-                       // edt_password.setText("");
                         finish();
-
                     }
                 });
                 alertBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {

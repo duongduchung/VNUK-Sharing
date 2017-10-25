@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -102,7 +101,7 @@ public class Announcements extends AppCompatActivity {
         btnDate.setOnClickListener(new MyButtonEvent());
         btnAdd.setOnClickListener(new MyButtonEvent());
         lv.setOnItemClickListener(new MyListViewEvent());
-        lv.setOnItemLongClickListener(new MyListViewEvent());
+      //  lv.setOnItemLongClickListener(new MyListViewEvent());
     }
 
     private class MyButtonEvent implements OnClickListener
@@ -123,17 +122,17 @@ public class Announcements extends AppCompatActivity {
     }
 
     private class MyListViewEvent implements
-            OnItemClickListener,
-            OnItemLongClickListener
+            OnItemClickListener
+          //  OnItemLongClickListener
     {
 
-        @Override
+       /* @Override
         public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
             arrJob.remove(arg2);
             adapter.notifyDataSetChanged();
             return false;
-        }
+        }*/
 
         @Override
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,

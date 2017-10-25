@@ -35,6 +35,21 @@
         android:layout_marginRight="@dimen/edit_margin_right"
         android:padding="10dp"/>
 
+    <EditText
+        android:maxLines="1"
+        android:inputType="text"
+        android:id="@+id/std_id"
+        android:layout_marginRight="@dimen/edit_margin_right"
+        android:hint="@string/hint_std_id"
+        android:textSize="@dimen/text_size_large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:layout_below="@+id/vnuk_logo"
+        android:layout_alignLeft="@+id/vnuk_logo"
+        android:layout_alignStart="@+id/vnuk_logo" />
+
 <Button
     android:layout_below="@+id/std_pass"
     android:id="@+id/btn_login"
@@ -79,18 +94,5 @@
     android:layout_width="wrap_content"
     android:layout_height="@dimen/box_size" />
 
-    <EditText
 
-        android:maxLines="1"
-        android:inputType="text"
-        android:id="@+id/std_id"
-        android:hint="@string/hint_std_id"
-        android:textSize="@dimen/text_size_large"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:layout_below="@+id/vnuk_logo"
-        android:layout_alignLeft="@+id/vnuk_logo"
-        android:layout_alignStart="@+id/vnuk_logo" />
 </RelativeLayout>

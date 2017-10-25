@@ -1,4 +1,3 @@
-
 package vn.edu.vnuk.vnuk_sharing;
 
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -135,5 +133,3 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         edt_password.setText("");
     }
 }
-
-
