@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "405839483049-fupeqfnpt1acaj7fia00n36ki6bffpsn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vn.edu.vnuk.vnuk_sharing",
+            "certificate_hash": "123778ea0afa1f02c6ae2a1d7ff9db128f10f756"
+          }
+        },
+        {
+          "client_id": "405839483049-i20l89aeks6aopk016lsmsf75oadvbv4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vn.edu.vnuk.vnuk_sharing",
+            "certificate_hash": "20b50fc5c8ae45c6a44dc514053caf379f621f18"
+          }
+        },
+        {
           "client_id": "405839483049-8j3kd2ai5j9fag1vssf5b72bva9qoeff.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

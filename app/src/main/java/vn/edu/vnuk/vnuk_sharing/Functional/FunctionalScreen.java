@@ -54,7 +54,7 @@ public class FunctionalScreen extends AppCompatActivity {
                         FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").child("syllabus" + "-" + Data.currentCourse.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                Data.syllabus = dataSnapshot.getValue(Syllabus.class);
+                                Data.currentSyllabus = dataSnapshot.getValue(Syllabus.class);
 
                                 Intent intent = new Intent(FunctionalScreen.this, SyllabusScreen.class);
                                 startActivity(intent);

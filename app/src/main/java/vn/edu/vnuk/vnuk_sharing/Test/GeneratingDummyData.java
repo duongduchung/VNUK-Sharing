@@ -77,6 +77,7 @@ public class GeneratingDummyData {
         syllabus.setName("Syllabus " + idCourse);
         syllabus.setSize((new Random()).nextInt(40000));
         syllabus.setLink("Link syllabus " + idCourse);
+        syllabus.setExists(false);
 
         FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").child("syllabus" + "-" + idCourse).setValue(syllabus);
         return syllabus;

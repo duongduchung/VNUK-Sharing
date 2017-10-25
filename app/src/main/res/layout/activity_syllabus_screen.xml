@@ -36,7 +36,7 @@
             android:id="@+id/lb_name_file"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="lb_name_file"
+            android:text="File name : "
             android:layout_gravity="center_horizontal"
             />
 
@@ -44,12 +44,12 @@
             android:id="@+id/lb_size_file"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="lb_size_file"
+            android:text="File size : "
             android:layout_gravity="center_horizontal"
             />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnCreateOrUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create"
@@ -57,17 +57,21 @@
             android:paddingLeft="50dp"
             android:paddingRight="50dp"/>
 
-        <TextView
-            android:id="@+id/lb_name_file_history"
+        <ProgressBar
+            android:id="@+id/progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone" />
 
         <TextView
-            android:id="@+id/lb_size_file_history"
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewStatus"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"/>
+            android:text="No file selected"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
     </LinearLayout>
 
 </RelativeLayout>

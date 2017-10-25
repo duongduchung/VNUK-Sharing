@@ -17,7 +17,7 @@ public class Data {
     public static User currentUser;
     public static Teacher currentTeacher;
     public static ArrayList<Course> courseArrayList = new ArrayList<Course>();
-    public static Syllabus syllabus = new Syllabus();
+    public static Syllabus currentSyllabus = new Syllabus();
     public static Course currentCourse = new Course();
     public static ArrayList<Deadline> deadlineArrayList = new ArrayList<Deadline>();
     public static ArrayList<Announcement> announcementArrayList = new ArrayList<Announcement>();

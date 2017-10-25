@@ -11,15 +11,17 @@ public class Syllabus {
     private String link;
     private String name;
     private int size;
+    private boolean exists;
 
     public Syllabus() {
     }
 
-    public Syllabus(int idCourse, String link, String name, int size) {
+    public Syllabus(int idCourse, String link, String name, int size, boolean exists) {
         this.idCourse = idCourse;
         this.link = link;
         this.name = name;
         this.size = size;
+        this.exists = exists;
     }
 
     public int getIdCourse() {
@@ -52,5 +54,13 @@ public class Syllabus {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public boolean getExists() {
+        return exists;
+    }
+
+    public void setExists(boolean exists) {
+        this.exists = exists;
     }
 }
