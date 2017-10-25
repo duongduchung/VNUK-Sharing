@@ -21,4 +21,14 @@ public class Data {
     public static Course currentCourse = new Course();
     public static ArrayList<Deadline> deadlineArrayList = new ArrayList<Deadline>();
     public static ArrayList<Announcement> announcementArrayList = new ArrayList<Announcement>();
+
+    public static void clearAllData(){
+        currentUser = null;
+        currentTeacher = null;
+        courseArrayList.clear();
+        currentSyllabus = null;
+        currentCourse = null;
+        deadlineArrayList.clear();
+        announcementArrayList.clear();
+    }
 }

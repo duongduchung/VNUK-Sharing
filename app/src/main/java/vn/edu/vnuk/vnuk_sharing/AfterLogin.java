@@ -88,13 +88,13 @@ public class AfterLogin extends AppCompatActivity {
                 alertBuilder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int id) {
-
+                        Data.clearAllData();
                         finish();
-                        Intent i=new Intent();
-                        i.putExtra("finish", true);
-                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // To clean up all activities
+                        //Intent i=new Intent();
+                        //i.putExtra("finish", true);
+                        //i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // To clean up all activities
                         //startActivity(i);
-                        finish();
+                        //finish();
                     }
                 });
                 alertBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
