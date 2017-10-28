@@ -83,6 +83,30 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    public void onBackPressed() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setTitle("LOG OUT");
+        alertBuilder.setMessage("Uploading Syllabus, are you sure to back?");
+        alertBuilder.setPositiveButton("TAKE ME AWAY", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int id) {
+                finish();
+                Intent i=new Intent();
+                i.putExtra("finish", true);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
+            }
+        });
+        alertBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
+
     //this function will get the pdf from the storage
     private void getPDF() {
         //for greater than lolipop versions we need the permissions asked on runtime
