@@ -243,7 +243,7 @@ public class DeadlinesScreen extends AppCompatActivity {
     public void processAddJob()
     {
         Deadline deadline = new Deadline();
-        deadline.setId(Data.deadlineArrayList.size());
+        deadline.setId(Data.currentCourse.getDeadlinesCount());
         deadline.setIdCourse(Data.currentCourse.getId());
         deadline.setDescription(editCt.getText().toString());
         deadline.setDate(dateFinish);
@@ -254,7 +254,7 @@ public class DeadlinesScreen extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference()
                 .child("root")
                 .child("deadlines")
-                .child("deadline" + "-" + Data.currentCourse.getId() + "-" + (Data.currentCourse.getDeadlinesCount() + 1))
+                .child("deadline" + "-" + Data.currentCourse.getId() + "-" + Data.currentCourse.getDeadlinesCount())
                 .setValue(deadline, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -269,7 +269,7 @@ public class DeadlinesScreen extends AppCompatActivity {
                                     .child("courses")
                                     .child("course" + "-" + Data.currentCourse.getId())
                                     .child("deadlinesCount")
-                                    .setValue(Data.deadlineArrayList.size(), new DatabaseReference.CompletionListener() {
+                                    .setValue(Data.currentCourse.getDeadlinesCount() + 1 , new DatabaseReference.CompletionListener() {
                                         @Override
                                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                             if(databaseError == null){
@@ -284,6 +284,8 @@ public class DeadlinesScreen extends AppCompatActivity {
                                                 editDl.setText("");
                                                 editCt.setText("");
                                                 editDl.requestFocus();
+
+                                                Data.currentCourse.setDeadlinesCount(Data.currentCourse.getDeadlinesCount() + 1);
 
                                                 Toast.makeText(getApplicationContext(), "Lưu thành công", Toast.LENGTH_LONG).show();
                                             }

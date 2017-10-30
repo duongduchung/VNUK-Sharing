@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_login.setOnClickListener(this);
 
 
-        final GeneratingDummyData generatingDummyData = new GeneratingDummyData();
+        //final GeneratingDummyData generatingDummyData = new GeneratingDummyData();
         //generatingDummyData.createData(50, 10, 7);
 
     }
