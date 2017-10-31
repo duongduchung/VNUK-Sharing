@@ -174,7 +174,8 @@ public class AnnouncementsScreen extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference()
                 .child("root")
                 .child("announcements")
-                .child("announcement" + "-" + Data.currentCourse.getId() + "-" + Data.currentCourse.getAnnoucementsCount())
+                .child("course" + "-" + Data.currentCourse.getId())
+                .child("announcement" + "-" + Data.currentCourse.getAnnoucementsCount())
                 .setValue(announcement, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -200,7 +201,7 @@ public class AnnouncementsScreen extends AppCompatActivity {
                                                 if(editA.getText().toString().equals("") || editCt.getText().toString().equals("")){
                                                     return;
                                                 }
-                                                arrJob.add(job);
+                                                arrJob.add(0, job);
                                                 adapter.notifyDataSetChanged();
                                                 editA.setText("");
                                                 editCt.setText("");

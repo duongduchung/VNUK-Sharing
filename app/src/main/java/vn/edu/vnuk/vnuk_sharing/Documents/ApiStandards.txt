@@ -5,10 +5,10 @@ Course
 ~/root/courses/course-[id]
 
 Deadline
-~/root/deadlines/deadline-[idCourse]-[id]
+~/root/deadlines/user-[idUser]/deadline-[id]
 
 Announcement
-~/root/announcements/announcement-[idCourse]-[id]
+~/root/announcements/course-[idCourse]/announcement-[id]
 
 Teacher
 ~/root/teachers/teacher-[idUser]

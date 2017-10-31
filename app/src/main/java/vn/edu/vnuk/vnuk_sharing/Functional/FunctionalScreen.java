@@ -71,12 +71,12 @@ public class FunctionalScreen extends AppCompatActivity {
                     if(position == 1) {
 
                         Data.announcementArrayList.clear();
-                        FirebaseDatabase.getInstance().getReference().child("root").child("announcements").addListenerForSingleValueEvent(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("root").child("announcements").child("course" + "-" + Data.currentCourse.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                for(int i = 0; i < Data.currentCourse.getAnnoucementsCount(); i++){
-                                    Data.announcementArrayList.add(dataSnapshot.child("announcement" + "-" + Data.currentCourse.getId() + "-" + i).getValue(Announcement.class));
+                                for(int i = Data.currentCourse.getAnnoucementsCount() - 1; i >= 0 ; i--){
+                                    Data.announcementArrayList.add(dataSnapshot.child("announcement" + "-" + i).getValue(Announcement.class));
                                 }
 
                                 Intent intent = new Intent(FunctionalScreen.this, AnnouncementsScreen.class);
@@ -94,12 +94,12 @@ public class FunctionalScreen extends AppCompatActivity {
                     if(position == 2) {
 
                         Data.deadlineArrayList.clear();
-                        FirebaseDatabase.getInstance().getReference().child("root").child("deadlines").addListenerForSingleValueEvent(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("root").child("deadlines").child("course" + "-" + Data.currentCourse.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                for(int i = 0; i < Data.currentCourse.getDeadlinesCount(); i++){
-                                    Data.deadlineArrayList.add(dataSnapshot.child("deadline" + "-" + Data.currentCourse.getId() + "-" + i).getValue(Deadline.class));
+                                for(int i = Data.currentCourse.getDeadlinesCount() - 1; i >= 0; i--){
+                                    Data.deadlineArrayList.add(dataSnapshot.child("deadline" + "-" + i).getValue(Deadline.class));
                                 }
 
                                 Intent intent = new Intent(FunctionalScreen.this, DeadlinesScreen.class);

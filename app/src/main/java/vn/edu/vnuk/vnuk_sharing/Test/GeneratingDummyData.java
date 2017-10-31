@@ -91,7 +91,7 @@ public class GeneratingDummyData {
             announcement.setTitle("announcement " + i);
             announcement.setDescription("description of announcement " + i);
 
-            FirebaseDatabase.getInstance().getReference().child("root").child("announcements").child("announcement" + "-" + announcement.getIdCourse() + "-" + announcement.getId()).setValue(announcement);
+            FirebaseDatabase.getInstance().getReference().child("root").child("announcements").child("course" + "-" + idCourse).child("announcement" + "-" + announcement.getId()).setValue(announcement);
         }
 
         return announcementsCount;
@@ -105,7 +105,7 @@ public class GeneratingDummyData {
             deadline.setTitle("deadline " + i);
             deadline.setDescription("description of deadline " + i);
 
-            FirebaseDatabase.getInstance().getReference().child("root").child("deadlines").child("deadline" + "-" + deadline.getIdCourse() + "-" + deadline.getId()).setValue(deadline);
+            FirebaseDatabase.getInstance().getReference().child("root").child("deadlines").child("course" + "-" + idCourse).child("deadline" + "-" + deadline.getId()).setValue(deadline);
         }
 
         return deadlinesCount;

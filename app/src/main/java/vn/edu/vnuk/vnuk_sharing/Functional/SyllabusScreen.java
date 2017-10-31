@@ -49,7 +49,7 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
 
     ProgressBar progressBar;
 
-    private boolean uploadingStatus;
+    boolean uploadingStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
