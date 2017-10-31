@@ -39,29 +39,31 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
     //this is the pic pdf code used in file chooser
     final static int PICK_PDF_CODE = 2342;
 
-    StorageReference mStorageReference = FirebaseStorage.getInstance().getReference();
-    DatabaseReference mDatabaseReference;
-
-    TextView lb_size_file, lb_name_file;
-    TextView textViewStatus;
+    TextView lb_size_file, lb_name_file, textViewStatus;
     Button btnCreateOrUpdate;
     ImageView imageViewChooseFile;
-
     ProgressBar progressBar;
 
+    StorageReference mStorageReference;
+    DatabaseReference mDatabaseReference;
     boolean uploadingStatus;
+    GetInfoOfFileFromUri getInfoOfFileFromUri;
+    StorageTask<UploadTask.TaskSnapshot> storageTask;
+    Uri localFileUri = null;
+    long localFileSize;
+    String localFileName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_syllabus_screen);
 
-        Intent callFunctionalScreen = new Intent();
-
+        // thiết lập tiêu đề cho thanh toolbar
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Syllabus");
 
+        // ánh xạ
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         textViewStatus = (TextView) findViewById(R.id.textViewStatus);
         lb_name_file = (TextView) findViewById(R.id.lb_name_file);
@@ -71,45 +73,17 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
         imageViewChooseFile = (ImageView) findViewById(R.id.imageView);
         imageViewChooseFile.setOnClickListener(this);
 
+        // thay đổi tên của nút upload
         if(Data.currentSyllabus.getExists() == false) {
             btnCreateOrUpdate.setText("Create");
         }else{
             btnCreateOrUpdate.setText("Update");
         }
 
+        // thiết lập các giá trị
         uploadingStatus = false;
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-
-
-
-    }
-
-    public void onBackPressed() {
-        if(uploadingStatus == true) {
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-            alertBuilder.setTitle("LOG OUT");
-            alertBuilder.setMessage("Uploading Syllabus, are you sure to back?");
-            alertBuilder.setPositiveButton("TAKE ME AWAY", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int id) {
-                    SyllabusScreen.super.onBackPressed();
-                }
-            });
-            alertBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
-            });
-            AlertDialog alertDialog = alertBuilder.create();
-            alertDialog.show();
-        }else{
-            super.onBackPressed();
-        }
+        mStorageReference = FirebaseStorage.getInstance().getReference();
+        getInfoOfFileFromUri = new GetInfoOfFileFromUri();
     }
 
     //this function will get the pdf from the storage
@@ -132,8 +106,6 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_PDF_CODE);
     }
 
-    GetInfoOfFileFromUri getInfoOfFileFromUri = new GetInfoOfFileFromUri();
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -144,11 +116,36 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
                 //uploading the file
 
                 getInfoOfFileFromUri.get(getApplicationContext(), data.getData());
-                lb_name_file.setText(getInfoOfFileFromUri.getNameFile());
-                lb_size_file.setText(String.valueOf(getInfoOfFileFromUri.getSizeFile()));
+                localFileName = getInfoOfFileFromUri.getNameFile();
+                localFileSize = getInfoOfFileFromUri.getSizeFile();
 
-                //Toast.makeText(getApplicationContext(), getInfoOfFileFromUri.getNameFile() + "\n" + String.valueOf(getInfoOfFileFromUri.getSizeFile()), Toast.LENGTH_LONG).show();
-                uploadFile(data.getData());
+                if(localFileName.length() > 40){
+                    String temp = localFileName;
+                    temp = temp.substring(temp.length() - 16, temp.length());
+                    localFileName = localFileName.substring(0, 16);
+                    localFileName = localFileName + "......" + temp;
+                }
+
+                String sizeType;
+
+                if(localFileSize < 1024){
+                    sizeType = "bytes";
+                }else{
+                    if(localFileSize < 1024000){
+                        sizeType = "kb";
+                        localFileSize = localFileSize / 1024;
+                    }else{
+                        sizeType = "mb";
+                        localFileSize = localFileSize/ 1024000;
+                    }
+                }
+
+                lb_name_file.setText(localFileName );
+                lb_size_file.setText(String.valueOf(localFileSize) + " " + sizeType);
+
+                localFileUri = data.getData();
+
+                textViewStatus.setText("File is selected!");
             }else{
                 Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
             }
@@ -157,8 +154,11 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
 
     private void uploadFile(Uri data) {
         uploadingStatus = true;
-        StorageReference sRef = mStorageReference.child("Syllabus" + "-" + Data.currentSyllabus.getIdCourse() + ".pdf");
-        StorageTask<UploadTask.TaskSnapshot> a = sRef.putFile(data)
+
+        btnCreateOrUpdate.setText("Cancel");
+
+        storageTask = FirebaseStorage.getInstance().getReference()
+                .child("Syllabus" + "-" + Data.currentSyllabus.getIdCourse() + ".pdf").putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @SuppressWarnings("VisibleForTests")
                     @Override
@@ -168,7 +168,14 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
                         textViewStatus.setText("File Uploaded Successfully");
                         btnCreateOrUpdate.setText("Update");
 
-                        FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").child("syllabus" + "-" + Data.currentSyllabus.getIdCourse()).child("exists").setValue(true);
+                        Data.currentSyllabus.setExists(true);
+                        Data.currentSyllabus.setLink(taskSnapshot.getDownloadUrl().toString());
+                        Data.currentSyllabus.setName("Syllabus" + "-" + Data.currentCourse.getId());
+                        Data.currentSyllabus.setSize(localFileSize);
+
+                        FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").child("syllabus" + "-" + Data.currentCourse.getId()).setValue(Data.currentSyllabus);
+
+                        Toast.makeText(getApplicationContext(), "Upload successfully", Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -176,16 +183,25 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
                     public void onFailure(@NonNull Exception exception) {
                         uploadingStatus = false;
                         Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+
+                        if(Data.currentSyllabus.getExists() == true)
+                            btnCreateOrUpdate.setText("Update");
+                        else{
+                            btnCreateOrUpdate.setText("Create");
+                        }
                     }
                 })
                 .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @SuppressWarnings("VisibleForTests")
                     @Override
                     public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                        textViewStatus.setText((int) progress + "% Uploading...");
+                        if (uploadingStatus == true) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                            textViewStatus.setText((int) progress + "% Uploading...");
+                        }
                     }
                 });
+
     }
 
     @Override
@@ -195,6 +211,53 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
                 getPDF();
             }
             break;
+            case R.id.btnCreateOrUpdate : {
+                if (localFileUri == null) {
+                    Toast.makeText(getApplicationContext(), "No file chosen, please select file!!!", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (uploadingStatus == true) {
+                        uploadingStatus = false;
+                        storageTask.cancel();
+
+                        if(Data.currentSyllabus.getExists() == true)
+                            btnCreateOrUpdate.setText("Update");
+                        else{
+                            btnCreateOrUpdate.setText("Create");
+                        }
+
+                        textViewStatus.setText("File is selected!");
+
+
+                    } else {
+                        uploadFile(localFileUri);
+                    }
+                }
+            }
+            break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(uploadingStatus == true) {
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+            alertBuilder.setTitle("QUIT");
+            alertBuilder.setMessage("Uploading Syllabus, are you sure to back?");
+            alertBuilder.setPositiveButton("TAKE ME AWAY", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int id) {
+                    SyllabusScreen.super.onBackPressed();
+                }
+            });
+            alertBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            AlertDialog alertDialog = alertBuilder.create();
+            alertDialog.show();
+        }else{
+            super.onBackPressed();
         }
     }
 }
