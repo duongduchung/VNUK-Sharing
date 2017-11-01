@@ -15,6 +15,7 @@ import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
+import vn.edu.vnuk.vnuk_sharing.SHA256;
 
 public class GeneratingDummyData {
 
@@ -124,7 +125,7 @@ public class GeneratingDummyData {
             generateSingleTeacher(id);
         }
         user.setUsername("username" + id);
-        user.setPassword("password" + id);
+        user.setPassword(SHA256.getSHA256Hash("password" + id));
 
         FirebaseDatabase.getInstance().getReference().child("root").child("users").child("user" + "-" + user.getUsername() + "-" + user.getPassword()).setValue(user);
         return user;
