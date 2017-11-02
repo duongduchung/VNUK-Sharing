@@ -15,6 +15,7 @@ import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
+import vn.edu.vnuk.vnuk_sharing.SHA256;
 
 public class GeneratingDummyData {
 
@@ -91,7 +92,7 @@ public class GeneratingDummyData {
             announcement.setTitle("announcement " + i);
             announcement.setDescription("description of announcement " + i);
 
-            FirebaseDatabase.getInstance().getReference().child("root").child("announcements").child("announcement" + "-" + announcement.getIdCourse() + "-" + announcement.getId()).setValue(announcement);
+            FirebaseDatabase.getInstance().getReference().child("root").child("announcements").child("course" + "-" + idCourse).child("announcement" + "-" + announcement.getId()).setValue(announcement);
         }
 
         return announcementsCount;
@@ -105,7 +106,7 @@ public class GeneratingDummyData {
             deadline.setTitle("deadline " + i);
             deadline.setDescription("description of deadline " + i);
 
-            FirebaseDatabase.getInstance().getReference().child("root").child("deadlines").child("deadline" + "-" + deadline.getIdCourse() + "-" + deadline.getId()).setValue(deadline);
+            FirebaseDatabase.getInstance().getReference().child("root").child("deadlines").child("course" + "-" + idCourse).child("deadline" + "-" + deadline.getId()).setValue(deadline);
         }
 
         return deadlinesCount;
@@ -124,7 +125,7 @@ public class GeneratingDummyData {
             generateSingleTeacher(id);
         }
         user.setUsername("username" + id);
-        user.setPassword("password" + id);
+        user.setPassword(SHA256.getSHA256Hash("password" + id));
 
         FirebaseDatabase.getInstance().getReference().child("root").child("users").child("user" + "-" + user.getUsername() + "-" + user.getPassword()).setValue(user);
         return user;

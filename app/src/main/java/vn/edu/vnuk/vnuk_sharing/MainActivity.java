@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btn_login : {
 
-                FirebaseDatabase.getInstance().getReference().child("root").child("users").child("user" + "-" + edt_username.getText().toString() + "-" + edt_password.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("root").child("users").child("user" + "-" + edt_username.getText().toString() + "-" + SHA256.getSHA256Hash(edt_password.getText().toString())).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){

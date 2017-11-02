@@ -10,13 +10,13 @@ public class Syllabus {
     private int idCourse;
     private String link;
     private String name;
-    private int size;
+    private long size;
     private boolean exists;
 
     public Syllabus() {
     }
 
-    public Syllabus(int idCourse, String link, String name, int size, boolean exists) {
+    public Syllabus(int idCourse, String link, String name, long size, boolean exists) {
         this.idCourse = idCourse;
         this.link = link;
         this.name = name;
@@ -48,11 +48,11 @@ public class Syllabus {
         this.name = name;
     }
 
-    public int getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(long size) {
         this.size = size;
     }
 

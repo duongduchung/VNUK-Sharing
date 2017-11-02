@@ -224,12 +224,11 @@ public class DeadlinesScreen extends AppCompatActivity {
         deadline.setDate(dateFinish);
         deadline.setTitle(editDl.getText().toString());
 
-
-
         FirebaseDatabase.getInstance().getReference()
                 .child("root")
                 .child("deadlines")
-                .child("deadline" + "-" + Data.currentCourse.getId() + "-" + Data.currentCourse.getDeadlinesCount())
+                .child("course" + "-" + Data.currentCourse.getId())
+                .child("deadline" + "-" + Data.currentCourse.getDeadlinesCount())
                 .setValue(deadline, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -254,7 +253,7 @@ public class DeadlinesScreen extends AppCompatActivity {
                                                 if(editDl.getText().toString().equals("") || editCt.getText().toString().equals("")){
                                                     return;
                                                 }
-                                                arrJob.add(job);
+                                                arrJob.add(0, job);
                                                 adapter.notifyDataSetChanged();
                                                 editDl.setText("");
                                                 editCt.setText("");
