@@ -2,6 +2,7 @@
     <string name="app_name">VNUK application</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="hint_std_id">Student ID</string>
@@ -15,4 +16,10 @@
     <string name="btn_feedback">Feedback</string>
     <string name="btn_logout">Logout</string>
     <string name="txt_studyresult">Tổng hợp kết quả học tập \n&amp; rèn luyện đạo đức</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

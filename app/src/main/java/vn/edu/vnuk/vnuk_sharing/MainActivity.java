@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             if(user.getAccess() == 0) {
                                 Toast.makeText(getApplicationContext(), "Đăng nhập student thành công", Toast.LENGTH_LONG).show();
+                                Intent sidebar = new Intent(MainActivity.this, Main2Activity.class);
+                                startActivity(sidebar);
+
                             }else{
                                 Toast.makeText(getApplicationContext(), "Đăng nhập teacher thành công", Toast.LENGTH_LONG).show();
 
