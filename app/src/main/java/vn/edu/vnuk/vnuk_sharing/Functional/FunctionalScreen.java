@@ -79,7 +79,7 @@ public class FunctionalScreen extends AppCompatActivity {
                                     Data.announcementArrayList.add(dataSnapshot.child("announcement" + "-" + Data.currentCourse.getId() + "-" + i).getValue(Announcement.class));
                                 }
 
-                                Intent intent = new Intent(FunctionalScreen.this, Announcements.class);
+                                Intent intent = new Intent(FunctionalScreen.this, AnnouncementsScreen.class);
                                 startActivity(intent);
                             }
 

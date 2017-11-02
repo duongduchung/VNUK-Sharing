@@ -1,27 +1,6 @@
 package vn.edu.vnuk.vnuk_sharing.Functional;
 
 import android.app.DatePickerDialog;
-
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-
-import vn.edu.vnuk.vnuk_sharing.Data;
-import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
-import vn.edu.vnuk.vnuk_sharing.R;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
-
-import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
@@ -42,6 +21,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,13 +34,6 @@ import java.util.Locale;
 import vn.edu.vnuk.vnuk_sharing.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
 import vn.edu.vnuk.vnuk_sharing.R;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 
 
@@ -243,7 +218,7 @@ public class DeadlinesScreen extends AppCompatActivity {
     public void processAddJob()
     {
         Deadline deadline = new Deadline();
-        deadline.setId(Data.deadlineArrayList.size());
+        deadline.setId(Data.currentCourse.getDeadlinesCount());
         deadline.setIdCourse(Data.currentCourse.getId());
         deadline.setDescription(editCt.getText().toString());
         deadline.setDate(dateFinish);
@@ -254,7 +229,7 @@ public class DeadlinesScreen extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference()
                 .child("root")
                 .child("deadlines")
-                .child("deadline" + "-" + Data.currentCourse.getId() + "-" + (Data.currentCourse.getDeadlinesCount() + 1))
+                .child("deadline" + "-" + Data.currentCourse.getId() + "-" + Data.currentCourse.getDeadlinesCount())
                 .setValue(deadline, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -269,7 +244,7 @@ public class DeadlinesScreen extends AppCompatActivity {
                                     .child("courses")
                                     .child("course" + "-" + Data.currentCourse.getId())
                                     .child("deadlinesCount")
-                                    .setValue(Data.deadlineArrayList.size(), new DatabaseReference.CompletionListener() {
+                                    .setValue(Data.currentCourse.getDeadlinesCount() + 1 , new DatabaseReference.CompletionListener() {
                                         @Override
                                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                             if(databaseError == null){
@@ -284,6 +259,8 @@ public class DeadlinesScreen extends AppCompatActivity {
                                                 editDl.setText("");
                                                 editCt.setText("");
                                                 editDl.requestFocus();
+
+                                                Data.currentCourse.setDeadlinesCount(Data.currentCourse.getDeadlinesCount() + 1);
 
                                                 Toast.makeText(getApplicationContext(), "Lưu thành công", Toast.LENGTH_LONG).show();
                                             }

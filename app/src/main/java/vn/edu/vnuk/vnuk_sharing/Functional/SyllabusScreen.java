@@ -1,6 +1,7 @@
 package vn.edu.vnuk.vnuk_sharing.Functional;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -47,6 +49,8 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
 
     ProgressBar progressBar;
 
+    private boolean uploadingStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +77,7 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
             btnCreateOrUpdate.setText("Update");
         }
 
+        uploadingStatus = false;
     }
 
     @Override
@@ -81,6 +86,30 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
 
 
 
+    }
+
+    public void onBackPressed() {
+        if(uploadingStatus == true) {
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+            alertBuilder.setTitle("LOG OUT");
+            alertBuilder.setMessage("Uploading Syllabus, are you sure to back?");
+            alertBuilder.setPositiveButton("TAKE ME AWAY", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int id) {
+                    SyllabusScreen.super.onBackPressed();
+                }
+            });
+            alertBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            AlertDialog alertDialog = alertBuilder.create();
+            alertDialog.show();
+        }else{
+            super.onBackPressed();
+        }
     }
 
     //this function will get the pdf from the storage
@@ -127,14 +156,17 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
     }
 
     private void uploadFile(Uri data) {
+        uploadingStatus = true;
         StorageReference sRef = mStorageReference.child("Syllabus" + "-" + Data.currentSyllabus.getIdCourse() + ".pdf");
         StorageTask<UploadTask.TaskSnapshot> a = sRef.putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @SuppressWarnings("VisibleForTests")
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        uploadingStatus = false;
                         progressBar.setVisibility(View.GONE);
                         textViewStatus.setText("File Uploaded Successfully");
+                        btnCreateOrUpdate.setText("Update");
 
                         FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").child("syllabus" + "-" + Data.currentSyllabus.getIdCourse()).child("exists").setValue(true);
                     }
@@ -142,6 +174,7 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
+                        uploadingStatus = false;
                         Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 })

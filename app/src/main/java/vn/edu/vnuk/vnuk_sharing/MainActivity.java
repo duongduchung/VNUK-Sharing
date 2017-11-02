@@ -21,7 +21,6 @@ import vn.edu.vnuk.vnuk_sharing.DataActions.ReadData;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
-import vn.edu.vnuk.vnuk_sharing.Test.GeneratingDummyData;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btn_login ;
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_login.setOnClickListener(this);
 
 
-        final GeneratingDummyData generatingDummyData = new GeneratingDummyData();
+        //final GeneratingDummyData generatingDummyData = new GeneratingDummyData();
         //generatingDummyData.createData(50, 10, 7);
 
     }
