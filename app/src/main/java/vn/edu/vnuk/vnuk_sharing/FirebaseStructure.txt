@@ -1,0 +1,26 @@
+root
+    announcements
+       course-[idCourse]
+           announcement-[idAnnouncement]
+
+    classes
+       class-[idClass]
+
+    courses
+       course-[idCourse]
+
+    deadlines
+       course-[idCourse]
+           deadline-[idDeadline]
+
+    syllabuses
+       syllabus-[idCourse]
+
+    teachers
+       teacher-[idUser]
+
+    students
+        student-[idUser]
+
+    users
+        user-[username]-[password]

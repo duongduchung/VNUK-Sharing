@@ -21,6 +21,7 @@ import vn.edu.vnuk.vnuk_sharing.DataActions.ReadData;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
+import vn.edu.vnuk.vnuk_sharing.Test.GeneratingDummyData;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btn_login ;
@@ -41,8 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_login.setOnClickListener(this);
 
-
-        //final GeneratingDummyData generatingDummyData = new GeneratingDummyData();
+        final GeneratingDummyData generatingDummyData = new GeneratingDummyData();
         //generatingDummyData.createData(50, 10, 7);
 
     }
@@ -78,29 +78,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if(user.getAccess() == 0) {
                                 Toast.makeText(getApplicationContext(), "Đăng nhập student thành công", Toast.LENGTH_LONG).show();
                             }else{
-                                Toast.makeText(getApplicationContext(), "Đăng nhập teacher thành công", Toast.LENGTH_LONG).show();
+
 
                                 FirebaseDatabase.getInstance().getReference().child("root").child("teachers").child("teacher" + "-" + user.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        Data.currentTeacher = dataSnapshot.getValue(Teacher.class);
 
-                                        FirebaseDatabase.getInstance().getReference().child("root").child("courses").addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                for(Integer integer : Data.currentTeacher.getIdCoursesArrayList()){
-                                                    Data.courseArrayList.add(dataSnapshot.child("course" + "-" + integer).getValue(Course.class));
+                                        if(dataSnapshot.exists()) {
+
+                                            Toast.makeText(getApplicationContext(), "Đăng nhập teacher thành công", Toast.LENGTH_LONG).show();
+
+                                            Data.currentTeacher = dataSnapshot.getValue(Teacher.class);
+
+                                            FirebaseDatabase.getInstance().getReference().child("root").child("courses").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    for (Integer integer : Data.currentTeacher.getIdCoursesArrayList()) {
+                                                        Data.courseArrayList.add(dataSnapshot.child("course" + "-" + integer).getValue(Course.class));
+                                                    }
+
+                                                    Intent intent = new Intent(MainActivity.this, AfterLogin.class);
+                                                    startActivity(intent);
                                                 }
 
-                                                Intent intent = new Intent(MainActivity.this, AfterLogin.class);
-                                                startActivity(intent);
-                                            }
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
 
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                            }
-                                        });
+                                                }
+                                            });
+                                        }else{
+                                            Toast.makeText(getApplicationContext(), "Không tồn tại teacher này", Toast.LENGTH_LONG).show();
+                                        }
 
                                     }
 

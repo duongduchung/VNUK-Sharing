@@ -12,6 +12,7 @@ import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Class;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Student;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
@@ -22,6 +23,7 @@ public class GeneratingDummyData {
     private ArrayList<Class> classArrayList = new ArrayList<Class>();
     private ArrayList<Course> courseArrayList = new ArrayList<Course>();
     private ArrayList<Teacher> teachersArrayList = new ArrayList<Teacher>();
+    private ArrayList<Student> studentArrayList = new ArrayList<Student>();
     private ArrayList<Boolean> coursesCheckArrayList = new ArrayList<Boolean>();
     int numberOfCourses, randomNumber, teachersCount;
 
@@ -121,7 +123,9 @@ public class GeneratingDummyData {
         User user = new User();
         user.setId(id);
         user.setAccess((new Random()).nextInt(2));
-        if(user.getAccess() == 1){
+        if(user.getAccess() == 0){
+            generateSingleStudent(id);
+        }else {
             generateSingleTeacher(id);
         }
         user.setUsername("username" + id);
@@ -129,6 +133,17 @@ public class GeneratingDummyData {
 
         FirebaseDatabase.getInstance().getReference().child("root").child("users").child("user" + "-" + user.getUsername() + "-" + user.getPassword()).setValue(user);
         return user;
+    }
+    private Student generateSingleStudent(int idUser){
+        Student newStudent = new Student();
+
+        newStudent.setIdUser(idUser);
+        newStudent.setName("student " + idUser);
+        newStudent.setIdCoursesArrayList(new ArrayList<Integer>());
+
+        FirebaseDatabase.getInstance().getReference().child("root").child("students").child("student" + "-" + idUser).setValue(newStudent);
+
+        return newStudent;
     }
     public Teacher generateSingleTeacher(int idUser){
         Teacher teacher = new Teacher();
