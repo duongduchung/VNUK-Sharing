@@ -21,6 +21,9 @@
     <dimen name="size_big">20dp</dimen>
 
     <dimen name="box_size">40dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>
 

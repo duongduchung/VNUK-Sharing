@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                         Data.courseArrayList.add(dataSnapshot.child("course" + "-" + integer).getValue(Course.class));
                                                     }
 
-                                                    Intent intent = new Intent(MainActivity.this, AfterLogin.class);
+                                                    Intent intent = new Intent(MainActivity.this, Navigation.class);
                                                     startActivity(intent);
                                                 }
 
