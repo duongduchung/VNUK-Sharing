@@ -9,13 +9,15 @@ import java.util.ArrayList;
 public class Student {
     private int idUser;
     private String name;
+    private int idClass;
     private ArrayList<Integer> idCoursesArrayList = new ArrayList<Integer>();
 
     public Student() {
     }
-    public Student(int idUser, String name, ArrayList<Integer> idCoursesArrayList) {
+    public Student(int idUser, String name, int idClass, ArrayList<Integer> idCoursesArrayList) {
         this.idUser = idUser;
         this.name = name;
+        this.idClass = idClass;
         this.idCoursesArrayList = idCoursesArrayList;
     }
 
@@ -30,6 +32,12 @@ public class Student {
     }
     public void setName(String name) {
         this.name = name;
+    }
+    public int getIdClass(){
+        return idClass;
+    }
+    public void setIdClass(int idClass){
+        this.idClass = idClass;
     }
     public ArrayList<Integer> getIdCoursesArrayList() {
         return idCoursesArrayList;
