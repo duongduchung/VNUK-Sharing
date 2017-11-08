@@ -51,66 +51,98 @@ public class FunctionalScreen extends AppCompatActivity {
 
 
                     if(position == 0) {
-                        FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").child("syllabus" + "-" + Data.currentCourse.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                Data.currentSyllabus = dataSnapshot.getValue(Syllabus.class);
+                        FirebaseDatabase
+                                .getInstance()
+                                .getReference()
+                                .child("root")
+                                .child("syllabuses")
+                                .child("syllabus" + "-" + Data.currentCourse.getId())
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        Data.currentSyllabus = dataSnapshot.getValue(Syllabus.class);
 
-                                Intent intent = new Intent(FunctionalScreen.this, SyllabusScreen.class);
-                                startActivity(intent);
-                            }
+                                        if(Data.currentUser.getAccess() == 0) { // teacher
+                                            Intent intent = new Intent(FunctionalScreen.this, SyllabusScreen.class);
+                                            startActivity(intent);
+                                        }else { // student
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                        }
 
-                            }
-                        });
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
 
                     }
 
                     if(position == 1) {
 
                         Data.announcementArrayList.clear();
-                        FirebaseDatabase.getInstance().getReference().child("root").child("announcements").child("course" + "-" + Data.currentCourse.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
+                        FirebaseDatabase
+                                .getInstance()
+                                .getReference()
+                                .child("root")
+                                .child("announcements")
+                                .child("course" + "-" + Data.currentCourse.getId())
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                for(int i = Data.currentCourse.getAnnoucementsCount() - 1; i >= 0 ; i--){
-                                    Data.announcementArrayList.add(dataSnapshot.child("announcement" + "-" + i).getValue(Announcement.class));
-                                }
+                                        for(int i = Data.currentCourse.getAnnouncementsCount() - 1; i >= 0 ; i--){
+                                            Data.announcementArrayList.add(dataSnapshot.child("announcement" + "-" + i).getValue(Announcement.class));
+                                        }
 
-                                Intent intent = new Intent(FunctionalScreen.this, AnnouncementsScreen.class);
-                                startActivity(intent);
-                            }
+                                        if(Data.currentUser.getAccess() == 0) { // teacher
+                                            Intent intent = new Intent(FunctionalScreen.this, AnnouncementsScreen.class);
+                                            startActivity(intent);
+                                        }else{ // student
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                        }
+                                    }
 
-                            }
-                        });
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
 
                     }
 
                     if(position == 2) {
 
                         Data.deadlineArrayList.clear();
-                        FirebaseDatabase.getInstance().getReference().child("root").child("deadlines").child("course" + "-" + Data.currentCourse.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
+                        FirebaseDatabase
+                                .getInstance()
+                                .getReference()
+                                .child("root")
+                                .child("deadlines")
+                                .child("course" + "-" + Data.currentCourse.getId())
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                for(int i = Data.currentCourse.getDeadlinesCount() - 1; i >= 0; i--){
-                                    Data.deadlineArrayList.add(dataSnapshot.child("deadline" + "-" + i).getValue(Deadline.class));
-                                }
+                                        for(int i = Data.currentCourse.getDeadlinesCount() - 1; i >= 0; i--){
+                                            Data.deadlineArrayList.add(dataSnapshot.child("deadline" + "-" + i).getValue(Deadline.class));
+                                        }
 
-                                Intent intent = new Intent(FunctionalScreen.this, DeadlinesScreen.class);
-                                startActivity(intent);
-                            }
+                                        if(Data.currentUser.getAccess() == 0) { // teacher
+                                            Intent intent = new Intent(FunctionalScreen.this, DeadlinesScreen.class);
+                                            startActivity(intent);
+                                        }else{ // student
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                        }
 
-                            }
-                        });
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
                     }
                 }
             });

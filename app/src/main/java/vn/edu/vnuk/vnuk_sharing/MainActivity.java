@@ -75,8 +75,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if(dataSnapshot.exists()){
                             User user = new User();
                             user = dataSnapshot.getValue(User.class);
+                            Data.currentUser = user;
 
-                            if(user.getAccess() == 0) {
+                            if(user.getAccess() == 1) {
 
                                 FirebaseDatabase
                                         .getInstance()

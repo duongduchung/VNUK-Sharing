@@ -18,13 +18,13 @@ public class Course {
     private String name;
     private int status;
     private int deadlinesCount;
-    private int annoucementsCount;
+    private int announcementsCount;
 
     public Course() {
 
     }
 
-    public Course(int id, String codeCourse, int idTeacher, int idClass, String name, int status, int deadlinesCount, int annoucementsCount) {
+    public Course(int id, String codeCourse, int idTeacher, int idClass, String name, int status, int deadlinesCount, int announcementsCount) {
         this.id = id;
         this.codeCourse = codeCourse;
         this.idTeacher = idTeacher;
@@ -32,7 +32,7 @@ public class Course {
         this.name = name;
         this.status = status;
         this.deadlinesCount = deadlinesCount;
-        this.annoucementsCount = annoucementsCount;
+        this.announcementsCount = announcementsCount;
     }
 
     public int getId() {
@@ -91,11 +91,11 @@ public class Course {
         this.deadlinesCount = deadlinesCount;
     }
 
-    public int getAnnoucementsCount() {
-        return annoucementsCount;
+    public int getAnnouncementsCount() {
+        return announcementsCount;
     }
 
-    public void setAnnoucementsCount(int annoucementsCount) {
-        this.annoucementsCount = annoucementsCount;
+    public void setAnnouncementsCount(int announcementsCount) {
+        this.announcementsCount = announcementsCount;
     }
 }

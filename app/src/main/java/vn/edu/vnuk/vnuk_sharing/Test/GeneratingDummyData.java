@@ -32,6 +32,10 @@ public class GeneratingDummyData {
     }
 
     public void createData(int numberOfCourses, int numberOfUsers, int numberOfClasses){
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .removeValue();
         this.numberOfCourses = numberOfCourses;
         this.numberOfClasses = numberOfClasses;
         classArrayList = generateClasses(numberOfClasses);
@@ -72,7 +76,7 @@ public class GeneratingDummyData {
         course.setIdClass((new Random()).nextInt(numberOfClasses));
         course.setIdTeacher(-1);
         course.setName("course name " + id);
-        course.setAnnoucementsCount(gerenateAnnoncements(2 + (new Random()).nextInt(10), id));
+        course.setAnnouncementsCount(gerenateAnnoncements(2 + (new Random()).nextInt(10), id));
         course.setDeadlinesCount(generateDeadlines(2 + (new Random()).nextInt(10), id));
         course.setStatus(1);
         generateSyllabus(id);
@@ -130,7 +134,7 @@ public class GeneratingDummyData {
         User user = new User();
         user.setId(id);
         user.setAccess((new Random()).nextInt(2));
-        if(user.getAccess() == 0){
+        if(user.getAccess() == 1){
             generateSingleStudent(id);
         }else {
             generateSingleTeacher(id);
@@ -227,7 +231,6 @@ public class GeneratingDummyData {
 
             }while(check == false);
 
-            idCoursesArrayList.add(temp);
             FirebaseDatabase.getInstance()
                     .getReference()
                     .child("root")

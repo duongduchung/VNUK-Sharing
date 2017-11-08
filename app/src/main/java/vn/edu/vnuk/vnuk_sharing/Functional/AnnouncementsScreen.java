@@ -163,7 +163,7 @@ public class AnnouncementsScreen extends AppCompatActivity {
     public void processAddJob()
     {
         Announcement announcement = new Announcement();
-        announcement.setId(Data.currentCourse.getAnnoucementsCount());
+        announcement.setId(Data.currentCourse.getAnnouncementsCount());
         announcement.setIdCourse(Data.currentCourse.getId());
         announcement.setDescription(editCt.getText().toString());
         announcement.setDate(dateFinish);
@@ -174,7 +174,7 @@ public class AnnouncementsScreen extends AppCompatActivity {
                 .child("root")
                 .child("announcements")
                 .child("course" + "-" + Data.currentCourse.getId())
-                .child("announcement" + "-" + Data.currentCourse.getAnnoucementsCount())
+                .child("announcement" + "-" + Data.currentCourse.getAnnouncementsCount())
                 .setValue(announcement, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -189,7 +189,7 @@ public class AnnouncementsScreen extends AppCompatActivity {
                                     .child("courses")
                                     .child("course" + "-" + Data.currentCourse.getId())
                                     .child("announcementsCount")
-                                    .setValue(Data.currentCourse.getAnnoucementsCount() + 1 , new DatabaseReference.CompletionListener() {
+                                    .setValue(Data.currentCourse.getAnnouncementsCount() + 1 , new DatabaseReference.CompletionListener() {
                                         @Override
                                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                             if(databaseError == null){
@@ -206,7 +206,7 @@ public class AnnouncementsScreen extends AppCompatActivity {
                                                 editCt.setText("");
                                                 editA.requestFocus();
 
-                                                Data.currentCourse.setAnnoucementsCount(Data.currentCourse.getAnnoucementsCount() + 1);
+                                                Data.currentCourse.setAnnouncementsCount(Data.currentCourse.getAnnouncementsCount() + 1);
 
                                                 Toast.makeText(getApplicationContext(), "Lưu thành công", Toast.LENGTH_LONG).show();
 

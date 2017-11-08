@@ -78,7 +78,7 @@ public class Navigation extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_courses) {
             Intent newSharing = new Intent(Navigation.this,Sharing.class);
             startActivity(newSharing);
 

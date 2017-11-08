@@ -56,6 +56,7 @@ public class Sharing extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     Data.currentCourse = Data.courseArrayList.get(position);
+
                     Intent intent = new Intent(Sharing.this, FunctionalScreen.class);
                     startActivity(intent);
                 }
