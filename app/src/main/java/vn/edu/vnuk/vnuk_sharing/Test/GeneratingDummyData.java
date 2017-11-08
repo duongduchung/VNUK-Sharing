@@ -41,9 +41,20 @@ public class GeneratingDummyData {
         classArrayList = generateClasses(numberOfClasses);
         courseArrayList = generateCoursesArrayList(numberOfCourses, numberOfClasses);
         generateUsersArrayList(numberOfUsers);
+        generateNotifications();
     }
 
-
+    private void generateNotifications(){
+        for(int i = 0; i < 10; i++){
+            FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("root")
+                    .child("notification")
+                    .child("notification" + "-" + i)
+                    .setValue(i);
+        }
+    }
     public ArrayList<Class> generateClasses(int numberOfClasses){
         ArrayList<Class> classArrayList = new ArrayList<>();
 

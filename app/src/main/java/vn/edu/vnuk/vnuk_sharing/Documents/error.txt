@@ -1,7 +1,4 @@
-cancel upload
-catch error login
-đẩy listview ngược
-chỉ title của onBackPressed() (uploading syllabus)
+
 
 pm
 chia tasks nhỏ

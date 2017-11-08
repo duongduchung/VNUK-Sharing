@@ -13,6 +13,9 @@ Announcement
 Teacher
 ~/root/teachers/teacher-[idUser]
 
+Student
+~/root/students/student-[idUser]
+
 User
 ~/root/users/user-[username]-[password]
 
