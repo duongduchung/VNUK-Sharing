@@ -8,64 +8,10 @@
     tools:context="vn.edu.vnuk.vnuk_sharing.Activities.LoginSuccess"
     tools:showIn="@layout/app_bar_navigation">
 
-    <TextView
-        android:id="@+id/tvToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Notification"
-        android:textSize="@dimen/size_big"
-        android:padding="@dimen/size_normal"
-        android:background="@color/Cardinal"/>
-
-    <TextView
-        android:id="@+id/tvSyllabus"
-        android:layout_below="@+id/tvToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Syllabus"
-        android:textColor="@color/Black"
-        android:textSize="@dimen/size_big"
-        android:padding="@dimen/size_normal"/>
-
     <ListView
-        android:id="@+id/lvSyllabus"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_below="@+id/tvSyllabus">
-    </ListView>
-
-    <TextView
-        android:id="@+id/tvDeadlines"
-        android:layout_below="@+id/lvSyllabus"
+        android:id="@+id/lvNotification"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Deadlines"
-        android:textColor="@color/Black"
-        android:textSize="@dimen/size_big"
-        android:padding="@dimen/size_normal"/>
-
-    <ListView
-        android:id="@+id/lvDeadlines"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@+id/tvDeadlines">
-    </ListView>
-
-    <TextView
-        android:id="@+id/tvAnnoucement"
-        android:layout_below="@+id/lvDeadlines"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Day-off"
-        android:textColor="@color/Black"
-        android:textSize="@dimen/size_big"
-        android:padding="@dimen/size_normal"/>
-
-    <ListView
-        android:id="@+id/lvAnnouncemen"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_below="@+id/tvAnnoucement">
+        android:layout_height="match_parent">
     </ListView>
 
 

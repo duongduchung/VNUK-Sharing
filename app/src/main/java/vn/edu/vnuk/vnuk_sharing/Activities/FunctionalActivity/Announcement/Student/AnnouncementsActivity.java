@@ -44,10 +44,6 @@ public class AnnouncementsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_annoucements_screen_student);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Day off Notification");
-
         getFormWidgets();
         getDefaultInfor();
         addEventFormWidgets();

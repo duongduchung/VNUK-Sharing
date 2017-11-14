@@ -38,10 +38,6 @@ public class DeadlinesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deadlines_screen_student);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Deadlines Notification");
-
         getFormWidgets();
         getDefaultInfor();
         addEventFormWidgets();
@@ -91,7 +87,6 @@ public class DeadlinesActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
-
 
     // ngoc
     @Override

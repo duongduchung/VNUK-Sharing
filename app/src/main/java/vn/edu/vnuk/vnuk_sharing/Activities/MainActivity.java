@@ -47,11 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //generatingDummyData.createData(70, 1000, 20);
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.logout_optional,menu);
-        return true;
-    }
 
     ArrayList<Teacher> teacherArrayList = new ArrayList<Teacher>();
     @Override
