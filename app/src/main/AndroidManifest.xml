@@ -19,7 +19,9 @@
         <activity android:name=".Functional.SyllabusScreen" />
         <activity android:name=".Functional.AnnouncementsScreen" />
         <activity android:name=".Functional.DeadlinesScreen" />
-        <activity android:name=".AfterLogin" />
+        <activity android:name=".Functional.DeadlinesScreenStudent" />
+        <activity android:name=".Functional.AnnouncementsScreenStudent" />
+        <activity android:name=".Setting" />
         <activity android:name=".Sharing" />
         <activity
             android:name=".Navigation"

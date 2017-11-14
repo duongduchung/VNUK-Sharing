@@ -106,6 +106,8 @@ public class Navigation extends AppCompatActivity
             startActivity(newSharing);
 
         } else if (id == R.id.nav_setting) {
+            Intent newSharing = new Intent(Navigation.this,Setting.class);
+            startActivity(newSharing);
 
         } else if (id == R.id.nav_logout) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);

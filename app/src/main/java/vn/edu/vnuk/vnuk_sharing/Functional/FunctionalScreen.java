@@ -100,7 +100,8 @@ public class FunctionalScreen extends AppCompatActivity {
                                             Intent intent = new Intent(FunctionalScreen.this, AnnouncementsScreen.class);
                                             startActivity(intent);
                                         }else{ // student
-
+                                            Intent intent = new Intent(FunctionalScreen.this, AnnouncementsScreenStudent.class);
+                                            startActivity(intent);
                                         }
                                     }
 
@@ -133,6 +134,8 @@ public class FunctionalScreen extends AppCompatActivity {
                                             Intent intent = new Intent(FunctionalScreen.this, DeadlinesScreen.class);
                                             startActivity(intent);
                                         }else{ // student
+                                            Intent intent = new Intent(FunctionalScreen.this, DeadlinesScreenStudent.class);
+                                            startActivity(intent);
 
                                         }
 

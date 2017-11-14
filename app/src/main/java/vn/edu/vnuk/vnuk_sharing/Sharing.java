@@ -16,18 +16,8 @@ import vn.edu.vnuk.vnuk_sharing.Functional.FunctionalScreen;
 
 
 public class Sharing extends AppCompatActivity {
-
-
-    //    public Sharing() {
-//        // Required empty public constructor
-//    }
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-
-//        public View onCreateView (LayoutInflater inflater, ViewGroup container,
-//                Bundle savedInstanceState){
-//            View view = inflater.inflate(R.layout.fragment_sharing, container, false)
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_sharing);
@@ -61,9 +51,5 @@ public class Sharing extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
-           // return listView;
         }
-
-   // }
 }
