@@ -69,8 +69,7 @@ public class AnnouncementsActivity extends AppCompatActivity {
         btnDate=(Button) findViewById(R.id.btndate);
         btnAdd=(Button) findViewById(R.id.btnannouncement);
         lv=(ListView) findViewById(R.id.lvannouncement);
-        adapter=new ArrayAdapter<AnnouncementsInWeek>
-                (this,
+        adapter=new ArrayAdapter<AnnouncementsInWeek>(this,
                         android.R.layout.simple_list_item_1,
                         arrJob);
         lv.setAdapter(adapter);

@@ -15,6 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
 
@@ -30,6 +35,8 @@ public class LoginSuccess extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     TextView txtUsername, txtLevel;
+    ListView listViewNotification;
+    ArrayList<String> notificationArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +52,7 @@ public class LoginSuccess extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View view = navigationView.getHeaderView(0);
         txtUsername = (TextView) view.findViewById(R.id.txtNameOfCurrentUser);
         txtUsername.setText("Username : " + Data.currentUser.getUsername());
@@ -55,8 +62,13 @@ public class LoginSuccess extends AppCompatActivity
         }else{
             txtLevel.setText("Level   : Student");
         }
+        listViewNotification = (ListView) findViewById(R.id.lvNotification);
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        notificationArrayList = new ArrayList<String>();
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notificationArrayList);
+        listViewNotification.setAdapter(adapter);
 
         FirebaseDatabase
                 .getInstance()
@@ -66,7 +78,11 @@ public class LoginSuccess extends AppCompatActivity
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Toast.makeText(getApplicationContext(), dataSnapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
+                        notificationArrayList.clear();
+                        for(DataSnapshot ds : dataSnapshot.getChildren()){
+                            notificationArrayList.add(ds.getValue().toString());
+                        }
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -74,6 +90,9 @@ public class LoginSuccess extends AppCompatActivity
 
                     }
                 });
+
+
+
     }
 
     @Override
