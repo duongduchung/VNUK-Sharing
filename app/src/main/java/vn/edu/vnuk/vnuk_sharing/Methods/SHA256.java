@@ -1,4 +1,4 @@
-package vn.edu.vnuk.vnuk_sharing;
+package vn.edu.vnuk.vnuk_sharing.Methods;
 
 import java.security.MessageDigest;
 

@@ -1,4 +1,4 @@
-package vn.edu.vnuk.vnuk_sharing;
+package vn.edu.vnuk.vnuk_sharing.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,18 +16,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import vn.edu.vnuk.vnuk_sharing.Api.LoginApi;
-import vn.edu.vnuk.vnuk_sharing.DataActions.ReadData;
+import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Student;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
+import vn.edu.vnuk.vnuk_sharing.Methods.SHA256;
+import vn.edu.vnuk.vnuk_sharing.R;
 import vn.edu.vnuk.vnuk_sharing.Test.GeneratingDummyData;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button btn_login ;
     EditText edt_username, edt_password;
-    LoginApi loginApi = new LoginApi();
     ArrayList<User> userArrayList = new ArrayList<User>();
 
     @Override
@@ -51,15 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.logout_optional,menu);
         return true;
-    }
-
-
-    @Override
-    public void onStart(){
-        super.onStart();
-
-        ReadData readData = new ReadData();
-        readData.getAllUser(userArrayList);
     }
 
     ArrayList<Teacher> teacherArrayList = new ArrayList<Teacher>();
@@ -106,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                                         Data.courseArrayList.add(dataSnapshot.child("course" + "-" + integer).getValue(Course.class));
                                                                     }
 
-                                                                    Intent intent = new Intent(MainActivity.this, Navigation.class);
+                                                                    Intent intent = new Intent(MainActivity.this, LoginSuccess.class);
                                                                     startActivity(intent);
 
                                                                 }
@@ -154,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                                         Data.courseArrayList.add(dataSnapshot.child("course" + "-" + integer).getValue(Course.class));
                                                                     }
 
-                                                                    Intent intent = new Intent(MainActivity.this, Navigation.class);
+                                                                    Intent intent = new Intent(MainActivity.this, LoginSuccess.class);
                                                                     startActivity(intent);
                                                                 }
 

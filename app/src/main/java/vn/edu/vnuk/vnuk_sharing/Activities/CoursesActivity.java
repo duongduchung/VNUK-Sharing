@@ -1,4 +1,4 @@
-package vn.edu.vnuk.vnuk_sharing;
+package vn.edu.vnuk.vnuk_sharing.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +11,13 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
-import vn.edu.vnuk.vnuk_sharing.Functional.FunctionalScreen;
+import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.FunctionalActivity;
+import vn.edu.vnuk.vnuk_sharing.R;
 
 
-public class Sharing extends AppCompatActivity {
+public class CoursesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
 
@@ -47,7 +49,7 @@ public class Sharing extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     Data.currentCourse = Data.courseArrayList.get(position);
 
-                    Intent intent = new Intent(Sharing.this, FunctionalScreen.class);
+                    Intent intent = new Intent(CoursesActivity.this, FunctionalActivity.class);
                     startActivity(intent);
                 }
             });

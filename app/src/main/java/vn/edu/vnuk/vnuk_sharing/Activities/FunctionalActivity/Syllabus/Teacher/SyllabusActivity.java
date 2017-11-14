@@ -1,4 +1,4 @@
-package vn.edu.vnuk.vnuk_sharing.Functional;
+package vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Syllabus.Teacher;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -30,11 +30,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
-import vn.edu.vnuk.vnuk_sharing.Data;
-import vn.edu.vnuk.vnuk_sharing.GetInfoOfFileFromUri;
+import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
+import vn.edu.vnuk.vnuk_sharing.Methods.GetInfoOfFileFromUri;
 import vn.edu.vnuk.vnuk_sharing.R;
 
-public class SyllabusScreen extends AppCompatActivity implements View.OnClickListener {
+public class SyllabusActivity extends AppCompatActivity implements View.OnClickListener {
 
     //this is the pic pdf code used in file chooser
     final static int PICK_PDF_CODE = 2342;
@@ -246,7 +246,7 @@ public class SyllabusScreen extends AppCompatActivity implements View.OnClickLis
             alertBuilder.setPositiveButton("TAKE ME AWAY", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int id) {
-                    SyllabusScreen.super.onBackPressed();
+                    SyllabusActivity.super.onBackPressed();
                 }
             });
             alertBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {

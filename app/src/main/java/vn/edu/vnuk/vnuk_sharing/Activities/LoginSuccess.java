@@ -1,4 +1,4 @@
-package vn.edu.vnuk.vnuk_sharing;
+package vn.edu.vnuk.vnuk_sharing.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,7 +22,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Navigation extends AppCompatActivity
+import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
+import vn.edu.vnuk.vnuk_sharing.R;
+
+public class LoginSuccess extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
@@ -102,11 +105,11 @@ public class Navigation extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_courses) {
-            Intent newSharing = new Intent(Navigation.this,Sharing.class);
+            Intent newSharing = new Intent(LoginSuccess.this,CoursesActivity.class);
             startActivity(newSharing);
 
         } else if (id == R.id.nav_setting) {
-            Intent newSharing = new Intent(Navigation.this,Setting.class);
+            Intent newSharing = new Intent(LoginSuccess.this,SettingActivity.class);
             startActivity(newSharing);
 
         } else if (id == R.id.nav_logout) {

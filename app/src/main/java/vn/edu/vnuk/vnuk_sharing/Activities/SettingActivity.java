@@ -1,4 +1,4 @@
-package vn.edu.vnuk.vnuk_sharing;
+package vn.edu.vnuk.vnuk_sharing.Activities;
 
 
 import android.os.Bundle;
@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Setting extends AppCompatActivity {
+import vn.edu.vnuk.vnuk_sharing.R;
+
+public class SettingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

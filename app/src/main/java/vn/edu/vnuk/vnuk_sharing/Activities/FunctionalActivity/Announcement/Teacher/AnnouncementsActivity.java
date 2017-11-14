@@ -1,4 +1,4 @@
-package vn.edu.vnuk.vnuk_sharing.Functional;
+package vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Teacher;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -28,12 +28,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import vn.edu.vnuk.vnuk_sharing.Data;
+import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.AnnouncementsInWeek;
+import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
 import vn.edu.vnuk.vnuk_sharing.R;
 
 
-public class AnnouncementsScreen extends AppCompatActivity {
+public class AnnouncementsActivity extends AppCompatActivity {
 
     TextView txtDate;
     EditText editA,editCt;
@@ -128,7 +129,7 @@ public class AnnouncementsScreen extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                 long arg3) {
-            Toast.makeText(AnnouncementsScreen.this,
+            Toast.makeText(AnnouncementsActivity.this,
                     arrJob.get(arg2).getDesciption(),
                     Toast.LENGTH_LONG).show();
         }
@@ -154,7 +155,7 @@ public class AnnouncementsScreen extends AppCompatActivity {
         int month=Integer.parseInt(strArrtmp[1])-1;
         int year=Integer.parseInt(strArrtmp[2]);
         DatePickerDialog pic=new DatePickerDialog(
-                AnnouncementsScreen.this,
+                AnnouncementsActivity.this,
                 callback, year, month, date);
         pic.setTitle("Pick date ");
         pic.show();

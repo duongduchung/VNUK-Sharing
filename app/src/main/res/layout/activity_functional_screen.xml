@@ -5,7 +5,7 @@
     android:id="@+id/activity_functional_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.edu.vnuk.vnuk_sharing.Functional.FunctionalScreen">
+    tools:context=".Activities.FunctionalActivity.FunctionalActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

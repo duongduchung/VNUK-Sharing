@@ -8,23 +8,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Functional.FunctionalScreen" />
-        <activity android:name=".Functional.SyllabusScreen" />
-        <activity android:name=".Functional.AnnouncementsScreen" />
-        <activity android:name=".Functional.DeadlinesScreen" />
-        <activity android:name=".Functional.DeadlinesScreenStudent" />
-        <activity android:name=".Functional.AnnouncementsScreenStudent" />
-        <activity android:name=".Setting" />
-        <activity android:name=".Sharing" />
+        <activity android:name=".Activities.FunctionalActivity.FunctionalActivity" />
+        <activity android:name=".Activities.FunctionalActivity.Syllabus.Teacher.SyllabusActivity" />
+        <activity android:name=".Activities.FunctionalActivity.Announcement.Teacher.AnnouncementsActivity" />
+        <activity android:name=".Activities.FunctionalActivity.Deadline.Teacher.DeadlinesActivity" />
+        <activity android:name=".Activities.FunctionalActivity.Deadline.Student.DeadlinesActivity" />
+        <activity android:name=".Activities.FunctionalActivity.Announcement.Student.AnnouncementsActivity" />
+        <activity android:name=".Activities.SettingActivity" />
+        <activity android:name=".Activities.CoursesActivity" />
         <activity
-            android:name=".Navigation"
+            android:name=".Activities.LoginSuccess"
             android:label="VNUK Application"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

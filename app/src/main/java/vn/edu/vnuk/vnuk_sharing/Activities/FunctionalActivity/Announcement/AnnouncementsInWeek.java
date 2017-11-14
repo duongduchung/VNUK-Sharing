@@ -1,4 +1,4 @@
-package vn.edu.vnuk.vnuk_sharing.Functional;
+package vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
