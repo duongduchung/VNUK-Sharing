@@ -1,8 +1,8 @@
 package vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Student;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,8 +18,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.AnnouncementsInWeek;
-import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
+import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
 
 /**
@@ -87,9 +86,12 @@ public class AnnouncementsActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                 long arg3) {
-            Toast.makeText(AnnouncementsActivity.this,
-                    arrJob.get(arg2).getDesciption(),
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(AnnouncementsActivity.this,
+//                    arrJob.get(arg2).getDesciption(),
+//                    Toast.LENGTH_LONG).show();
+
+            Intent showing = new Intent(AnnouncementsActivity.this, showing_detailed_one_announcement.class);
+            startActivity(showing);
         }
 
     }

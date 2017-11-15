@@ -1,13 +1,12 @@
 package vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.Student;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,8 +15,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.DeadlinesInWeek;
-import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
+import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
 
 /**
@@ -82,9 +81,11 @@ public class DeadlinesActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                 long arg3) {
-            Toast.makeText(DeadlinesActivity.this,
-                    arrJob.get(arg2).getDesciption(),
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(DeadlinesActivity.this,
+//                    arrJob.get(arg2).getDesciption(),
+//                    Toast.LENGTH_LONG).show();
+            Intent showing = new Intent(DeadlinesActivity.this, showing_detailed_one_deadline.class);
+            startActivity(showing);
         }
     }
 
