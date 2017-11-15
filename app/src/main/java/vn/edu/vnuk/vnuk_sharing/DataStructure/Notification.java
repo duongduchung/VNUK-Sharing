@@ -2,40 +2,24 @@ package vn.edu.vnuk.vnuk_sharing.DataStructure;
 
 import java.util.HashMap;
 
-/**
- * Created by quangngoc430 on 15/11/2017.
- */
+// ~/root/notification/notification-[idNotification]
 
 public class Notification {
-    private final HashMap<Integer, String> NOTIFICATION_TYPE = new HashMap<Integer, String>();
     private int idNotification;
     private int idCourse;
     private String titleOfNotification;
     private String contentOfNotification;
     private int typeOfNotification;
 
-    private void generateNotificationType(){
-        NOTIFICATION_TYPE.put(0, "Create syllabus");
-        NOTIFICATION_TYPE.put(1, "Update syllabus");
-        NOTIFICATION_TYPE.put(2, "Add announcement");
-        NOTIFICATION_TYPE.put(3, "Add deadline");
-    }
-
-    public Notification(){
-        generateNotificationType();
+    public Notification() {
     }
 
     public Notification(int idNotification, int idCourse, String titleOfNotification, String contentOfNotification, int typeOfNotification) {
-        generateNotificationType();
         this.idNotification = idNotification;
         this.idCourse = idCourse;
         this.titleOfNotification = titleOfNotification;
         this.contentOfNotification = contentOfNotification;
         this.typeOfNotification = typeOfNotification;
-    }
-
-    public HashMap<Integer, String> getNOTIFICATION_TYPE() {
-        return NOTIFICATION_TYPE;
     }
 
     public int getIdNotification() {

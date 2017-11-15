@@ -16,6 +16,12 @@ root
     syllabuses
        syllabus-[idCourse]
 
+    notification
+        notification-[idNotification]
+
+    notification_are_loaded
+        notification-[idNotification]
+
     teachers
        teacher-[idUser]
 

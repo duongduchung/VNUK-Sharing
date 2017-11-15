@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
 
@@ -69,7 +71,6 @@ public class LoginSuccess extends AppCompatActivity
         notificationArrayList = new ArrayList<String>();
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notificationArrayList);
         listViewNotification.setAdapter(adapter);
-
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -79,8 +80,14 @@ public class LoginSuccess extends AppCompatActivity
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         notificationArrayList.clear();
+
                         for(DataSnapshot ds : dataSnapshot.getChildren()){
-                            notificationArrayList.add(ds.getValue().toString());
+                            for(Course course : Data.courseArrayList){
+                                if(course.getId() == ds.getValue(Notification.class).getIdCourse()) {
+                                    notificationArrayList.add(ds.getValue(Notification.class).getTitleOfNotification());
+                                    break;
+                                }
+                            }
                         }
                         adapter.notifyDataSetChanged();
                     }
@@ -90,8 +97,6 @@ public class LoginSuccess extends AppCompatActivity
 
                     }
                 });
-
-
 
     }
 
