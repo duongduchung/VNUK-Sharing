@@ -16,6 +16,12 @@ root
     syllabuses
        syllabus-[idCourse]
 
+    notifications
+        notification-[idNotification]
+
+    numberOfNotification : 100
+
+
     teachers
        teacher-[idUser]
 
