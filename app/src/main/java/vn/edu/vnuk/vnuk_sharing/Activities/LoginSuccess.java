@@ -1,11 +1,14 @@
 package vn.edu.vnuk.vnuk_sharing.Activities;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -99,6 +102,7 @@ public class LoginSuccess extends AppCompatActivity
                     }
                 });
 
+        final boolean[] isFirstTimeLoadNotification = {false};
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -108,18 +112,45 @@ public class LoginSuccess extends AppCompatActivity
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        notificationArrayList.clear();
-                        notificationDetailArrayList.clear();
+                        if(isFirstTimeLoadNotification[0] == false) {
+                            notificationArrayList.clear();
+                            notificationDetailArrayList.clear();
 
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            for (Course course : Data.courseArrayList) {
-                                if (course.getId() == ds.getValue(Notification.class).getIdCourse()) {
-                                    notificationArrayList.add(ds.getValue(Notification.class));
-                                    notificationDetailArrayList.add(ds.getValue(Notification.class).getTitleOfNotification());
-                                    break;
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                for (Course course : Data.courseArrayList) {
+                                    if (course.getId() == ds.getValue(Notification.class).getIdCourse()) {
+                                        notificationArrayList.add(ds.getValue(Notification.class));
+                                        notificationDetailArrayList.add(ds.getValue(Notification.class).getTitleOfNotification());
+                                        break;
+                                    }
                                 }
                             }
                         }
+                        else{
+                            boolean isExist;
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                for (Course course : Data.courseArrayList) {
+                                    if (course.getId() == ds.getValue(Notification.class).getIdCourse()) {
+                                        isExist = false;
+                                        for(Notification notification : notificationArrayList){
+                                            if(notification.getIdNotification() == ds.getValue(Notification.class).getIdNotification()){
+                                                isExist = true;
+                                                break;
+                                            }
+                                        }
+
+                                        if(isExist == false) {
+
+                                            notificationArrayList.add(0, ds.getValue(Notification.class));
+                                            notificationDetailArrayList.add(0, ds.getValue(Notification.class).getTitleOfNotification());
+                                            sendNotification(null, ds.getValue(Notification.class).getTitleOfNotification(), ds.getValue(Notification.class).getContentOfNotification());
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
                         Notification notificationTemp;
                         String notificationTitleTemp;
 
@@ -144,6 +175,7 @@ public class LoginSuccess extends AppCompatActivity
 
                         adapter.notifyDataSetChanged();
 
+                        isFirstTimeLoadNotification[0] = true;
                     }
 
                     @Override
@@ -154,9 +186,22 @@ public class LoginSuccess extends AppCompatActivity
 
     }
 
+    public void sendNotification(View v, String title, String content) {
+
+        // Gets an instance of the NotificationManager service//
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        android.app.Notification.Builder notifyBuilder = new android.app.Notification.Builder(this);
+        notifyBuilder.setContentTitle(title);
+        notifyBuilder.setContentText(content);
+        notifyBuilder.setSmallIcon(R.mipmap.ic_launcher);
+
+        mNotificationManager.notify(1, notifyBuilder.build());
+    }
+
     @Override
     public void onBackPressed() {
-
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
