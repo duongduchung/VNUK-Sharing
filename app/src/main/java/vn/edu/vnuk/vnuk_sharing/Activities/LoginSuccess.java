@@ -25,6 +25,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Student.AnnouncementsActivity;
+import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Student.showing_detailed_one_announcement;
+import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.Student.DeadlinesActivity;
+import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.Student.showing_detailed_one_deadline;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
@@ -34,7 +38,7 @@ import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
 
 public class LoginSuccess extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
 
     TextView txtUsername, txtLevel;
     ListView listViewNotification;
@@ -66,15 +70,14 @@ public class LoginSuccess extends AppCompatActivity
             txtLevel.setText("Level   : Student");
         }
         listViewNotification = (ListView) findViewById(R.id.lvNotification);
-        listViewNotification.setOnItemSelectedListener(this);
-
+        listViewNotification.setOnItemClickListener(this);
         navigationView.setNavigationItemSelectedListener(this);
 
         notificationArrayList = new ArrayList<Notification>();
         notificationDetailArrayList = new ArrayList<String>();
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notificationDetailArrayList);
         listViewNotification.setAdapter(adapter);
-        listViewNotification.setOnItemClickListener(this);
+
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -151,35 +154,17 @@ public class LoginSuccess extends AppCompatActivity
         return true;
     }
 
-
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Data.currentNotification = notificationArrayList.get(i);
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        Data.currentNotification = notificationArrayList.get(position);
 
-        switch(Data.currentNotification.getTypeOfNotification()){
-            case 0 :{
-                FirebaseDatabase
-                        .getInstance()
-                        .getReference()
-                        .child("root")
-                        .child("syllabuses")
-                        .child("syllabus-" + Data.currentCourse.getId())
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                Data.currentNotificationSyllabus = dataSnapshot.getValue(Syllabus.class);
-
-                                Toast.makeText(getApplicationContext(), "Course : " + Data.currentCourse.getId() + " syllabus", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
+        switch (Data.currentNotification.getTypeOfNotification()){
+            case 0:{
+                // syllabus
             }
             break;
-            case 1 :{
+            case 1:{
+                // deadline
                 FirebaseDatabase
                         .getInstance()
                         .getReference()
@@ -190,9 +175,12 @@ public class LoginSuccess extends AppCompatActivity
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                Data.currentNotificationDeadline = dataSnapshot.getValue(Deadline.class);
+                                Data.currentDeadline = dataSnapshot.getValue(Deadline.class);
+                                Data.currentCourse.setId(Data.currentNotification.getIdCourse());
+                                Data.currentCourse.setName(Data.currentNotification.getNameCourse());
 
-                                Toast.makeText(getApplicationContext(), "Course : " + Data.currentCourse.getId() + " Deadline : " + Data.currentNotificationDeadline.getId(), Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginSuccess.this, showing_detailed_one_deadline.class);
+                                startActivity(intent);
                             }
 
                             @Override
@@ -202,20 +190,24 @@ public class LoginSuccess extends AppCompatActivity
                         });
             }
             break;
-            case 2 :{
+            case 2:{
+                // announcement
                 FirebaseDatabase
                         .getInstance()
                         .getReference()
                         .child("root")
                         .child("announcements")
                         .child("course-" + Data.currentNotification.getIdCourse())
-                        .child("announcements-" + Data.currentNotification.getIdAnnouncement())
+                        .child("announcement-" + Data.currentNotification.getIdAnnouncement())
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                Data.currentNotificationAnnouncement = dataSnapshot.getValue(Announcement.class);
+                                Data.currentAnnouncement = dataSnapshot.getValue(Announcement.class);
+                                Data.currentCourse.setId(Data.currentNotification.getIdCourse());
+                                Data.currentCourse.setName(Data.currentNotification.getNameCourse());
 
-                                Toast.makeText(getApplicationContext(), "Course : " + Data.currentCourse.getId() + " Deadline : " + Data.currentNotificationDeadline, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginSuccess.this, showing_detailed_one_announcement.class);
+                                startActivity(intent);
                             }
 
                             @Override
@@ -223,36 +215,6 @@ public class LoginSuccess extends AppCompatActivity
 
                             }
                         });
-            }
-            break;
-            case 3 :{
-
-            }
-            break;
-        }
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-        Notification currentNotification = notificationArrayList.get(position);
-
-        switch (currentNotification.getTypeOfNotification()){
-            case 0:{
-                // syllabus
-            }
-            break;
-            case 1:{
-                // deadline
-            }
-            break;
-            case 2:{
-                // announcement
             }
             break;
             case 3:{

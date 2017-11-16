@@ -61,6 +61,7 @@ public class GeneratingDummyData {
                 newNotificationOfAnnouncement = new Notification();
                 newNotificationOfAnnouncement.setIdNotification(i * numberOfCourses + j);
                 newNotificationOfAnnouncement.setIdCourse(i);
+                newNotificationOfAnnouncement.setNameCourse("Course " + i);
                 newNotificationOfAnnouncement.setTitleOfNotification("Add an announcement " + j + " course " + i);
                 newNotificationOfAnnouncement.setContentOfNotification("Content of add an announcement " + j + " course " + i);
                 newNotificationOfAnnouncement.setTypeOfNotification(2);
@@ -78,6 +79,7 @@ public class GeneratingDummyData {
                 Notification newNotificationOfDeadline = new Notification();
                 newNotificationOfDeadline.setIdNotification(i * numberOfCourses + numberOfAnnouncements +j);
                 newNotificationOfDeadline.setIdCourse(i);
+                newNotificationOfDeadline.setNameCourse("Course " + i);
                 newNotificationOfDeadline.setTitleOfNotification("Add a deadline " + j + " course " + i);
                 newNotificationOfDeadline.setContentOfNotification("Content of add a deadline " + j + " course " + i);
                 newNotificationOfDeadline.setTypeOfNotification(1);
@@ -94,6 +96,7 @@ public class GeneratingDummyData {
             Notification newNotificationOfSyllabus = new Notification();
             newNotificationOfSyllabus.setIdNotification(i * numberOfCourses + numberOfAnnouncements + numberOfDeadlines);
             newNotificationOfSyllabus.setIdCourse(i);
+            newNotificationOfSyllabus.setNameCourse("Course " + i);
             newNotificationOfSyllabus.setTitleOfNotification("Update syllabus course " + i);
             newNotificationOfSyllabus.setContentOfNotification("Content of Update syllabus course " + i);
             newNotificationOfSyllabus.setTypeOfNotification(0);

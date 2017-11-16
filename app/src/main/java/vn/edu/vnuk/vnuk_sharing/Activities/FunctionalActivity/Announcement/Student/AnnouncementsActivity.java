@@ -26,7 +26,7 @@ import vn.edu.vnuk.vnuk_sharing.R;
  * Created by HP on 11/13/2017.
  */
 
-public class AnnouncementsActivity extends AppCompatActivity {
+public class AnnouncementsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     TextView txtDate;
     EditText editA,editCt;
@@ -77,23 +77,14 @@ public class AnnouncementsActivity extends AppCompatActivity {
 
     public void addEventFormWidgets()
     {
-        lv.setOnItemClickListener(new AnnouncementsActivity.MyListViewEvent());
+        lv.setOnItemClickListener(this);
     }
 
-
-    private class MyListViewEvent implements AdapterView.OnItemClickListener {
-
-        @Override
-        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                long arg3) {
-//            Toast.makeText(AnnouncementsActivity.this,
-//                    arrJob.get(arg2).getDesciption(),
-//                    Toast.LENGTH_LONG).show();
-
-            Intent showing = new Intent(AnnouncementsActivity.this, showing_detailed_one_announcement.class);
-            startActivity(showing);
-        }
-
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        Data.currentAnnouncement = Data.announcementArrayList.get(position);
+        Intent showing = new Intent(AnnouncementsActivity.this, showing_detailed_one_announcement.class);
+        startActivity(showing);
     }
 
     @Override
@@ -104,5 +95,7 @@ public class AnnouncementsActivity extends AppCompatActivity {
             AnnouncementsInWeek job = new AnnouncementsInWeek(announcement.getTitle(), announcement.getDescription(), announcement.getDate() , hourFinish);
             arrJob.add(job);
         }
+
+        adapter.notifyDataSetChanged();
     }
 }
