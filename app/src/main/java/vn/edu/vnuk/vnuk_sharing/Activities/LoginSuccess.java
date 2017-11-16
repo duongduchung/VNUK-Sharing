@@ -83,9 +83,6 @@ public class LoginSuccess extends AppCompatActivity
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-<<<<<<< HEAD
-//                        Toast.makeText(getApplicationContext(), dataSnapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
-=======
                         notificationArrayList.clear();
                         notificationDetailArrayList.clear();
 
@@ -99,7 +96,6 @@ public class LoginSuccess extends AppCompatActivity
                             }
                         }
                         adapter.notifyDataSetChanged();
->>>>>>> notification
                     }
 
                     @Override
