@@ -16,6 +16,7 @@ import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
  */
 
 public class Data {
+    public static int currentNumberOfNotifications;
     public static Notification currentNotification;
     public static Deadline currentDeadline;
     public static Announcement currentAnnouncement;

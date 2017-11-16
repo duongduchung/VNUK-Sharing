@@ -2,7 +2,9 @@ package vn.edu.vnuk.vnuk_sharing.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Student.AnnouncementsActivity;
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Student.showing_detailed_one_announcement;
@@ -45,6 +48,7 @@ public class LoginSuccess extends AppCompatActivity
     ArrayList<Notification> notificationArrayList;
     ArrayList<String> notificationDetailArrayList;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,23 +86,64 @@ public class LoginSuccess extends AppCompatActivity
                 .getInstance()
                 .getReference()
                 .child("root")
+                .child("numberOfNotification")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Data.currentNumberOfNotifications = dataSnapshot.getValue(Integer.class);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("root")
                 .child("notifications")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+
                         notificationArrayList.clear();
                         notificationDetailArrayList.clear();
 
-                        for(DataSnapshot ds : dataSnapshot.getChildren()){
-                            for(Course course : Data.courseArrayList){
-                                if(course.getId() == ds.getValue(Notification.class).getIdCourse()) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            for (Course course : Data.courseArrayList) {
+                                if (course.getId() == ds.getValue(Notification.class).getIdCourse()) {
                                     notificationArrayList.add(ds.getValue(Notification.class));
                                     notificationDetailArrayList.add(ds.getValue(Notification.class).getTitleOfNotification());
                                     break;
                                 }
                             }
                         }
+                        Notification notificationTemp;
+                        String notificationTitleTemp;
+
+                        for(int i = 0; i < notificationDetailArrayList.size() - 1; i++){
+                            for(int j = i + 1; j < notificationArrayList.size(); j++) {
+                                if (notificationArrayList.get(i).getIdNotification() < notificationArrayList.get(j).getIdNotification()){
+                                    notificationTemp = notificationArrayList.get(i);
+                                    notificationArrayList.remove(i);
+                                    notificationArrayList.add(i, notificationArrayList.get(j));
+                                    notificationArrayList.remove(j);
+                                    notificationArrayList.add(j, notificationTemp);
+
+                                    notificationTitleTemp = notificationDetailArrayList.get(i);
+                                    notificationDetailArrayList.remove(i);
+                                    notificationDetailArrayList.add(i, notificationDetailArrayList.get(j));
+                                    notificationDetailArrayList.remove(j);
+                                    notificationDetailArrayList.add(j, notificationTitleTemp);
+
+                                }
+                            }
+                        }
+
                         adapter.notifyDataSetChanged();
+
                     }
 
                     @Override
@@ -157,6 +202,7 @@ public class LoginSuccess extends AppCompatActivity
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         Data.currentNotification = notificationArrayList.get(position);
+        Toast.makeText(getApplicationContext(), String.valueOf(Data.currentNotification.getIdNotification()), Toast.LENGTH_SHORT).show();
 
         switch (Data.currentNotification.getTypeOfNotification()){
             case 0:{

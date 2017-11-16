@@ -29,9 +29,12 @@ import java.util.Date;
 import java.util.Locale;
 
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.AnnouncementsInWeek;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
 import vn.edu.vnuk.vnuk_sharing.R;
+
+import static vn.edu.vnuk.vnuk_sharing.Test.GeneratingDummyData.MAX_ID_NOTIFICATION;
 
 
 public class AnnouncementsActivity extends AppCompatActivity {
@@ -160,7 +163,7 @@ public class AnnouncementsActivity extends AppCompatActivity {
 
     public void processAddJob()
     {
-        Announcement announcement = new Announcement();
+        final Announcement announcement = new Announcement();
         announcement.setId(Data.currentCourse.getAnnouncementsCount());
         announcement.setIdCourse(Data.currentCourse.getId());
         announcement.setDescription(editCt.getText().toString());
@@ -181,6 +184,29 @@ public class AnnouncementsActivity extends AppCompatActivity {
                             // loi ko update duoc du lieu;
 
                         }else{
+                            Notification newNotificationOfAnnouncement = new Notification();
+                            newNotificationOfAnnouncement.setIdNotification(Data.currentNumberOfNotifications);
+                            newNotificationOfAnnouncement.setIdCourse(Data.currentCourse.getId());
+                            newNotificationOfAnnouncement.setNameCourse(Data.currentCourse.getName());
+                            newNotificationOfAnnouncement.setTitleOfNotification(announcement.getTitle());
+                            newNotificationOfAnnouncement.setContentOfNotification(announcement.getDescription());
+                            newNotificationOfAnnouncement.setTypeOfNotification(2);
+                            newNotificationOfAnnouncement.setIdAnnouncement(announcement.getId());
+                            FirebaseDatabase
+                                    .getInstance()
+                                    .getReference()
+                                    .child("root")
+                                    .child("notifications")
+                                    .child("notification-" + (MAX_ID_NOTIFICATION - newNotificationOfAnnouncement.getIdNotification()))
+                                    .setValue(newNotificationOfAnnouncement);
+
+                            FirebaseDatabase
+                                    .getInstance()
+                                    .getReference()
+                                    .child("root")
+                                    .child("numberOfNotification")
+                                    .setValue(Data.currentNumberOfNotifications + 1);
+
 
                             FirebaseDatabase.getInstance().getReference()
                                     .child("root")

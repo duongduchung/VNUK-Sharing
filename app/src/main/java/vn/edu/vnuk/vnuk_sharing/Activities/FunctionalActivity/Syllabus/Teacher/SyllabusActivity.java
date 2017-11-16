@@ -30,9 +30,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.Methods.GetInfoOfFileFromUri;
 import vn.edu.vnuk.vnuk_sharing.R;
+
+import static vn.edu.vnuk.vnuk_sharing.Test.GeneratingDummyData.MAX_ID_NOTIFICATION;
 
 public class SyllabusActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -174,6 +177,27 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
                         Data.currentSyllabus.setSize(localFileSize);
 
                         FirebaseDatabase.getInstance().getReference().child("root").child("syllabuses").child("syllabus" + "-" + Data.currentCourse.getId()).setValue(Data.currentSyllabus);
+
+                        Notification newNotificationOfSyllabus = new Notification();
+                        newNotificationOfSyllabus.setIdNotification(Data.currentNumberOfNotifications);
+                        newNotificationOfSyllabus.setIdCourse(Data.currentCourse.getId());
+                        newNotificationOfSyllabus.setNameCourse(Data.currentCourse.getName());
+                        newNotificationOfSyllabus.setTitleOfNotification("Update syllabus course : " + Data.currentCourse.getName());
+                        newNotificationOfSyllabus.setTypeOfNotification(0);
+                        FirebaseDatabase
+                                .getInstance()
+                                .getReference()
+                                .child("root")
+                                .child("notifications")
+                                .child("notification-" + (MAX_ID_NOTIFICATION - newNotificationOfSyllabus.getIdNotification()))
+                                .setValue(newNotificationOfSyllabus);
+
+                        FirebaseDatabase
+                                .getInstance()
+                                .getReference()
+                                .child("root")
+                                .child("numberOfNotification")
+                                .setValue(Data.currentNumberOfNotifications + 1);
 
                         Toast.makeText(getApplicationContext(), "Upload successfully", Toast.LENGTH_LONG).show();
                     }

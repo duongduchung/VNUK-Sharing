@@ -32,10 +32,12 @@ import java.util.Date;
 import java.util.Locale;
 
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.DeadlinesInWeek;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
 import vn.edu.vnuk.vnuk_sharing.R;
 
+import static vn.edu.vnuk.vnuk_sharing.Test.GeneratingDummyData.MAX_ID_NOTIFICATION;
 
 
 public class DeadlinesActivity extends AppCompatActivity {
@@ -218,7 +220,7 @@ public class DeadlinesActivity extends AppCompatActivity {
 
     public void processAddJob()
     {
-        Deadline deadline = new Deadline();
+        final Deadline deadline = new Deadline();
         deadline.setId(Data.currentCourse.getDeadlinesCount());
         deadline.setIdCourse(Data.currentCourse.getId());
         deadline.setDescription(editCt.getText().toString());
@@ -238,6 +240,29 @@ public class DeadlinesActivity extends AppCompatActivity {
                             // loi ko update duoc du lieu;
 
                         }else{
+                            Notification newNotificationOfDeadline = new Notification();
+                            newNotificationOfDeadline.setIdNotification(Data.currentNumberOfNotifications);
+                            newNotificationOfDeadline.setIdCourse(Data.currentCourse.getId());
+                            newNotificationOfDeadline.setNameCourse(Data.currentCourse.getName());
+                            newNotificationOfDeadline.setTitleOfNotification(deadline.getTitle());
+                            newNotificationOfDeadline.setContentOfNotification(deadline.getDescription());
+                            newNotificationOfDeadline.setTypeOfNotification(1);
+                            newNotificationOfDeadline.setIdDeadline(deadline.getId());
+                            FirebaseDatabase
+                                    .getInstance()
+                                    .getReference()
+                                    .child("root")
+                                    .child("notifications")
+                                    .child("notification-" + (MAX_ID_NOTIFICATION - newNotificationOfDeadline.getIdNotification()))
+                                    .setValue(newNotificationOfDeadline);
+
+                            FirebaseDatabase
+                                    .getInstance()
+                                    .getReference()
+                                    .child("root")
+                                    .child("numberOfNotification")
+                                    .setValue(Data.currentNumberOfNotifications + 1);
+
 
                             FirebaseDatabase.getInstance().getReference()
                                     .child("root")
