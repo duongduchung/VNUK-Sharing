@@ -34,14 +34,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-
-
-
-
-
-
-<<<<<<< HEAD
-
-=======
->>>>>>> notification
 apply plugin: 'com.google.gms.google-services'
