@@ -103,7 +103,6 @@ public class AnnouncementsActivity extends AppCompatActivity {
         btnDate.setOnClickListener(new MyButtonEvent());
         btnAdd.setOnClickListener(new MyButtonEvent());
         lv.setOnItemClickListener(new MyListViewEvent());
-      //  lv.setOnItemLongClickListener(new MyListViewEvent());
     }
 
     private class MyButtonEvent implements OnClickListener

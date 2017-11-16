@@ -19,6 +19,9 @@ import vn.edu.vnuk.vnuk_sharing.Methods.SHA256;
 
 public class GeneratingDummyData {
 
+    public static final int MAX_ID_NOTIFICATION = 2000000000;
+    private final int numberOfAnnouncements = 10;
+    private final int numberOfDeadlines = 10;
     private ArrayList<Class> classArrayList = new ArrayList<Class>();
     private ArrayList<Course> courseArrayList = new ArrayList<Course>();
     private ArrayList<Teacher> teachersArrayList = new ArrayList<Teacher>();
@@ -29,38 +32,78 @@ public class GeneratingDummyData {
     public GeneratingDummyData(){
     }
 
-    public void createData(int numberOfCourses, int numberOfUsers, int numberOfClasses, int numberOfNotifications){
+    public void createData(int numberOfCourses, int numberOfUsers, int numberOfClasses){
         FirebaseDatabase
                 .getInstance()
                 .getReference()
                 .removeValue();
         this.numberOfCourses = numberOfCourses;
         this.numberOfClasses = numberOfClasses;
+        generateNotifications();
         classArrayList = generateClasses(numberOfClasses);
         courseArrayList = generateCoursesArrayList(numberOfCourses, numberOfClasses);
         generateUsersArrayList(numberOfUsers);
-        generateNotifications(numberOfNotifications);
+
     }
 
-    private void generateNotifications(int numberOfNotifications){
+    private void generateNotifications(){
+        int numberOfNotifications = numberOfCourses * (numberOfAnnouncements + numberOfDeadlines + 1);
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("root")
+                .child("numberOfNotification")
+                .setValue(numberOfNotifications);
 
-        Random random = new Random();
+        for(int i = 0; i < numberOfCourses; i++){
+            Notification newNotificationOfAnnouncement;
+            for(int j = 0; j < numberOfAnnouncements; j++){
+                newNotificationOfAnnouncement = new Notification();
+                newNotificationOfAnnouncement.setIdNotification(i * numberOfCourses + j);
+                newNotificationOfAnnouncement.setIdCourse(i);
+                newNotificationOfAnnouncement.setTitleOfNotification("Add an announcement " + j + " course " + i);
+                newNotificationOfAnnouncement.setContentOfNotification("Content of add an announcement " + j + " course " + i);
+                newNotificationOfAnnouncement.setTypeOfNotification(2);
+                newNotificationOfAnnouncement.setIdAnnouncement(j);
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("root")
+                        .child("notifications")
+                        .child("notification-" + (MAX_ID_NOTIFICATION - newNotificationOfAnnouncement.getIdNotification()))
+                        .setValue(newNotificationOfAnnouncement);
+            }
 
-        for(int i = 0; i < numberOfNotifications; i++){
-            Notification newNotification = new Notification();
-            newNotification.setIdNotification(1000000000 - i);
-            newNotification.setIdCourse(random.nextInt(numberOfCourses));
-            newNotification.setTypeOfNotification(random.nextInt(4));
-            newNotification.setTitleOfNotification("Notification - " + i + " course " + newNotification.getIdCourse());
-            newNotification.setContentOfNotification("Content of notification " + i);
+            for(int j = 0; j < numberOfDeadlines; j++){
+                Notification newNotificationOfDeadline = new Notification();
+                newNotificationOfDeadline.setIdNotification(i * numberOfCourses + numberOfAnnouncements +j);
+                newNotificationOfDeadline.setIdCourse(i);
+                newNotificationOfDeadline.setTitleOfNotification("Add a deadline " + j + " course " + i);
+                newNotificationOfDeadline.setContentOfNotification("Content of add a deadline " + j + " course " + i);
+                newNotificationOfDeadline.setTypeOfNotification(1);
+                newNotificationOfDeadline.setIdDeadline(j);
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("root")
+                        .child("notifications")
+                        .child("notification-" + (MAX_ID_NOTIFICATION - newNotificationOfDeadline.getIdNotification()))
+                        .setValue(newNotificationOfDeadline);
+            }
 
+            Notification newNotificationOfSyllabus = new Notification();
+            newNotificationOfSyllabus.setIdNotification(i * numberOfCourses + numberOfAnnouncements + numberOfDeadlines);
+            newNotificationOfSyllabus.setIdCourse(i);
+            newNotificationOfSyllabus.setTitleOfNotification("Update syllabus course " + i);
+            newNotificationOfSyllabus.setContentOfNotification("Content of Update syllabus course " + i);
+            newNotificationOfSyllabus.setTypeOfNotification(0);
             FirebaseDatabase
                     .getInstance()
                     .getReference()
                     .child("root")
-                    .child("notification")
-                    .child("notification" + "-" + newNotification.getIdNotification())
-                    .setValue(newNotification);
+                    .child("notifications")
+                    .child("notification-" + (MAX_ID_NOTIFICATION - newNotificationOfSyllabus.getIdNotification()))
+                    .setValue(newNotificationOfSyllabus);
         }
     }
     private ArrayList<Class> generateClasses(int numberOfClasses){
@@ -101,8 +144,8 @@ public class GeneratingDummyData {
         course.setIdClass((new Random()).nextInt(numberOfClasses));
         course.setIdTeacher(-1);
         course.setName("course name " + id);
-        course.setAnnouncementsCount(gerenateAnnoncements(2 + (new Random()).nextInt(10), id));
-        course.setDeadlinesCount(generateDeadlines(2 + (new Random()).nextInt(10), id));
+        course.setAnnouncementsCount(gerenateAnnoncements(numberOfAnnouncements, id));
+        course.setDeadlinesCount(generateDeadlines(numberOfDeadlines, id));
         course.setStatus(1);
         generateSyllabus(id);
 
@@ -152,6 +195,8 @@ public class GeneratingDummyData {
                     .child("announcement" + "-" + announcement.getId())
                     .setValue(announcement);
         }
+
+
 
         return announcementsCount;
     }
@@ -307,7 +352,6 @@ public class GeneratingDummyData {
 
         return idCoursesArrayList;
     }
-
 }
 
 
