@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_noti"
-        android:text="Setting"
-        android:textSize="@dimen/size_big"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:elevation="6dp"
         android:background="@color/Cardinal"
-        android:padding="@dimen/size_big"/>
+        android:theme="@style/AppTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TableRow
         android:padding="@dimen/size_normal">
-        <TextView
-            android:id="@+id/textView"
-            android:text="Change Background"
-            android:textSize="@dimen/size_big"
-            android:textColor="@color/Black"
-            android:layout_weight="2"/>
 
         <Button
-            android:id="@+id/btn_change"
-            android:text="Change"
+            android:id="@+id/btn_aboutus"
+            android:text="About us"
+            android:textSize="25dp"
+            android:background="@color/Grey"
             android:layout_weight="1"/>
     </TableRow>
 
@@ -33,7 +34,7 @@
             android:textSize="@dimen/size_big"
             android:textColor="@color/Black"
             android:layout_weight="2"/>
-        <ToggleButton
+        <Switch
             android:id="@+id/btn_notiDeadlines"
             android:layout_weight="1"/>
     </TableRow>
@@ -42,11 +43,11 @@
         android:padding="@dimen/size_normal">
         <TextView
             android:id="@+id/tv_notiAnnoucement"
-            android:text="Notification Deadlines"
+            android:text="Notification Day-off"
             android:textSize="@dimen/size_big"
             android:textColor="@color/Black"
             android:layout_weight="2"/>
-        <ToggleButton
+        <Switch
             android:id="@+id/btn_notiAnnoucement"
             android:layout_weight="1"/>
     </TableRow>

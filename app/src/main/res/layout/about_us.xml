@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="@dimen/edit_margin_bottom">
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Developed by VNUK students"
+            android:textColor="@color/Black"
+            android:textSize="25dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/edit_margin_top"
+        android:layout_marginBottom="@dimen/edit_margin_bottom">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/size_big"
+            android:background="@drawable/address"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/edit_margin_top"
+            android:layout_marginBottom="@dimen/edit_margin_bottom"/>
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Da Nang , Viet Nam"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/size_big"
+            android:textStyle="italic"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="64dp"
+            android:layout_marginEnd="64dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/edit_margin_top"
+        android:layout_marginBottom="@dimen/edit_margin_bottom">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/size_big"
+            android:background="@drawable/email"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:text="contact@vnuk.edu.vn"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/size_big"
+
+            android:textStyle="italic"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="55dp"
+            android:layout_marginEnd="55dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/edit_margin_top"
+        android:layout_marginBottom="@dimen/edit_margin_bottom">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/Black"
+            android:gravity="center"
+            android:textSize="@dimen/size_big"
+            android:background="@drawable/phone"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="19dp"
+            android:layout_marginStart="19dp" />
+        <TextView
+            android:id="@+id/tv5"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:text="(0236) 3 738 399"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/size_big"
+            android:textStyle="italic"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="72dp"
+            android:layout_marginEnd="72dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv6"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="@dimen/edit_margin_bottom"
+        android:layout_below="@+id/tv4"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email us or call our phone. We would be happy to answer your questions"
+        android:textColor="@color/Black"
+        android:textSize="@dimen/size_big"/>
+
+    <TableRow
+        android:gravity="center">
+        <TextView
+            android:background="@drawable/star"
+            android:layout_margin="10dp"
+            />
+        <TextView
+            android:background="@drawable/star"
+            android:layout_margin="10dp"
+            />
+        <TextView
+            android:background="@drawable/star"
+            android:layout_margin="10dp"
+            />
+    </TableRow>
+
+</TableLayout>

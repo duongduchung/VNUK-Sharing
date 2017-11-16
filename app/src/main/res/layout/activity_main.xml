@@ -7,7 +7,7 @@
     android:id="@+id/activity_main"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="vn.edu.vnuk.vnuk_sharing.AfterLogin">
+    tools:context="vn.edu.vnuk.vnuk_sharing.Activities.MainActivity">
 
 <ImageView
     android:id="@+id/vnuk_logo"
