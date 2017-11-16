@@ -14,6 +14,7 @@ import java.util.HashMap;
 public class Notification {
     private int idNotification;
     private int idCourse;
+    private String nameCourse;
     private String titleOfNotification;
     private String contentOfNotification;
     private int idDeadline;
@@ -23,9 +24,10 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(int idNotification, int idCourse, String titleOfNotification, String contentOfNotification, int idDeadline, int idAnnouncement, int typeOfNotification) {
+    public Notification(int idNotification, int idCourse, String nameCourse, String titleOfNotification, String contentOfNotification, int idDeadline, int idAnnouncement, int typeOfNotification) {
         this.idNotification = idNotification;
         this.idCourse = idCourse;
+        this.nameCourse = nameCourse;
         this.titleOfNotification = titleOfNotification;
         this.contentOfNotification = contentOfNotification;
         this.idDeadline = idDeadline;
@@ -87,5 +89,13 @@ public class Notification {
 
     public void setIdAnnouncement(int idAnnouncement) {
         this.idAnnouncement = idAnnouncement;
+    }
+
+    public String getNameCourse() {
+        return nameCourse;
+    }
+
+    public void setNameCourse(String nameCourse) {
+        this.nameCourse = nameCourse;
     }
 }

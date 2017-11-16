@@ -17,14 +17,13 @@ import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
 
 public class Data {
     public static Notification currentNotification;
-    public static Deadline currentNotificationDeadline;
-    public static Announcement currentNotificationAnnouncement;
-    public static Syllabus currentNotificationSyllabus;
+    public static Deadline currentDeadline;
+    public static Announcement currentAnnouncement;
+    public static Syllabus currentSyllabus;
     public static User currentUser;
     public static Teacher currentTeacher;
     public static Student currentStudent;
     public static ArrayList<Course> courseArrayList = new ArrayList<Course>();
-    public static Syllabus currentSyllabus = new Syllabus();
     public static Course currentCourse = new Course();
     public static ArrayList<Deadline> deadlineArrayList = new ArrayList<Deadline>();
     public static ArrayList<Announcement> announcementArrayList = new ArrayList<Announcement>();

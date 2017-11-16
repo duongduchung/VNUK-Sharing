@@ -58,7 +58,6 @@ public class AnnouncementsActivity extends AppCompatActivity {
         getFormWidgets();
         getDefaultInfor();
         addEventFormWidgets();
-        Intent callFunctionalScreen = new Intent();
     }
 
     public void getFormWidgets()

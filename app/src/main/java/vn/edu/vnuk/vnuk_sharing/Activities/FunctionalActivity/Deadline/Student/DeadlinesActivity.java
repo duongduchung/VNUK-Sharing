@@ -23,7 +23,7 @@ import vn.edu.vnuk.vnuk_sharing.R;
  * Created by HP on 11/13/2017.
  */
 
-public class DeadlinesActivity extends AppCompatActivity {
+public class DeadlinesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     ArrayList<DeadlinesInWeek>arrJob=new ArrayList<DeadlinesInWeek>();
     ArrayAdapter<DeadlinesInWeek>adapter=null;
@@ -71,22 +71,14 @@ public class DeadlinesActivity extends AppCompatActivity {
 
     public void addEventFormWidgets()
     {
-        lv.setOnItemClickListener(new DeadlinesActivity.MyListViewEvent());
+        lv.setOnItemClickListener(this);
     }
 
-
-    private class MyListViewEvent implements
-            AdapterView.OnItemClickListener
-    {
-        @Override
-        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                long arg3) {
-//            Toast.makeText(DeadlinesActivity.this,
-//                    arrJob.get(arg2).getDesciption(),
-//                    Toast.LENGTH_LONG).show();
-            Intent showing = new Intent(DeadlinesActivity.this, showing_detailed_one_deadline.class);
-            startActivity(showing);
-        }
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        Data.currentDeadline = Data.deadlineArrayList.get(position);
+        Intent showing = new Intent(DeadlinesActivity.this, showing_detailed_one_deadline.class);
+        startActivity(showing);
     }
 
     // ngoc
@@ -99,5 +91,7 @@ public class DeadlinesActivity extends AppCompatActivity {
             DeadlinesInWeek job = new DeadlinesInWeek(deadline.getTitle() , deadline.getDescription(), deadline.getDate(), hourFinish);
             arrJob.add(job);
         }
+
+        adapter.notifyDataSetChanged();
     }
 }
