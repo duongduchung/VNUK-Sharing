@@ -17,66 +17,45 @@
 
     <TableRow
         android:padding="@dimen/size_normal">
-        <TextView
-            android:id="@+id/tv_date"
-            android:text="Date"
-            android:textSize="@dimen/size_big"
-            android:textColor="@color/Black"
-            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tv_date2"
             android:hint="Date"
             android:textSize="@dimen/size_big"
             android:textColor="@color/Black"
-            android:layout_weight="1"/>
+            android:layout_weight="3"/>
     </TableRow>
 
     <TableRow
         android:padding="@dimen/size_normal">
-        <TextView
-            android:id="@+id/tv_subject"
-            android:text="Subject"
-            android:textSize="@dimen/size_big"
-            android:textColor="@color/Black"
-            android:layout_weight="1"/>
+
         <TextView
             android:id="@+id/tv_subject2"
             android:hint="Subject"
             android:textSize="@dimen/size_big"
             android:textColor="@color/Black"
-            android:layout_weight="1"/>
+            android:layout_weight="3"/>
     </TableRow>
 
     <TableRow
         android:padding="@dimen/size_normal">
-        <TextView
-            android:id="@+id/tv_content"
-            android:text="Content"
-            android:textSize="@dimen/size_big"
-            android:textColor="@color/Black"
-            android:layout_weight="1"/>
+
         <TextView
             android:id="@+id/tv_content2"
             android:hint="Content"
             android:textSize="@dimen/size_big"
             android:textColor="@color/Black"
-            android:layout_weight="1"/>
+            android:layout_weight="3"/>
     </TableRow>
 
     <TableRow
         android:padding="@dimen/size_normal">
-        <TextView
-            android:id="@+id/tv_course"
-            android:text="Course"
-            android:textSize="@dimen/size_big"
-            android:textColor="@color/Black"
-            android:layout_weight="1"/>
+
         <TextView
             android:id="@+id/tv_course2"
             android:hint="Course"
             android:textSize="@dimen/size_big"
             android:textColor="@color/Black"
-            android:layout_weight="1"/>
+            android:layout_weight="3"/>
     </TableRow>
 </TableLayout>

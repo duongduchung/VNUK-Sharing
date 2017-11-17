@@ -25,6 +25,7 @@
         <activity android:name=".Activities.SettingActivity" />
         <activity android:name=".Activities.CoursesActivity" />
         <activity android:name=".Activities.AboutUs" />
+        <activity android:name=".Activities.FunctionalActivity.Syllabus.Student.SyllabusActivity" />
         <activity
             android:name=".Activities.LoginSuccess"
             android:label="VNUK Application"

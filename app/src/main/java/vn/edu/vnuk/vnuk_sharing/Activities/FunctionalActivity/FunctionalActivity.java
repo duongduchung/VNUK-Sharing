@@ -69,6 +69,8 @@ public class FunctionalActivity extends AppCompatActivity {
                                             Intent intent = new Intent(FunctionalActivity.this, SyllabusActivity.class);
                                             startActivity(intent);
                                         }else { // student
+                                            Intent intent = new Intent(FunctionalActivity.this, vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Syllabus.Student.SyllabusActivity.class);
+                                            startActivity(intent);
 
                                         }
 
