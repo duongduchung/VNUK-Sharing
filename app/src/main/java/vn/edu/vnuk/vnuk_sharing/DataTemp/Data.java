@@ -30,10 +30,14 @@ public class Data {
     public static ArrayList<Announcement> announcementArrayList = new ArrayList<Announcement>();
 
     public static void clearAllData(){
+        currentNumberOfNotifications = 0;
+        currentNotification = null;
+        currentDeadline = null;
+        currentAnnouncement = null;
+        currentSyllabus = null;
         currentUser = null;
         currentTeacher = null;
         courseArrayList.clear();
-        currentSyllabus = null;
         currentCourse = null;
         deadlineArrayList.clear();
         announcementArrayList.clear();

@@ -184,29 +184,6 @@ public class AnnouncementsActivity extends AppCompatActivity {
                             // loi ko update duoc du lieu;
 
                         }else{
-                            Notification newNotificationOfAnnouncement = new Notification();
-                            newNotificationOfAnnouncement.setIdNotification(Data.currentNumberOfNotifications);
-                            newNotificationOfAnnouncement.setIdCourse(Data.currentCourse.getId());
-                            newNotificationOfAnnouncement.setNameCourse(Data.currentCourse.getName());
-                            newNotificationOfAnnouncement.setTitleOfNotification(announcement.getTitle());
-                            newNotificationOfAnnouncement.setContentOfNotification(announcement.getDescription());
-                            newNotificationOfAnnouncement.setTypeOfNotification(2);
-                            newNotificationOfAnnouncement.setIdAnnouncement(announcement.getId());
-                            FirebaseDatabase
-                                    .getInstance()
-                                    .getReference()
-                                    .child("root")
-                                    .child("notifications")
-                                    .child("notification-" + (MAX_ID_NOTIFICATION - newNotificationOfAnnouncement.getIdNotification()))
-                                    .setValue(newNotificationOfAnnouncement);
-
-                            FirebaseDatabase
-                                    .getInstance()
-                                    .getReference()
-                                    .child("root")
-                                    .child("numberOfNotification")
-                                    .setValue(Data.currentNumberOfNotifications + 1);
-
 
                             FirebaseDatabase.getInstance().getReference()
                                     .child("root")
@@ -234,6 +211,28 @@ public class AnnouncementsActivity extends AppCompatActivity {
 
                                                 Toast.makeText(getApplicationContext(), "Lưu thành công", Toast.LENGTH_LONG).show();
 
+                                                Notification newNotificationOfAnnouncement = new Notification();
+                                                newNotificationOfAnnouncement.setIdNotification(Data.currentNumberOfNotifications);
+                                                newNotificationOfAnnouncement.setIdCourse(Data.currentCourse.getId());
+                                                newNotificationOfAnnouncement.setNameCourse(Data.currentCourse.getName());
+                                                newNotificationOfAnnouncement.setTitleOfNotification(announcement.getTitle());
+                                                newNotificationOfAnnouncement.setContentOfNotification(announcement.getDescription());
+                                                newNotificationOfAnnouncement.setTypeOfNotification(2);
+                                                newNotificationOfAnnouncement.setIdAnnouncement(announcement.getId());
+                                                FirebaseDatabase
+                                                        .getInstance()
+                                                        .getReference()
+                                                        .child("root")
+                                                        .child("notifications")
+                                                        .child("notification-" + (MAX_ID_NOTIFICATION - newNotificationOfAnnouncement.getIdNotification()))
+                                                        .setValue(newNotificationOfAnnouncement);
+
+                                                FirebaseDatabase
+                                                        .getInstance()
+                                                        .getReference()
+                                                        .child("root")
+                                                        .child("numberOfNotification")
+                                                        .setValue(Data.currentNumberOfNotifications + 1);
                                             }
                                         }
                                     });

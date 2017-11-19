@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
+import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
 
 /**
@@ -14,10 +16,14 @@ import vn.edu.vnuk.vnuk_sharing.R;
 
 public class SyllabusActivity extends AppCompatActivity {
 
+    TextView tvFileName;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showing_detailed_syllabus);
 
+        tvFileName = (TextView) findViewById(R.id.lb_name_file);
+        tvFileName.setText(Data.currentSyllabus.getName());
     }
 }

@@ -59,7 +59,7 @@ public class GeneratingDummyData {
             Notification newNotificationOfAnnouncement;
             for(int j = 0; j < numberOfAnnouncements; j++){
                 newNotificationOfAnnouncement = new Notification();
-                newNotificationOfAnnouncement.setIdNotification(i * numberOfCourses + j);
+                newNotificationOfAnnouncement.setIdNotification(i * (numberOfAnnouncements + numberOfDeadlines + 1) + j);
                 newNotificationOfAnnouncement.setIdCourse(i);
                 newNotificationOfAnnouncement.setNameCourse("Course " + i);
                 newNotificationOfAnnouncement.setTitleOfNotification("Add an announcement " + j + " course " + i);
@@ -77,7 +77,7 @@ public class GeneratingDummyData {
 
             for(int j = 0; j < numberOfDeadlines; j++){
                 Notification newNotificationOfDeadline = new Notification();
-                newNotificationOfDeadline.setIdNotification(i * numberOfCourses + numberOfAnnouncements +j);
+                newNotificationOfDeadline.setIdNotification(i * (numberOfAnnouncements + numberOfDeadlines + 1) + numberOfAnnouncements +j);
                 newNotificationOfDeadline.setIdCourse(i);
                 newNotificationOfDeadline.setNameCourse("Course " + i);
                 newNotificationOfDeadline.setTitleOfNotification("Add a deadline " + j + " course " + i);
@@ -94,7 +94,7 @@ public class GeneratingDummyData {
             }
 
             Notification newNotificationOfSyllabus = new Notification();
-            newNotificationOfSyllabus.setIdNotification(i * numberOfCourses + numberOfAnnouncements + numberOfDeadlines);
+            newNotificationOfSyllabus.setIdNotification(i * (numberOfAnnouncements + numberOfDeadlines + 1) + numberOfAnnouncements + numberOfDeadlines);
             newNotificationOfSyllabus.setIdCourse(i);
             newNotificationOfSyllabus.setNameCourse("Course " + i);
             newNotificationOfSyllabus.setTitleOfNotification("Update syllabus course " + i);

@@ -35,6 +35,7 @@ import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Stude
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Student.showing_detailed_one_announcement;
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.Student.DeadlinesActivity;
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.Student.showing_detailed_one_deadline;
+import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Syllabus.Student.SyllabusActivity;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
@@ -252,6 +253,28 @@ public class LoginSuccess extends AppCompatActivity
         switch (Data.currentNotification.getTypeOfNotification()){
             case 0:{
                 // syllabus
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("root")
+                        .child("syllabuses")
+                        .child("syllabus-" + Data.currentNotification.getIdCourse())
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Data.currentSyllabus = dataSnapshot.getValue(Syllabus.class);
+                                Data.currentCourse.setId(Data.currentNotification.getIdCourse());
+                                Data.currentCourse.setName(Data.currentNotification.getNameCourse());
+
+                                Intent intent = new Intent(LoginSuccess.this, SyllabusActivity.class);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
             }
             break;
             case 1:{

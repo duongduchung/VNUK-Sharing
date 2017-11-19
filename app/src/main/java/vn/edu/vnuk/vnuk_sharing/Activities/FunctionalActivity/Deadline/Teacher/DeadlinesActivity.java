@@ -240,29 +240,6 @@ public class DeadlinesActivity extends AppCompatActivity {
                             // loi ko update duoc du lieu;
 
                         }else{
-                            Notification newNotificationOfDeadline = new Notification();
-                            newNotificationOfDeadline.setIdNotification(Data.currentNumberOfNotifications);
-                            newNotificationOfDeadline.setIdCourse(Data.currentCourse.getId());
-                            newNotificationOfDeadline.setNameCourse(Data.currentCourse.getName());
-                            newNotificationOfDeadline.setTitleOfNotification(deadline.getTitle());
-                            newNotificationOfDeadline.setContentOfNotification(deadline.getDescription());
-                            newNotificationOfDeadline.setTypeOfNotification(1);
-                            newNotificationOfDeadline.setIdDeadline(deadline.getId());
-                            FirebaseDatabase
-                                    .getInstance()
-                                    .getReference()
-                                    .child("root")
-                                    .child("notifications")
-                                    .child("notification-" + (MAX_ID_NOTIFICATION - newNotificationOfDeadline.getIdNotification()))
-                                    .setValue(newNotificationOfDeadline);
-
-                            FirebaseDatabase
-                                    .getInstance()
-                                    .getReference()
-                                    .child("root")
-                                    .child("numberOfNotification")
-                                    .setValue(Data.currentNumberOfNotifications + 1);
-
 
                             FirebaseDatabase.getInstance().getReference()
                                     .child("root")
@@ -288,6 +265,29 @@ public class DeadlinesActivity extends AppCompatActivity {
                                                 Data.currentCourse.setDeadlinesCount(Data.currentCourse.getDeadlinesCount() + 1);
 
                                                 Toast.makeText(getApplicationContext(), "Lưu thành công", Toast.LENGTH_LONG).show();
+
+                                                Notification newNotificationOfDeadline = new Notification();
+                                                newNotificationOfDeadline.setIdNotification(Data.currentNumberOfNotifications);
+                                                newNotificationOfDeadline.setIdCourse(Data.currentCourse.getId());
+                                                newNotificationOfDeadline.setNameCourse(Data.currentCourse.getName());
+                                                newNotificationOfDeadline.setTitleOfNotification(deadline.getTitle());
+                                                newNotificationOfDeadline.setContentOfNotification(deadline.getDescription());
+                                                newNotificationOfDeadline.setTypeOfNotification(1);
+                                                newNotificationOfDeadline.setIdDeadline(deadline.getId());
+                                                FirebaseDatabase
+                                                        .getInstance()
+                                                        .getReference()
+                                                        .child("root")
+                                                        .child("notifications")
+                                                        .child("notification-" + (MAX_ID_NOTIFICATION - newNotificationOfDeadline.getIdNotification()))
+                                                        .setValue(newNotificationOfDeadline);
+
+                                                FirebaseDatabase
+                                                        .getInstance()
+                                                        .getReference()
+                                                        .child("root")
+                                                        .child("numberOfNotification")
+                                                        .setValue(Data.currentNumberOfNotifications + 1);
                                             }
                                         }
                                     });
