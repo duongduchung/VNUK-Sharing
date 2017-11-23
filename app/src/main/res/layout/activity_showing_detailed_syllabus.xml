@@ -42,7 +42,7 @@
             />
 
         <Button
-            android:id="@+id/btnCreateOrUpdate"
+            android:id="@+id/btnDownloadFile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Download"

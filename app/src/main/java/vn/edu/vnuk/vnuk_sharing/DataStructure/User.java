@@ -11,15 +11,17 @@ public class User {
     private String username;
     private String password;
     private int access; // 0 - teacher, 1 - student
+    private Setting setting;
 
     public User() {
     }
 
-    public User(int id, String username, String password, int access) {
+    public User(int id, String username, String password, int access, Setting setting) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.access = access;
+        this.setting = setting;
     }
 
     public int getId() {
@@ -52,6 +54,14 @@ public class User {
 
     public void setAccess(int access) {
         this.access = access;
+    }
+
+    public Setting getSetting() {
+        return setting;
+    }
+
+    public void setSetting(Setting setting) {
+        this.setting = setting;
     }
 }
 

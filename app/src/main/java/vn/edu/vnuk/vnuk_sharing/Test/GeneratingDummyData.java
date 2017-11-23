@@ -11,6 +11,7 @@ import vn.edu.vnuk.vnuk_sharing.DataStructure.Class;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Setting;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Student;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
@@ -20,8 +21,8 @@ import vn.edu.vnuk.vnuk_sharing.Methods.SHA256;
 public class GeneratingDummyData {
 
     public static final int MAX_ID_NOTIFICATION = 2000000000;
-    private final int numberOfAnnouncements = 10;
-    private final int numberOfDeadlines = 10;
+    private final int numberOfAnnouncements = 5;
+    private final int numberOfDeadlines = 5;
     private ArrayList<Class> classArrayList = new ArrayList<Class>();
     private ArrayList<Course> courseArrayList = new ArrayList<Course>();
     private ArrayList<Teacher> teachersArrayList = new ArrayList<Teacher>();
@@ -47,7 +48,7 @@ public class GeneratingDummyData {
     }
 
     private void generateNotifications(){
-        int numberOfNotifications = numberOfCourses * (numberOfAnnouncements + numberOfDeadlines + 1);
+        int numberOfNotifications = numberOfCourses * (numberOfAnnouncements + numberOfDeadlines);
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -59,7 +60,7 @@ public class GeneratingDummyData {
             Notification newNotificationOfAnnouncement;
             for(int j = 0; j < numberOfAnnouncements; j++){
                 newNotificationOfAnnouncement = new Notification();
-                newNotificationOfAnnouncement.setIdNotification(i * (numberOfAnnouncements + numberOfDeadlines + 1) + j);
+                newNotificationOfAnnouncement.setIdNotification(i * (numberOfAnnouncements + numberOfDeadlines) + j);
                 newNotificationOfAnnouncement.setIdCourse(i);
                 newNotificationOfAnnouncement.setNameCourse("Course " + i);
                 newNotificationOfAnnouncement.setTitleOfNotification("Add an announcement " + j + " course " + i);
@@ -77,7 +78,7 @@ public class GeneratingDummyData {
 
             for(int j = 0; j < numberOfDeadlines; j++){
                 Notification newNotificationOfDeadline = new Notification();
-                newNotificationOfDeadline.setIdNotification(i * (numberOfAnnouncements + numberOfDeadlines + 1) + numberOfAnnouncements +j);
+                newNotificationOfDeadline.setIdNotification(i * (numberOfAnnouncements + numberOfDeadlines) + numberOfAnnouncements +j);
                 newNotificationOfDeadline.setIdCourse(i);
                 newNotificationOfDeadline.setNameCourse("Course " + i);
                 newNotificationOfDeadline.setTitleOfNotification("Add a deadline " + j + " course " + i);
@@ -93,6 +94,7 @@ public class GeneratingDummyData {
                         .setValue(newNotificationOfDeadline);
             }
 
+            /*
             Notification newNotificationOfSyllabus = new Notification();
             newNotificationOfSyllabus.setIdNotification(i * (numberOfAnnouncements + numberOfDeadlines + 1) + numberOfAnnouncements + numberOfDeadlines);
             newNotificationOfSyllabus.setIdCourse(i);
@@ -107,6 +109,7 @@ public class GeneratingDummyData {
                     .child("notifications")
                     .child("notification-" + (MAX_ID_NOTIFICATION - newNotificationOfSyllabus.getIdNotification()))
                     .setValue(newNotificationOfSyllabus);
+            */
         }
     }
     private ArrayList<Class> generateClasses(int numberOfClasses){
@@ -241,6 +244,12 @@ public class GeneratingDummyData {
         }
         user.setUsername("username" + id);
         user.setPassword(SHA256.getSHA256Hash("password" + id));
+        Setting setting = new Setting();
+        setting.setReceiveNews(true);
+        setting.setReceiveSyllabus(true);
+        setting.setReceiveAnnouncement(true);
+        setting.setReceiveDeadline(true);
+        user.setSetting(setting);
 
         FirebaseDatabase
                 .getInstance()

@@ -21,19 +21,6 @@
     android:adjustViewBounds="true"
     android:scaleType="fitCenter" />
 
-    <EditText
-        android:maxLines="1"
-        android:inputType="textPassword"
-        android:layout_below="@+id/std_id"
-        android:id="@+id/std_pass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_pass"
-        android:textSize="@dimen/text_size_large"
-        android:layout_marginTop="@dimen/edit_margin_top"
-        android:layout_marginLeft="@dimen/edit_margin_left"
-        android:layout_marginRight="@dimen/edit_margin_right"
-        android:padding="10dp"/>
 
     <EditText
         android:maxLines="1"
@@ -50,7 +37,21 @@
         android:layout_alignLeft="@+id/vnuk_logo"
         android:layout_alignStart="@+id/vnuk_logo" />
 
-<Button
+    <EditText
+        android:maxLines="1"
+        android:inputType="textPassword"
+        android:layout_below="@+id/std_id"
+        android:id="@+id/std_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_pass"
+        android:textSize="@dimen/text_size_large"
+        android:layout_marginTop="@dimen/edit_margin_top"
+        android:layout_marginLeft="@dimen/edit_margin_left"
+        android:layout_marginRight="@dimen/edit_margin_right"
+        android:padding="10dp"/>
+
+    <Button
     android:layout_below="@+id/std_pass"
     android:id="@+id/btn_login"
     android:layout_marginTop="@dimen/edit_margin_top"

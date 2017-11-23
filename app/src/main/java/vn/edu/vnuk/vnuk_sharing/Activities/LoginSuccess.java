@@ -25,10 +25,13 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Student.AnnouncementsActivity;
@@ -51,6 +54,7 @@ public class LoginSuccess extends AppCompatActivity
     ListView listViewNotification;
     ArrayList<Notification> notificationArrayList;
     ArrayList<String> notificationDetailArrayList;
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -95,88 +99,116 @@ public class LoginSuccess extends AppCompatActivity
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Data.currentNumberOfNotifications = dataSnapshot.getValue(Integer.class);
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        notificationArrayList.clear();
+                        notificationDetailArrayList.clear();
 
-                    }
-                });
+                        FirebaseDatabase
+                                .getInstance()
+                                .getReference()
+                                .child("root")
+                                .child("notifications")
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        Notification newNotification;
+                                        Boolean receive;
+                                        for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                            newNotification = ds.getValue(Notification.class);
 
-        final boolean[] isFirstTimeLoadNotification = {false};
-        FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child("root")
-                .child("notifications")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                            receive = false;
 
-                        if(isFirstTimeLoadNotification[0] == false) {
-                            notificationArrayList.clear();
-                            notificationDetailArrayList.clear();
-
-                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                for (Course course : Data.courseArrayList) {
-                                    if (course.getId() == ds.getValue(Notification.class).getIdCourse()) {
-                                        notificationArrayList.add(ds.getValue(Notification.class));
-                                        notificationDetailArrayList.add(ds.getValue(Notification.class).getTitleOfNotification());
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        else{
-                            boolean isExist;
-                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                for (Course course : Data.courseArrayList) {
-                                    if (course.getId() == ds.getValue(Notification.class).getIdCourse()) {
-                                        isExist = false;
-                                        for(Notification notification : notificationArrayList){
-                                            if(notification.getIdNotification() == ds.getValue(Notification.class).getIdNotification()){
-                                                isExist = true;
+                                            switch (newNotification.getTypeOfNotification()){
+                                                case 0 : {
+                                                    if(Data.currentUser.getSetting().isReceiveSyllabus() == true)
+                                                        receive = true;
+                                                }
                                                 break;
+
+                                                case 1 : {
+                                                    if(Data.currentUser.getSetting().isReceiveDeadline() == true)
+                                                        receive = true;
+                                                }
+                                                break;
+
+                                                case 2 : {
+                                                    if(Data.currentUser.getSetting().isReceiveAnnouncement() == true)
+                                                        receive = true;
+                                                }
+                                                break;
+
+                                                case 3 : {
+                                                    if(Data.currentUser.getSetting().isReceiveNews() == true)
+                                                        receive = true;
+                                                }
+                                            }
+
+                                            if(receive == true) {
+                                                notificationArrayList.add(newNotification);
+                                                notificationDetailArrayList.add(newNotification.getTitleOfNotification());
                                             }
                                         }
 
-                                        if(isExist == false) {
+                                        boolean isCourseExist;
+                                        int index = 0;
+                                        if(Data.currentUser.getAccess() == 1) { // student
+                                            while(index < notificationArrayList.size()) {
+                                                isCourseExist = false;
+                                                for (Integer integer : Data.currentStudent.getIdCoursesArrayList()) {
+                                                    if (notificationArrayList.get(index).getIdCourse() == integer) {
+                                                        isCourseExist = true;
+                                                        break;
+                                                    }
+                                                }
 
-                                            notificationArrayList.add(0, ds.getValue(Notification.class));
-                                            notificationDetailArrayList.add(0, ds.getValue(Notification.class).getTitleOfNotification());
-                                            sendNotification(null, ds.getValue(Notification.class).getTitleOfNotification(), ds.getValue(Notification.class).getContentOfNotification());
+                                                if(isCourseExist == false){
+                                                    notificationArrayList.remove(index);
+                                                    notificationDetailArrayList.remove(index);
+                                                }
+                                                else{
+                                                    index++;
+                                                }
+                                            }
                                         }
-                                        break;
+
+                                        index = 0;
+                                        if(Data.currentUser.getAccess() == 0) { // teacher
+                                            while(index < notificationArrayList.size()) {
+                                                isCourseExist = false;
+                                                for (Integer integer : Data.currentTeacher.getIdCoursesArrayList()) {
+                                                    if (notificationArrayList.get(index).getIdCourse() == integer) {
+                                                        isCourseExist = true;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if(isCourseExist == false){
+                                                    notificationArrayList.remove(index);
+                                                    notificationDetailArrayList.remove(index);
+                                                }
+                                                else{
+                                                    index++;
+                                                }
+                                            }
+                                        }
+
+                                        for(int i = 0; i < notificationArrayList.size() - 1; i++){
+                                            for(int j = i + 1; j < notificationArrayList.size(); j++){
+                                                if(notificationArrayList.get(i).getIdNotification() < notificationArrayList.get(j).getIdNotification()){
+                                                    Collections.swap(notificationArrayList, i, j);
+                                                    Collections.swap(notificationDetailArrayList, i, j);
+                                                }
+                                            }
+                                        }
+
+                                        adapter.notifyDataSetChanged();
                                     }
-                                }
-                            }
-                        }
 
-                        Notification notificationTemp;
-                        String notificationTitleTemp;
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
 
-                        for(int i = 0; i < notificationDetailArrayList.size() - 1; i++){
-                            for(int j = i + 1; j < notificationArrayList.size(); j++) {
-                                if (notificationArrayList.get(i).getIdNotification() < notificationArrayList.get(j).getIdNotification()){
-                                    notificationTemp = notificationArrayList.get(i);
-                                    notificationArrayList.remove(i);
-                                    notificationArrayList.add(i, notificationArrayList.get(j));
-                                    notificationArrayList.remove(j);
-                                    notificationArrayList.add(j, notificationTemp);
-
-                                    notificationTitleTemp = notificationDetailArrayList.get(i);
-                                    notificationDetailArrayList.remove(i);
-                                    notificationDetailArrayList.add(i, notificationDetailArrayList.get(j));
-                                    notificationDetailArrayList.remove(j);
-                                    notificationDetailArrayList.add(j, notificationTitleTemp);
-
-                                }
-                            }
-                        }
-
-                        adapter.notifyDataSetChanged();
-
-                        isFirstTimeLoadNotification[0] = true;
+                                    }
+                                });
                     }
 
                     @Override
@@ -184,7 +216,6 @@ public class LoginSuccess extends AppCompatActivity
 
                     }
                 });
-
     }
 
     public void sendNotification(View v, String title, String content) {
@@ -227,6 +258,7 @@ public class LoginSuccess extends AppCompatActivity
                 @Override
                 public void onClick(DialogInterface dialogInterface, int id) {
                     Data.clearAllData();
+
                     finish();
                 }
             });
@@ -248,7 +280,6 @@ public class LoginSuccess extends AppCompatActivity
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         Data.currentNotification = notificationArrayList.get(position);
-        Toast.makeText(getApplicationContext(), String.valueOf(Data.currentNotification.getIdNotification()), Toast.LENGTH_SHORT).show();
 
         switch (Data.currentNotification.getTypeOfNotification()){
             case 0:{
