@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Setting;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
 
@@ -63,6 +64,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
+        Setting currentSetting = Data.currentUser.getSetting();
+
         switch (view.getId()) {
             case R.id.btn_aboutus: {
                 Intent intent = new Intent(SettingActivity.this, AboutUs.class);
@@ -89,6 +92,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         .child("setting")
                         .child("receiveNews")
                         .setValue(receive);
+
+                currentSetting.setReceiveNews(receive);
+                Data.currentUser.setSetting(currentSetting);
             }
             break;
 
@@ -111,6 +117,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         .child("setting")
                         .child("receiveSyllabus")
                         .setValue(receive);
+
+                currentSetting.setReceiveSyllabus(receive);
+                Data.currentUser.setSetting(currentSetting);
             }
             break;
 
@@ -133,6 +142,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         .child("setting")
                         .child("receiveDeadline")
                         .setValue(receive);
+
+                currentSetting.setReceiveDeadline(receive);
+                Data.currentUser.setSetting(currentSetting);
             }
             break;
 
@@ -155,6 +167,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         .child("setting")
                         .child("receiveAnnouncement")
                         .setValue(receive);
+
+                currentSetting.setReceiveAnnouncement(receive);
+                Data.currentUser.setSetting(currentSetting);
             }
             break;
         }

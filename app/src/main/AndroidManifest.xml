@@ -31,7 +31,8 @@
             android:label="VNUK Application"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.FunctionalActivity.Deadline.Student.showing_detailed_one_deadline" />
-        <activity android:name=".Activities.FunctionalActivity.Announcement.Student.showing_detailed_one_announcement"></activity>
+        <activity android:name=".Activities.FunctionalActivity.Announcement.Student.showing_detailed_one_announcement"/>
+        <activity android:name=".Activities.NewsActivity"/>
     </application>
 
 </manifest>

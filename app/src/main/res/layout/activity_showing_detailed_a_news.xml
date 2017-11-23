@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/Cardinal"
+        android:elevation="6dp"
+        android:theme="@style/AppTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <TableRow
+        android:padding="@dimen/size_normal">
+
+        <TextView
+            android:id="@+id/tvDateOfNewsNotification"
+            android:hint="Date"
+            android:textSize="@dimen/size_big"
+            android:textColor="@color/Black"
+            android:layout_weight="3"/>
+    </TableRow>
+
+    <TableRow
+        android:padding="@dimen/size_normal">
+
+        <TextView
+            android:id="@+id/tvTitleOfNewsNotification"
+            android:hint="Title"
+            android:textSize="@dimen/size_big"
+            android:textColor="@color/Black"
+            android:layout_weight="3"/>
+    </TableRow>
+
+    <TableRow
+        android:padding="@dimen/size_normal">
+
+        <TextView
+            android:id="@+id/tvContentOfNewsNotification"
+            android:hint="Content"
+            android:textSize="@dimen/size_big"
+            android:textColor="@color/Black"
+            android:layout_weight="3"/>
+    </TableRow>
+</TableLayout>

@@ -44,7 +44,23 @@ public class GeneratingDummyData {
         classArrayList = generateClasses(numberOfClasses);
         courseArrayList = generateCoursesArrayList(numberOfCourses, numberOfClasses);
         generateUsersArrayList(numberOfUsers);
+        generateNews();
+    }
 
+    private void generateNews(){
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("root")
+                .child("numberOfNews")
+                .setValue(0);
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("root")
+                .child("news")
+                .setValue(null);
     }
 
     private void generateNotifications(){

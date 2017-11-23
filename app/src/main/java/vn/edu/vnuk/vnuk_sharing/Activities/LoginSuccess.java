@@ -42,6 +42,7 @@ import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Syllabus.Student.S
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.News;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
@@ -364,6 +365,27 @@ public class LoginSuccess extends AppCompatActivity
             break;
             case 3:{
                 // news form VNUK
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("root")
+                        .child("news")
+                        .child("news-" + Data.currentNotification.getIdNews())
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Data.currentNews = dataSnapshot.getValue(News.class);
+
+                                Intent intent = new Intent(LoginSuccess.this, NewsActivity.class);
+                                startActivity(intent);
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
             }
             break;
         }

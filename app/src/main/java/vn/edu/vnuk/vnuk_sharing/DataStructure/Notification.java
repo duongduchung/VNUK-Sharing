@@ -19,12 +19,13 @@ public class Notification {
     private String contentOfNotification;
     private int idDeadline;
     private int idAnnouncement;
+    private int idNews;
     private int typeOfNotification;
 
     public Notification() {
     }
 
-    public Notification(int idNotification, int idCourse, String nameCourse, String titleOfNotification, String contentOfNotification, int idDeadline, int idAnnouncement, int typeOfNotification) {
+    public Notification(int idNotification, int idCourse, String nameCourse, String titleOfNotification, String contentOfNotification, int idDeadline, int idAnnouncement, int idNews, int typeOfNotification) {
         this.idNotification = idNotification;
         this.idCourse = idCourse;
         this.nameCourse = nameCourse;
@@ -32,6 +33,7 @@ public class Notification {
         this.contentOfNotification = contentOfNotification;
         this.idDeadline = idDeadline;
         this.idAnnouncement = idAnnouncement;
+        this.idNews = idNews;
         this.typeOfNotification = typeOfNotification;
     }
 
@@ -89,6 +91,14 @@ public class Notification {
 
     public void setIdAnnouncement(int idAnnouncement) {
         this.idAnnouncement = idAnnouncement;
+    }
+
+    public int getIdNews() {
+        return idNews;
+    }
+
+    public void setIdNews(int idNews) {
+        this.idNews = idNews;
     }
 
     public String getNameCourse() {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.News;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Student;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
@@ -23,6 +24,7 @@ public class Data {
     public static Deadline currentDeadline;
     public static Announcement currentAnnouncement;
     public static Syllabus currentSyllabus;
+    public static News currentNews;
     public static User currentUser;
     public static Teacher currentTeacher;
     public static Student currentStudent;
@@ -36,6 +38,7 @@ public class Data {
         currentNotification = null;
         currentDeadline = null;
         currentAnnouncement = null;
+        currentNews = null;
         currentSyllabus = null;
         currentUser = null;
         currentTeacher = null;
@@ -51,6 +54,7 @@ public class Data {
         currentDeadline = new Deadline();
         currentAnnouncement = new Announcement();
         currentSyllabus = new Syllabus();
+        currentNews = new News();
         currentUser = new User();
         currentTeacher = new Teacher();
         courseArrayList = new ArrayList<>();
