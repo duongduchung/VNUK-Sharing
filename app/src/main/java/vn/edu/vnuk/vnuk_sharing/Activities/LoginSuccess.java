@@ -228,7 +228,7 @@ public class LoginSuccess extends AppCompatActivity
         android.app.Notification.Builder notifyBuilder = new android.app.Notification.Builder(this);
         notifyBuilder.setContentTitle(title);
         notifyBuilder.setContentText(content);
-        notifyBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        notifyBuilder.setSmallIcon(R.mipmap.ic_logo);
 
         mNotificationManager.notify(1, notifyBuilder.build());
     }
