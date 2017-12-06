@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Desktop-VNUK-Sharing.iml" filepath="$PROJECT_DIR$/Desktop-VNUK-Sharing.iml" />
       <module fileurl="file://$PROJECT_DIR$/VNUK-Sharing.iml" filepath="$PROJECT_DIR$/VNUK-Sharing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/VNUK-Sharing-app.iml" filepath="$PROJECT_DIR$/app/VNUK-Sharing-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
