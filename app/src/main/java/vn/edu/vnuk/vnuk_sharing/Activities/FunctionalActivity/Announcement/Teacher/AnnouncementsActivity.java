@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.AnnouncementsInWeek;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CheckIntentIsCalled;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
@@ -249,5 +250,12 @@ public class AnnouncementsActivity extends AppCompatActivity {
             AnnouncementsInWeek job = new AnnouncementsInWeek(announcement.getTitle(), announcement.getDescription(), announcement.getDate() , hourFinish);
             arrJob.add(job);
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        CheckIntentIsCalled.isIntentFunctionalAnnouncementTeacher = false;
+        CheckIntentIsCalled.isIntentFunctionalTeacher = false;
     }
 }

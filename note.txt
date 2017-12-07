@@ -1,0 +1,17 @@
+detail 
+ngày format lại 
+tên course thì đưa lên trên
+
+
+deadline thì có giờ
+nghỉ thì ko có giờ
+
+chỉnh content thanh note 
+
+tách NEWS riêng
+
+thêm cái course name cho toolbar
+
+chỉnh màu chung cho mấy cái chữ toolbar
+
+chỉnh annoucement thành dayoff.

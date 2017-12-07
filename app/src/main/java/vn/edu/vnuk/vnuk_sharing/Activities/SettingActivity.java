@@ -81,6 +81,20 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 else{
                     receive = false;
+
+                    int index = 0;
+
+                    while(index < LoginSuccess.notificationArrayList.size()){
+                        if(LoginSuccess.notificationArrayList.get(index).getTypeOfNotification() == 3){
+                            LoginSuccess.notificationArrayList.remove(index);
+                            LoginSuccess.notificationIconArrayList.remove(index);
+                            LoginSuccess.notificationDetailArrayList.remove(index);
+                        }
+                        else{
+                            index++;
+                        }
+                    }
+                    LoginSuccess.adapter.notifyDataSetChanged();
                 }
 
                 FirebaseDatabase
@@ -106,6 +120,20 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 else{
                     receive = false;
+
+                    int index = 0;
+
+                    while(index < LoginSuccess.notificationArrayList.size()){
+                        if(LoginSuccess.notificationArrayList.get(index).getTypeOfNotification() == 0){
+                            LoginSuccess.notificationArrayList.remove(index);
+                            LoginSuccess.notificationIconArrayList.remove(index);
+                            LoginSuccess.notificationDetailArrayList.remove(index);
+                        }
+                        else{
+                            index++;
+                        }
+                    }
+                    LoginSuccess.adapter.notifyDataSetChanged();
                 }
 
                 FirebaseDatabase
@@ -131,6 +159,20 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 else{
                     receive = false;
+
+                    int index = 0;
+
+                    while(index < LoginSuccess.notificationArrayList.size()){
+                        if(LoginSuccess.notificationArrayList.get(index).getTypeOfNotification() == 1){
+                            LoginSuccess.notificationArrayList.remove(index);
+                            LoginSuccess.notificationIconArrayList.remove(index);
+                            LoginSuccess.notificationDetailArrayList.remove(index);
+                        }
+                        else{
+                            index++;
+                        }
+                    }
+                    LoginSuccess.adapter.notifyDataSetChanged();
                 }
 
                 FirebaseDatabase
@@ -156,6 +198,20 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 else{
                     receive = false;
+
+                    int index = 0;
+
+                    while(index < LoginSuccess.notificationArrayList.size()){
+                        if(LoginSuccess.notificationArrayList.get(index).getTypeOfNotification() == 2){
+                            LoginSuccess.notificationArrayList.remove(index);
+                            LoginSuccess.notificationIconArrayList.remove(index);
+                            LoginSuccess.notificationDetailArrayList.remove(index);
+                        }
+                        else{
+                            index++;
+                        }
+                    }
+                    LoginSuccess.adapter.notifyDataSetChanged();
                 }
 
                 FirebaseDatabase

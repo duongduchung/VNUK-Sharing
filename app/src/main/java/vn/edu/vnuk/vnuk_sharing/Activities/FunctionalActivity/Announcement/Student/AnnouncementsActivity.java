@@ -19,6 +19,7 @@ import java.util.Locale;
 
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.AnnouncementsInWeek;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CheckIntentIsCalled;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
 
@@ -46,6 +47,13 @@ public class AnnouncementsActivity extends AppCompatActivity implements AdapterV
         getFormWidgets();
         getDefaultInfor();
         addEventFormWidgets();
+
+        for(Announcement announcement : Data.announcementArrayList) {
+            AnnouncementsInWeek job = new AnnouncementsInWeek(announcement.getTitle(), announcement.getDescription(), announcement.getDate() , hourFinish);
+            arrJob.add(job);
+        }
+
+        adapter.notifyDataSetChanged();
     }
 
     public void getFormWidgets()
@@ -88,14 +96,9 @@ public class AnnouncementsActivity extends AppCompatActivity implements AdapterV
     }
 
     @Override
-    public void onStart(){
-        super.onStart();
-
-        for(Announcement announcement : Data.announcementArrayList) {
-            AnnouncementsInWeek job = new AnnouncementsInWeek(announcement.getTitle(), announcement.getDescription(), announcement.getDate() , hourFinish);
-            arrJob.add(job);
-        }
-
-        adapter.notifyDataSetChanged();
+    public void onBackPressed(){
+        super.onBackPressed();
+        CheckIntentIsCalled.isIntentFunctionalAnnouncementStudent = false;
+        CheckIntentIsCalled.isIntentFunctionalStudent = false;
     }
 }

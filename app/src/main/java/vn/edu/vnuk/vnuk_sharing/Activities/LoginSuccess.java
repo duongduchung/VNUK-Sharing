@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,29 +17,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 
-import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Student.AnnouncementsActivity;
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Student.showing_detailed_one_announcement;
-import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.Student.DeadlinesActivity;
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.Student.showing_detailed_one_deadline;
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Syllabus.Student.SyllabusActivity;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
-import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CheckIntentIsCalled;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CustomListView;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.News;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
@@ -53,9 +46,10 @@ public class LoginSuccess extends AppCompatActivity
 
     TextView txtUsername, txtLevel;
     ListView listViewNotification;
-    ArrayList<Notification> notificationArrayList;
-    ArrayList<String> notificationDetailArrayList;
-
+    public static ArrayList<Notification> notificationArrayList;
+    public static ArrayList<String> notificationDetailArrayList;
+    public static ArrayList<Integer> notificationIconArrayList;
+    public static CustomListView adapter;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -82,14 +76,22 @@ public class LoginSuccess extends AppCompatActivity
         }else{
             txtLevel.setText("Level   : Student");
         }
+
         listViewNotification = (ListView) findViewById(R.id.lvNotification);
         listViewNotification.setOnItemClickListener(this);
         navigationView.setNavigationItemSelectedListener(this);
 
         notificationArrayList = new ArrayList<Notification>();
         notificationDetailArrayList = new ArrayList<String>();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notificationDetailArrayList);
+        notificationIconArrayList = new ArrayList<Integer>();
+
+
+
+        adapter = new CustomListView(this, notificationDetailArrayList, notificationIconArrayList);
         listViewNotification.setAdapter(adapter);
+
+        //final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notificationDetailArrayList);
+        //listViewNotification.setAdapter(adapter);
 
         FirebaseDatabase
                 .getInstance()
@@ -147,6 +149,7 @@ public class LoginSuccess extends AppCompatActivity
                                             if(receive == true) {
                                                 notificationArrayList.add(newNotification);
                                                 notificationDetailArrayList.add(newNotification.getTitleOfNotification());
+                                                notificationIconArrayList.add(newNotification.getTypeOfNotification());
                                             }
                                         }
 
@@ -165,6 +168,7 @@ public class LoginSuccess extends AppCompatActivity
                                                 if(isCourseExist == false){
                                                     notificationArrayList.remove(index);
                                                     notificationDetailArrayList.remove(index);
+                                                    notificationIconArrayList.remove(index);
                                                 }
                                                 else{
                                                     index++;
@@ -186,6 +190,7 @@ public class LoginSuccess extends AppCompatActivity
                                                 if(isCourseExist == false){
                                                     notificationArrayList.remove(index);
                                                     notificationDetailArrayList.remove(index);
+                                                    notificationIconArrayList.remove(index);
                                                 }
                                                 else{
                                                     index++;
@@ -198,6 +203,7 @@ public class LoginSuccess extends AppCompatActivity
                                                 if(notificationArrayList.get(i).getIdNotification() < notificationArrayList.get(j).getIdNotification()){
                                                     Collections.swap(notificationArrayList, i, j);
                                                     Collections.swap(notificationDetailArrayList, i, j);
+                                                    Collections.swap(notificationIconArrayList, i, j);
                                                 }
                                             }
                                         }
@@ -298,8 +304,11 @@ public class LoginSuccess extends AppCompatActivity
                                 Data.currentCourse.setId(Data.currentNotification.getIdCourse());
                                 Data.currentCourse.setName(Data.currentNotification.getNameCourse());
 
-                                Intent intent = new Intent(LoginSuccess.this, SyllabusActivity.class);
-                                startActivity(intent);
+                                if(CheckIntentIsCalled.isIntentSyllabusDetail == false) {
+                                    Intent intent = new Intent(LoginSuccess.this, SyllabusActivity.class);
+                                    startActivity(intent);
+                                    CheckIntentIsCalled.isIntentSyllabusDetail = true;
+                                }
                             }
 
                             @Override
@@ -325,8 +334,11 @@ public class LoginSuccess extends AppCompatActivity
                                 Data.currentCourse.setId(Data.currentNotification.getIdCourse());
                                 Data.currentCourse.setName(Data.currentNotification.getNameCourse());
 
-                                Intent intent = new Intent(LoginSuccess.this, showing_detailed_one_deadline.class);
-                                startActivity(intent);
+                                if(CheckIntentIsCalled.isIntentDealineDetail == false) {
+                                    Intent intent = new Intent(LoginSuccess.this, showing_detailed_one_deadline.class);
+                                    startActivity(intent);
+                                    CheckIntentIsCalled.isIntentDealineDetail = true;
+                                }
                             }
 
                             @Override
@@ -352,8 +364,11 @@ public class LoginSuccess extends AppCompatActivity
                                 Data.currentCourse.setId(Data.currentNotification.getIdCourse());
                                 Data.currentCourse.setName(Data.currentNotification.getNameCourse());
 
-                                Intent intent = new Intent(LoginSuccess.this, showing_detailed_one_announcement.class);
-                                startActivity(intent);
+                                if(CheckIntentIsCalled.isIntentAnnouncementDetail == false) {
+                                    Intent intent = new Intent(LoginSuccess.this, showing_detailed_one_announcement.class);
+                                    startActivity(intent);
+                                    CheckIntentIsCalled.isIntentAnnouncementDetail = true;
+                                }
                             }
 
                             @Override
@@ -376,8 +391,11 @@ public class LoginSuccess extends AppCompatActivity
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 Data.currentNews = dataSnapshot.getValue(News.class);
 
-                                Intent intent = new Intent(LoginSuccess.this, NewsActivity.class);
-                                startActivity(intent);
+                                if(CheckIntentIsCalled.isIntentNewsDetails == false) {
+                                    Intent intent = new Intent(LoginSuccess.this, NewsActivity.class);
+                                    startActivity(intent);
+                                    CheckIntentIsCalled.isIntentNewsDetails = true;
+                                }
 
                             }
 

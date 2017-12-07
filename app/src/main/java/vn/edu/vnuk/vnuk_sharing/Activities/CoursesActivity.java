@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CheckIntentIsCalled;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.FunctionalActivity;
@@ -49,8 +50,11 @@ public class CoursesActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     Data.currentCourse = Data.courseArrayList.get(position);
 
-                    Intent intent = new Intent(CoursesActivity.this, FunctionalActivity.class);
-                    startActivity(intent);
+                    if(CheckIntentIsCalled.isIntentFunctional == false) {
+                        Intent intent = new Intent(CoursesActivity.this, FunctionalActivity.class);
+                        startActivity(intent);
+                        CheckIntentIsCalled.isIntentFunctional = true;
+                    }
                 }
             });
         }

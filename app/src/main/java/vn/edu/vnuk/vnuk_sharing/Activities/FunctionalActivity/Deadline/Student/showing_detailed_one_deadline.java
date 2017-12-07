@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CheckIntentIsCalled;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
 
@@ -29,5 +30,11 @@ public class showing_detailed_one_deadline extends AppCompatActivity {
         tvDate.setText(Data.currentDeadline.getDate().toString());
         tvCourse =(TextView) findViewById(R.id.tv_course2);
         tvCourse.setText(Data.currentCourse.getName());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        CheckIntentIsCalled.isIntentDealineDetail = false;
     }
 }

@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Student.AnnouncementsActivity;
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.Teacher.DeadlinesActivity;
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Syllabus.Teacher.SyllabusActivity;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CheckIntentIsCalled;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
@@ -66,11 +67,19 @@ public class FunctionalActivity extends AppCompatActivity {
                                         Data.currentSyllabus = dataSnapshot.getValue(Syllabus.class);
 
                                         if(Data.currentUser.getAccess() == 0) { // teacher
-                                            Intent intent = new Intent(FunctionalActivity.this, SyllabusActivity.class);
-                                            startActivity(intent);
+                                            if(CheckIntentIsCalled.isIntentFunctionalTeacher == false) {
+                                                Intent intent = new Intent(FunctionalActivity.this, SyllabusActivity.class);
+                                                startActivity(intent);
+                                                CheckIntentIsCalled.isIntentSyllabusTeacher = true;
+                                                CheckIntentIsCalled.isIntentFunctionalTeacher = true;
+                                            }
                                         }else { // student
-                                            Intent intent = new Intent(FunctionalActivity.this, vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Syllabus.Student.SyllabusActivity.class);
-                                            startActivity(intent);
+                                            if(CheckIntentIsCalled.isIntentFunctionalStudent == false) {
+                                                Intent intent = new Intent(FunctionalActivity.this, vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Syllabus.Student.SyllabusActivity.class);
+                                                startActivity(intent);
+                                                CheckIntentIsCalled.isIntentSyllabusDetail = true;
+                                                CheckIntentIsCalled.isIntentFunctionalStudent = true;
+                                            }
 
                                         }
 
@@ -102,11 +111,19 @@ public class FunctionalActivity extends AppCompatActivity {
                                         }
 
                                         if(Data.currentUser.getAccess() == 0) { // teacher
-                                            Intent intent = new Intent(FunctionalActivity.this, vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Teacher.AnnouncementsActivity.class);
-                                            startActivity(intent);
+                                            if(CheckIntentIsCalled.isIntentFunctionalAnnouncementTeacher == false && CheckIntentIsCalled.isIntentFunctionalTeacher == false) {
+                                                Intent intent = new Intent(FunctionalActivity.this, vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Teacher.AnnouncementsActivity.class);
+                                                startActivity(intent);
+                                                CheckIntentIsCalled.isIntentFunctionalAnnouncementTeacher = true;
+                                                CheckIntentIsCalled.isIntentFunctionalTeacher = true;
+                                            }
                                         }else{ // student
-                                            Intent intent = new Intent(FunctionalActivity.this, AnnouncementsActivity.class);
-                                            startActivity(intent);
+                                            if(CheckIntentIsCalled.isIntentFunctionalAnnouncementStudent == false && CheckIntentIsCalled.isIntentFunctionalStudent == false) {
+                                                Intent intent = new Intent(FunctionalActivity.this, AnnouncementsActivity.class);
+                                                startActivity(intent);
+                                                CheckIntentIsCalled.isIntentFunctionalAnnouncementStudent = true;
+                                                CheckIntentIsCalled.isIntentFunctionalStudent = true;
+                                            }
                                         }
                                     }
 
@@ -136,12 +153,19 @@ public class FunctionalActivity extends AppCompatActivity {
                                         }
 
                                         if(Data.currentUser.getAccess() == 0) { // teacher
-                                            Intent intent = new Intent(FunctionalActivity.this, DeadlinesActivity.class);
-                                            startActivity(intent);
+                                            if(CheckIntentIsCalled.isIntentFunctionalDeadlineTeacher == false && CheckIntentIsCalled.isIntentFunctionalTeacher == false) {
+                                                Intent intent = new Intent(FunctionalActivity.this, DeadlinesActivity.class);
+                                                startActivity(intent);
+                                                CheckIntentIsCalled.isIntentFunctionalDeadlineTeacher = true;
+                                                CheckIntentIsCalled.isIntentFunctionalTeacher = true;
+                                            }
                                         }else{ // student
-                                            Intent intent = new Intent(FunctionalActivity.this, vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.Student.DeadlinesActivity.class);
-                                            startActivity(intent);
-
+                                            if(CheckIntentIsCalled.isIntentFunctionalDeadlineStudent == false && CheckIntentIsCalled.isIntentFunctionalStudent == false) {
+                                                Intent intent = new Intent(FunctionalActivity.this, vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.Student.DeadlinesActivity.class);
+                                                startActivity(intent);
+                                                CheckIntentIsCalled.isIntentFunctionalDeadlineStudent = true;
+                                                CheckIntentIsCalled.isIntentFunctionalStudent = true;
+                                            }
                                         }
 
                                     }
@@ -156,5 +180,11 @@ public class FunctionalActivity extends AppCompatActivity {
             });
 
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        CheckIntentIsCalled.isIntentFunctional = false;
     }
 }

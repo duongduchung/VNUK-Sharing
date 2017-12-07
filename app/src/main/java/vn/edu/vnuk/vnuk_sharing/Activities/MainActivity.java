@@ -3,7 +3,7 @@ package vn.edu.vnuk.vnuk_sharing.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,12 +15,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Course;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Student;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
+import vn.edu.vnuk.vnuk_sharing.Database.DatabaseHelper;
+import vn.edu.vnuk.vnuk_sharing.Database.User_Database;
 import vn.edu.vnuk.vnuk_sharing.Methods.SHA256;
 import vn.edu.vnuk.vnuk_sharing.R;
 import vn.edu.vnuk.vnuk_sharing.Test.GeneratingDummyData;
@@ -68,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             User user = new User();
                             user = dataSnapshot.getValue(User.class);
                             Data.currentUser = user;
+
+
 
                             if(user.getAccess() == 1) {
 
