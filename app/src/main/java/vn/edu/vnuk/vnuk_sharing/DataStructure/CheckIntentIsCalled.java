@@ -13,4 +13,10 @@ public class CheckIntentIsCalled {
     public static boolean isIntentAnnouncementTeacher = false;
     public static boolean isIntentNewsDetails = false;
     public static boolean isIntentFunctional = false;
+    public static boolean isIntentFunctionalStudent = false;
+    public static boolean isIntentFunctionalTeacher = false;
+    public static boolean isIntentFunctionalAnnouncementStudent = false;
+    public static boolean isIntentFunctionalAnnouncementTeacher = false;
+    public static boolean isIntentFunctionalDeadlineStudent = false;
+    public static boolean isIntentFunctionalDeadlineTeacher = false;
 }

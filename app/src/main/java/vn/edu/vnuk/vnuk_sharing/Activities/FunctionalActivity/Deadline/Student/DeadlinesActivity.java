@@ -41,6 +41,14 @@ public class DeadlinesActivity extends AppCompatActivity implements AdapterView.
         getFormWidgets();
         getDefaultInfor();
         addEventFormWidgets();
+
+        for (Deadline deadline : Data.deadlineArrayList) {
+
+            DeadlinesInWeek job = new DeadlinesInWeek(deadline.getTitle() , deadline.getDescription(), deadline.getDate(), hourFinish);
+            arrJob.add(job);
+        }
+
+        adapter.notifyDataSetChanged();
     }
 
     public void getFormWidgets()
@@ -82,23 +90,10 @@ public class DeadlinesActivity extends AppCompatActivity implements AdapterView.
         startActivity(showing);
     }
 
-    // ngoc
-    @Override
-    public void onStart(){
-        super.onStart();
-
-        for (Deadline deadline : Data.deadlineArrayList) {
-
-            DeadlinesInWeek job = new DeadlinesInWeek(deadline.getTitle() , deadline.getDescription(), deadline.getDate(), hourFinish);
-            arrJob.add(job);
-        }
-
-        adapter.notifyDataSetChanged();
-    }
-
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-        CheckIntentIsCalled.isIntentDealineDetail = false;
+        CheckIntentIsCalled.isIntentFunctionalDeadlineStudent = false;
+        CheckIntentIsCalled.isIntentFunctionalStudent = false;
     }
 }

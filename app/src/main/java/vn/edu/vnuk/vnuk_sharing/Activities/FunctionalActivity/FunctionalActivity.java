@@ -67,16 +67,18 @@ public class FunctionalActivity extends AppCompatActivity {
                                         Data.currentSyllabus = dataSnapshot.getValue(Syllabus.class);
 
                                         if(Data.currentUser.getAccess() == 0) { // teacher
-                                            if(CheckIntentIsCalled.isIntentSyllabusTeacher == false) {
+                                            if(CheckIntentIsCalled.isIntentFunctionalTeacher == false) {
                                                 Intent intent = new Intent(FunctionalActivity.this, SyllabusActivity.class);
                                                 startActivity(intent);
                                                 CheckIntentIsCalled.isIntentSyllabusTeacher = true;
+                                                CheckIntentIsCalled.isIntentFunctionalTeacher = true;
                                             }
                                         }else { // student
-                                            if(CheckIntentIsCalled.isIntentSyllabusDetail == false) {
+                                            if(CheckIntentIsCalled.isIntentFunctionalStudent == false) {
                                                 Intent intent = new Intent(FunctionalActivity.this, vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Syllabus.Student.SyllabusActivity.class);
                                                 startActivity(intent);
                                                 CheckIntentIsCalled.isIntentSyllabusDetail = true;
+                                                CheckIntentIsCalled.isIntentFunctionalStudent = true;
                                             }
 
                                         }
@@ -109,16 +111,18 @@ public class FunctionalActivity extends AppCompatActivity {
                                         }
 
                                         if(Data.currentUser.getAccess() == 0) { // teacher
-                                            if(CheckIntentIsCalled.isIntentAnnouncementTeacher == false) {
+                                            if(CheckIntentIsCalled.isIntentFunctionalAnnouncementTeacher == false && CheckIntentIsCalled.isIntentFunctionalTeacher == false) {
                                                 Intent intent = new Intent(FunctionalActivity.this, vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.Teacher.AnnouncementsActivity.class);
                                                 startActivity(intent);
-                                                CheckIntentIsCalled.isIntentAnnouncementTeacher = true;
+                                                CheckIntentIsCalled.isIntentFunctionalAnnouncementTeacher = true;
+                                                CheckIntentIsCalled.isIntentFunctionalTeacher = true;
                                             }
                                         }else{ // student
-                                            if(CheckIntentIsCalled.isIntentAnnouncementDetail == false) {
+                                            if(CheckIntentIsCalled.isIntentFunctionalAnnouncementStudent == false && CheckIntentIsCalled.isIntentFunctionalStudent == false) {
                                                 Intent intent = new Intent(FunctionalActivity.this, AnnouncementsActivity.class);
                                                 startActivity(intent);
-                                                CheckIntentIsCalled.isIntentAnnouncementDetail = true;
+                                                CheckIntentIsCalled.isIntentFunctionalAnnouncementStudent = true;
+                                                CheckIntentIsCalled.isIntentFunctionalStudent = true;
                                             }
                                         }
                                     }
@@ -149,16 +153,18 @@ public class FunctionalActivity extends AppCompatActivity {
                                         }
 
                                         if(Data.currentUser.getAccess() == 0) { // teacher
-                                            if(CheckIntentIsCalled.isIntentDealineTeacher == false) {
+                                            if(CheckIntentIsCalled.isIntentFunctionalDeadlineTeacher == false && CheckIntentIsCalled.isIntentFunctionalTeacher == false) {
                                                 Intent intent = new Intent(FunctionalActivity.this, DeadlinesActivity.class);
                                                 startActivity(intent);
-                                                CheckIntentIsCalled.isIntentDealineTeacher = true;
+                                                CheckIntentIsCalled.isIntentFunctionalDeadlineTeacher = true;
+                                                CheckIntentIsCalled.isIntentFunctionalTeacher = true;
                                             }
                                         }else{ // student
-                                            if(CheckIntentIsCalled.isIntentDealineDetail == false) {
+                                            if(CheckIntentIsCalled.isIntentFunctionalDeadlineStudent == false && CheckIntentIsCalled.isIntentFunctionalStudent == false) {
                                                 Intent intent = new Intent(FunctionalActivity.this, vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.Student.DeadlinesActivity.class);
                                                 startActivity(intent);
-                                                CheckIntentIsCalled.isIntentDealineDetail = true;
+                                                CheckIntentIsCalled.isIntentFunctionalDeadlineStudent = true;
+                                                CheckIntentIsCalled.isIntentFunctionalStudent = true;
                                             }
                                         }
 

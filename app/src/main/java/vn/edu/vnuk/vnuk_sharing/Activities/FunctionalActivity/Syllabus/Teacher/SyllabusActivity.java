@@ -284,6 +284,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
         }else{
             super.onBackPressed();
             CheckIntentIsCalled.isIntentSyllabusTeacher = false;
+            CheckIntentIsCalled.isIntentFunctionalTeacher = false;
         }
     }
 }

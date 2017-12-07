@@ -47,6 +47,13 @@ public class AnnouncementsActivity extends AppCompatActivity implements AdapterV
         getFormWidgets();
         getDefaultInfor();
         addEventFormWidgets();
+
+        for(Announcement announcement : Data.announcementArrayList) {
+            AnnouncementsInWeek job = new AnnouncementsInWeek(announcement.getTitle(), announcement.getDescription(), announcement.getDate() , hourFinish);
+            arrJob.add(job);
+        }
+
+        adapter.notifyDataSetChanged();
     }
 
     public void getFormWidgets()
@@ -89,20 +96,9 @@ public class AnnouncementsActivity extends AppCompatActivity implements AdapterV
     }
 
     @Override
-    public void onStart(){
-        super.onStart();
-
-        for(Announcement announcement : Data.announcementArrayList) {
-            AnnouncementsInWeek job = new AnnouncementsInWeek(announcement.getTitle(), announcement.getDescription(), announcement.getDate() , hourFinish);
-            arrJob.add(job);
-        }
-
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
     public void onBackPressed(){
         super.onBackPressed();
-        CheckIntentIsCalled.isIntentAnnouncementDetail = false;
+        CheckIntentIsCalled.isIntentFunctionalAnnouncementStudent = false;
+        CheckIntentIsCalled.isIntentFunctionalStudent = false;
     }
 }

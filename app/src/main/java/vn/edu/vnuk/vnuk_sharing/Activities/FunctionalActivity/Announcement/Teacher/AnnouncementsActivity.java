@@ -255,6 +255,7 @@ public class AnnouncementsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-        CheckIntentIsCalled.isIntentAnnouncementTeacher = false;
+        CheckIntentIsCalled.isIntentFunctionalAnnouncementTeacher = false;
+        CheckIntentIsCalled.isIntentFunctionalTeacher = false;
     }
 }

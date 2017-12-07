@@ -315,6 +315,7 @@ public class DeadlinesActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-        CheckIntentIsCalled.isIntentDealineTeacher = false;
+        CheckIntentIsCalled.isIntentFunctionalDeadlineTeacher = false;
+        CheckIntentIsCalled.isIntentFunctionalTeacher = false;
     }
 }

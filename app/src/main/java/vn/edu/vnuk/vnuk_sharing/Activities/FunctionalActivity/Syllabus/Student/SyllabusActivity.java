@@ -60,5 +60,6 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
     public void onBackPressed() {
         super.onBackPressed();
         CheckIntentIsCalled.isIntentSyllabusDetail = false;
+        CheckIntentIsCalled.isIntentFunctionalStudent = false;
     }
 }
