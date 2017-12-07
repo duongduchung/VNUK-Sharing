@@ -30,6 +30,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CheckIntentIsCalled;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.Methods.GetInfoOfFileFromUri;
@@ -282,6 +283,7 @@ public class SyllabusActivity extends AppCompatActivity implements View.OnClickL
             alertDialog.show();
         }else{
             super.onBackPressed();
+            CheckIntentIsCalled.isIntentSyllabusTeacher = false;
         }
     }
 }

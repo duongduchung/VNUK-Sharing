@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.DeadlinesInWeek;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CheckIntentIsCalled;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
@@ -93,5 +94,11 @@ public class DeadlinesActivity extends AppCompatActivity implements AdapterView.
         }
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        CheckIntentIsCalled.isIntentDealineDetail = false;
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CheckIntentIsCalled;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
 
@@ -28,5 +29,11 @@ public class NewsActivity extends AppCompatActivity{
         tvTitleOfNewsNotification.setText(Data.currentNews.getTitle());
         tvContentOfNewsNotification.setText(Data.currentNews.getContent());
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        CheckIntentIsCalled.isIntentNewsDetails = false;
     }
 }

@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Deadline.DeadlinesInWeek;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CheckIntentIsCalled;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
@@ -309,5 +310,11 @@ public class DeadlinesActivity extends AppCompatActivity {
             DeadlinesInWeek job = new DeadlinesInWeek(deadline.getTitle() , deadline.getDescription(), deadline.getDate(), hourFinish);
             arrJob.add(job);
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        CheckIntentIsCalled.isIntentDealineTeacher = false;
     }
 }

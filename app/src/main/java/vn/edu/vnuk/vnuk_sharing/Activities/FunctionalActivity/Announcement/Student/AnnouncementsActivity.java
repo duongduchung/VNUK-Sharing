@@ -19,6 +19,7 @@ import java.util.Locale;
 
 import vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Announcement.AnnouncementsInWeek;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Announcement;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.CheckIntentIsCalled;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
 
@@ -97,5 +98,11 @@ public class AnnouncementsActivity extends AppCompatActivity implements AdapterV
         }
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        CheckIntentIsCalled.isIntentAnnouncementDetail = false;
     }
 }
