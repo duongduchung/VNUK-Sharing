@@ -5,7 +5,7 @@ Course
 ~/root/courses/course-[id]
 
 Deadline
-~/root/deadlines/user-[idUser]/deadline-[id]
+~/root/deadlines/userDatabase-[idUser]/deadline-[id]
 
 Announcement
 ~/root/announcements/course-[idCourse]/announcement-[id]
@@ -17,7 +17,7 @@ Student
 ~/root/students/student-[idUser]
 
 User
-~/root/users/user-[username]-[password]
+~/root/users/userDatabase-[username]-[password]
 
 Syllabus
 ~/root/syllabuses/syllabus-[idCourse]

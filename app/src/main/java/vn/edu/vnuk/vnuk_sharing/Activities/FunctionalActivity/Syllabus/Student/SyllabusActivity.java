@@ -1,10 +1,8 @@
 package vn.edu.vnuk.vnuk_sharing.Activities.FunctionalActivity.Syllabus.Student;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
