@@ -10,9 +10,9 @@
     <item android:id="@+id/action_dayoff"
         android:title="Day off"
         app:showAsAction="never"/>
-    <item android:id="@+id/action_deadline"
-        android:title="Deadline"
-        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_deadline"
+        android:title="Deadline" />
     <item android:id="@+id/action_syllabus"
         android:title="Syllabus"
         app:showAsAction="never"/>
