@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Setting;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
 import vn.edu.vnuk.vnuk_sharing.R;
@@ -29,6 +30,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     Button btn_aboutus;
     Switch switchNews, switchSyllabus, switchDeadline, switchAnnouncement;
+    public static boolean checkTypeOfNotification[];
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -59,8 +61,27 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         switchSyllabus.setChecked(Data.currentUser.getSetting().isReceiveSyllabus());
         switchDeadline.setChecked(Data.currentUser.getSetting().isReceiveDeadline());
         switchAnnouncement.setChecked(Data.currentUser.getSetting().isReceiveAnnouncement());
+
+        checkTypeOfNotification = new boolean[4];
+        checkTypeOfNotification[0] = Data.currentUser.getSetting().isReceiveSyllabus();
+        checkTypeOfNotification[1] = Data.currentUser.getSetting().isReceiveDeadline();
+        checkTypeOfNotification[2] = Data.currentUser.getSetting().isReceiveAnnouncement();
+        checkTypeOfNotification[3] = Data.currentUser.getSetting().isReceiveNews();
     }
 
+    void loadNotifications(){
+        LoginSuccess.notificationArrayList.clear();
+        LoginSuccess.notificationDetailArrayList.clear();
+        LoginSuccess.notificationIconArrayList.clear();
+        for(Notification notification : LoginSuccess.notificationViewArrayList){
+            if(checkTypeOfNotification[notification.getTypeOfNotification()] == true){
+                LoginSuccess.notificationArrayList.add(notification);
+                LoginSuccess.notificationDetailArrayList.add(notification.getTitleOfNotification());
+                LoginSuccess.notificationIconArrayList.add(notification.getTypeOfNotification());
+            }
+        }
+        LoginSuccess.adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onClick(View view) {
@@ -84,17 +105,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
                     int index = 0;
 
-                    while(index < LoginSuccess.notificationArrayList.size()){
-                        if(LoginSuccess.notificationArrayList.get(index).getTypeOfNotification() == 3){
-                            LoginSuccess.notificationArrayList.remove(index);
-                            LoginSuccess.notificationIconArrayList.remove(index);
-                            LoginSuccess.notificationDetailArrayList.remove(index);
-                        }
-                        else{
-                            index++;
-                        }
-                    }
-                    LoginSuccess.adapter.notifyDataSetChanged();
+
                 }
 
                 FirebaseDatabase
@@ -109,6 +120,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
                 currentSetting.setReceiveNews(receive);
                 Data.currentUser.setSetting(currentSetting);
+
+                checkTypeOfNotification[3] = receive;
+
+                loadNotifications();
             }
             break;
 
@@ -120,20 +135,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 else{
                     receive = false;
-
-                    int index = 0;
-
-                    while(index < LoginSuccess.notificationArrayList.size()){
-                        if(LoginSuccess.notificationArrayList.get(index).getTypeOfNotification() == 0){
-                            LoginSuccess.notificationArrayList.remove(index);
-                            LoginSuccess.notificationIconArrayList.remove(index);
-                            LoginSuccess.notificationDetailArrayList.remove(index);
-                        }
-                        else{
-                            index++;
-                        }
-                    }
-                    LoginSuccess.adapter.notifyDataSetChanged();
                 }
 
                 FirebaseDatabase
@@ -148,6 +149,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
                 currentSetting.setReceiveSyllabus(receive);
                 Data.currentUser.setSetting(currentSetting);
+
+                checkTypeOfNotification[0] = receive;
+
+                loadNotifications();
             }
             break;
 
@@ -159,20 +164,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 else{
                     receive = false;
-
-                    int index = 0;
-
-                    while(index < LoginSuccess.notificationArrayList.size()){
-                        if(LoginSuccess.notificationArrayList.get(index).getTypeOfNotification() == 1){
-                            LoginSuccess.notificationArrayList.remove(index);
-                            LoginSuccess.notificationIconArrayList.remove(index);
-                            LoginSuccess.notificationDetailArrayList.remove(index);
-                        }
-                        else{
-                            index++;
-                        }
-                    }
-                    LoginSuccess.adapter.notifyDataSetChanged();
                 }
 
                 FirebaseDatabase
@@ -187,6 +178,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
                 currentSetting.setReceiveDeadline(receive);
                 Data.currentUser.setSetting(currentSetting);
+
+                checkTypeOfNotification[1] = receive;
+
+                loadNotifications();
             }
             break;
 
@@ -198,20 +193,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 else{
                     receive = false;
-
-                    int index = 0;
-
-                    while(index < LoginSuccess.notificationArrayList.size()){
-                        if(LoginSuccess.notificationArrayList.get(index).getTypeOfNotification() == 2){
-                            LoginSuccess.notificationArrayList.remove(index);
-                            LoginSuccess.notificationIconArrayList.remove(index);
-                            LoginSuccess.notificationDetailArrayList.remove(index);
-                        }
-                        else{
-                            index++;
-                        }
-                    }
-                    LoginSuccess.adapter.notifyDataSetChanged();
                 }
 
                 FirebaseDatabase
@@ -226,6 +207,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
                 currentSetting.setReceiveAnnouncement(receive);
                 Data.currentUser.setSetting(currentSetting);
+
+                checkTypeOfNotification[2] = receive;
+
+                loadNotifications();
             }
             break;
         }

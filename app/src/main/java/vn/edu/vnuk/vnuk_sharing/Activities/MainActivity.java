@@ -1,6 +1,7 @@
 package vn.edu.vnuk.vnuk_sharing.Activities;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,6 +24,7 @@ import vn.edu.vnuk.vnuk_sharing.DataStructure.Student;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Teacher;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.User;
 import vn.edu.vnuk.vnuk_sharing.Database.DatabaseHelper;
+import vn.edu.vnuk.vnuk_sharing.Database.FileHelper;
 import vn.edu.vnuk.vnuk_sharing.Database.User_Database;
 import vn.edu.vnuk.vnuk_sharing.Methods.SHA256;
 import vn.edu.vnuk.vnuk_sharing.R;
@@ -49,6 +51,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final GeneratingDummyData generatingDummyData = new GeneratingDummyData();
         //generatingDummyData.createData(20, 100, 5);
 
+        String text = FileHelper.readFromFile(getApplicationContext());
+
+        if(text == ""){
+            Toast.makeText(getApplicationContext(), "Ko co tai khoan", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Loginning...", Toast.LENGTH_SHORT).show();
+            String info[] = text.split("-");
+            loadAccount(info[0], info[1]);
+        }
     }
 
     ArrayList<Teacher> teacherArrayList = new ArrayList<Teacher>();
@@ -57,14 +69,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()){
             case R.id.btn_login : {
+                loadAccount(edt_username.getText().toString(), edt_password.getText().toString());
+            }
+            break;
+        }
+    }
 
-                FirebaseDatabase
-                        .getInstance()
-                        .getReference()
-                        .child("root")
-                        .child("users")
-                        .child("user" + "-" + edt_username.getText().toString() + "-" + SHA256.getSHA256Hash(edt_password.getText().toString()))
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
+    public void loadAccount(final String username, final String password){
+        btn_login.setEnabled(false);
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("root")
+                .child("users")
+                .child("user" + "-" + username + "-" + SHA256.getSHA256Hash(password))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){
@@ -72,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             user = dataSnapshot.getValue(User.class);
                             Data.currentUser = user;
 
+                            FileHelper.writeToFile(username + "-" + password, getApplicationContext());
 
 
                             if(user.getAccess() == 1) {
@@ -87,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 if(dataSnapshot.exists()) {
 
-                                                    Toast.makeText(getApplicationContext(), "Đăng nhập student thành công", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getApplicationContext(), "Đăng nhập student thành công", Toast.LENGTH_SHORT).show();
 
                                                     Data.currentStudent = dataSnapshot.getValue(Student.class);
 
@@ -103,8 +123,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                                         Data.courseArrayList.add(dataSnapshot.child("course" + "-" + integer).getValue(Course.class));
                                                                     }
 
+
+
                                                                     Intent intent = new Intent(MainActivity.this, LoginSuccess.class);
                                                                     startActivity(intent);
+                                                                    btn_login.setEnabled(true);
 
                                                                 }
 
@@ -135,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                                 if(dataSnapshot.exists()) {
 
-                                                    Toast.makeText(getApplicationContext(), "Đăng nhập teacher thành công", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(getApplicationContext(), "Đăng nhập teacher thành công", Toast.LENGTH_SHORT).show();
 
                                                     Data.currentTeacher = dataSnapshot.getValue(Teacher.class);
 
@@ -153,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                                                     Intent intent = new Intent(MainActivity.this, LoginSuccess.class);
                                                                     startActivity(intent);
+                                                                    btn_login.setEnabled(true);
                                                                 }
 
                                                                 @Override
@@ -170,7 +194,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         });
                             }
                         }else{
-                            Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_LONG).show();
+                            btn_login.setEnabled(true);
+                            Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -179,9 +204,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 });
-            }
-            break;
-        }
     }
 
     @Override

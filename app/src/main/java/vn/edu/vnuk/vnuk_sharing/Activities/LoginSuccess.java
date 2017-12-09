@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -39,6 +40,8 @@ import vn.edu.vnuk.vnuk_sharing.DataStructure.News;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
+import vn.edu.vnuk.vnuk_sharing.Database.DatabaseHelper;
+import vn.edu.vnuk.vnuk_sharing.Database.FileHelper;
 import vn.edu.vnuk.vnuk_sharing.R;
 
 public class LoginSuccess extends AppCompatActivity
@@ -46,6 +49,7 @@ public class LoginSuccess extends AppCompatActivity
 
     TextView txtUsername, txtLevel;
     ListView listViewNotification;
+    public static ArrayList<Notification> notificationViewArrayList;
     public static ArrayList<Notification> notificationArrayList;
     public static ArrayList<String> notificationDetailArrayList;
     public static ArrayList<Integer> notificationIconArrayList;
@@ -81,6 +85,7 @@ public class LoginSuccess extends AppCompatActivity
         listViewNotification.setOnItemClickListener(this);
         navigationView.setNavigationItemSelectedListener(this);
 
+        notificationViewArrayList = new ArrayList<Notification>();
         notificationArrayList = new ArrayList<Notification>();
         notificationDetailArrayList = new ArrayList<String>();
         notificationIconArrayList = new ArrayList<Integer>();
@@ -148,6 +153,7 @@ public class LoginSuccess extends AppCompatActivity
 
                                             if(receive == true) {
                                                 notificationArrayList.add(newNotification);
+                                                notificationViewArrayList.add(newNotification);
                                                 notificationDetailArrayList.add(newNotification.getTitleOfNotification());
                                                 notificationIconArrayList.add(newNotification.getTypeOfNotification());
                                             }
@@ -167,6 +173,7 @@ public class LoginSuccess extends AppCompatActivity
 
                                                 if(isCourseExist == false){
                                                     notificationArrayList.remove(index);
+                                                    notificationViewArrayList.remove(index);
                                                     notificationDetailArrayList.remove(index);
                                                     notificationIconArrayList.remove(index);
                                                 }
@@ -189,6 +196,7 @@ public class LoginSuccess extends AppCompatActivity
 
                                                 if(isCourseExist == false){
                                                     notificationArrayList.remove(index);
+                                                    notificationViewArrayList.remove(index);
                                                     notificationDetailArrayList.remove(index);
                                                     notificationIconArrayList.remove(index);
                                                 }
@@ -202,6 +210,7 @@ public class LoginSuccess extends AppCompatActivity
                                             for(int j = i + 1; j < notificationArrayList.size(); j++){
                                                 if(notificationArrayList.get(i).getIdNotification() < notificationArrayList.get(j).getIdNotification()){
                                                     Collections.swap(notificationArrayList, i, j);
+                                                    Collections.swap(notificationViewArrayList, i, j);
                                                     Collections.swap(notificationDetailArrayList, i, j);
                                                     Collections.swap(notificationIconArrayList, i, j);
                                                 }
@@ -265,6 +274,8 @@ public class LoginSuccess extends AppCompatActivity
                 @Override
                 public void onClick(DialogInterface dialogInterface, int id) {
                     Data.clearAllData();
+
+                    FileHelper.writeToFile("", getApplicationContext());
 
                     finish();
                 }

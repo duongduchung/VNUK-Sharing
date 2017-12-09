@@ -30,10 +30,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_USERNAME + " TEXT,"
                 + KEY_PASSWORD + " TEXT" + ")";
+
         db.execSQL(CREATE_USERS_TABLE);
+    }
+
+    public void onDrop(SQLiteDatabase db){
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
     }
 
     // Upgrading database
