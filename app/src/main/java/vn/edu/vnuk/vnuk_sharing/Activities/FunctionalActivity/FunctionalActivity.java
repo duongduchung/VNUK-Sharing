@@ -33,7 +33,7 @@ public class FunctionalActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Activity");
+        getSupportActionBar().setTitle(Data.currentCourse.getName());
 
         Intent callSharingIntent = new Intent();
 

@@ -53,10 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String text = FileHelper.readFromFile(getApplicationContext());
 
-        if(text == ""){
-            Toast.makeText(getApplicationContext(), "Ko co tai khoan", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        if(text != ""){
             Toast.makeText(getApplicationContext(), "Loginning...", Toast.LENGTH_SHORT).show();
             String info[] = text.split("-");
             loadAccount(info[0], info[1]);
