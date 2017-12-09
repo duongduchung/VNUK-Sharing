@@ -4,7 +4,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -15,6 +14,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,9 +39,9 @@ import vn.edu.vnuk.vnuk_sharing.DataStructure.CustomListView;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Deadline;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.News;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Notification;
+import vn.edu.vnuk.vnuk_sharing.DataStructure.Setting;
 import vn.edu.vnuk.vnuk_sharing.DataStructure.Syllabus;
 import vn.edu.vnuk.vnuk_sharing.DataTemp.Data;
-import vn.edu.vnuk.vnuk_sharing.Database.DatabaseHelper;
 import vn.edu.vnuk.vnuk_sharing.Database.FileHelper;
 import vn.edu.vnuk.vnuk_sharing.R;
 
@@ -250,6 +251,57 @@ public class LoginSuccess extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_notifications, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_all:
+                SettingActivity.checkTypeOfNotification[0] = true;
+                SettingActivity.checkTypeOfNotification[1] = true;
+                SettingActivity.checkTypeOfNotification[2] = true;
+                SettingActivity.checkTypeOfNotification[3] = true;
+                SettingActivity.loadNotifications();
+                return true;
+            case R.id.action_news:
+                SettingActivity.checkTypeOfNotification[0] = false;
+                SettingActivity.checkTypeOfNotification[1] = false;
+                SettingActivity.checkTypeOfNotification[2] = false;
+                SettingActivity.checkTypeOfNotification[3] = true;
+                SettingActivity.loadNotifications();
+                return true;
+            case R.id.action_dayoff:
+                SettingActivity.checkTypeOfNotification[0] = false;
+                SettingActivity.checkTypeOfNotification[1] = false;
+                SettingActivity.checkTypeOfNotification[2] = true;
+                SettingActivity.checkTypeOfNotification[3] = false;
+                SettingActivity.loadNotifications();
+                return true;
+            case R.id.action_deadline:
+                SettingActivity.checkTypeOfNotification[0] = false;
+                SettingActivity.checkTypeOfNotification[1] = true;
+                SettingActivity.checkTypeOfNotification[2] = false;
+                SettingActivity.checkTypeOfNotification[3] = false;
+                SettingActivity.loadNotifications();
+                return true;
+            case R.id.action_syllabus:
+                SettingActivity.checkTypeOfNotification[0] = true;
+                SettingActivity.checkTypeOfNotification[1] = false;
+                SettingActivity.checkTypeOfNotification[2] = false;
+                SettingActivity.checkTypeOfNotification[3] = false;
+                SettingActivity.loadNotifications();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
