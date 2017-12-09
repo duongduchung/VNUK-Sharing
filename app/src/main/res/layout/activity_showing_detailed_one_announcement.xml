@@ -20,9 +20,9 @@
         android:padding="@dimen/size_normal">
 
         <TextView
-            android:id="@+id/tv_date2"
-            android:hint="Date"
-            android:textSize="@dimen/size_big"
+            android:id="@+id/tv_course2"
+            android:hint="Course"
+            android:textSize="30dp"
             android:textColor="@color/Black"
             android:layout_weight="3"/>
     </TableRow>
@@ -34,6 +34,7 @@
             android:id="@+id/tv_subject2"
             android:hint="Subject"
             android:textSize="@dimen/size_big"
+            android:textStyle="bold"
             android:textColor="@color/Black"
             android:layout_weight="3"/>
     </TableRow>
@@ -43,7 +44,7 @@
 
         <TextView
             android:id="@+id/tv_content2"
-            android:hint="Content"
+            android:hint="Note"
             android:textSize="@dimen/size_big"
             android:textColor="@color/Black"
             android:layout_weight="3"/>
@@ -53,8 +54,8 @@
         android:padding="@dimen/size_normal">
 
         <TextView
-            android:id="@+id/tv_course2"
-            android:hint="Course"
+            android:id="@+id/tv_date2"
+            android:hint="Date"
             android:textSize="@dimen/size_big"
             android:textColor="@color/Black"
             android:layout_weight="3"/>
