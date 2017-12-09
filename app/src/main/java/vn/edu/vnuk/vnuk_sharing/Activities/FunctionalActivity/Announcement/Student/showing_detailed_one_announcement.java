@@ -21,14 +21,15 @@ public class showing_detailed_one_announcement extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Day-off Notification");
 
+        tvCourse =(TextView) findViewById(R.id.tv_course2);
+        tvCourse.setText(Data.currentCourse.getName());
         tvTitle = (TextView) findViewById(R.id.tv_subject2);
         tvTitle.setText(Data.currentAnnouncement.getTitle());
         tvContent = (TextView) findViewById(R.id.tv_content2);
         tvContent.setText(Data.currentAnnouncement.getDescription());
         tvDate = (TextView) findViewById(R.id.tv_date2);
         tvDate.setText(Data.currentAnnouncement.getDate().toString());
-        tvCourse =(TextView) findViewById(R.id.tv_course2);
-        tvCourse.setText(Data.currentCourse.getName());
+
     }
 
     @Override

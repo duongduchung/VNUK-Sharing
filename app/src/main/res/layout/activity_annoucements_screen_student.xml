@@ -7,15 +7,16 @@
     android:orientation="vertical"
     tools:context=".Activities.FunctionalActivity.Announcement.Teacher.AnnouncementsActivity">
 
-    <TextView
-        android:id="@+id/textView8"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@color/Cardinal"
-        android:text="List Announcement:"
-        android:textSize="@dimen/size_big"
-        android:padding="@dimen/size_normal"
-        android:textColor="#FFFFFF" />
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <ListView
         android:id="@+id/lvannouncement"

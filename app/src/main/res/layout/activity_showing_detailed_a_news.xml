@@ -12,7 +12,8 @@
         android:layout_alignParentTop="true"
         android:background="@color/Cardinal"
         android:elevation="6dp"
-        android:theme="@style/AppTheme"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TableRow
