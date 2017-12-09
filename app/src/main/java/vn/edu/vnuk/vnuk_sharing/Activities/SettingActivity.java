@@ -30,7 +30,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     Button btn_aboutus;
     Switch switchNews, switchSyllabus, switchDeadline, switchAnnouncement;
-    public static boolean checkTypeOfNotification[];
+    public static boolean checkTypeOfNotification[] = new boolean[4];
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -62,14 +62,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         switchDeadline.setChecked(Data.currentUser.getSetting().isReceiveDeadline());
         switchAnnouncement.setChecked(Data.currentUser.getSetting().isReceiveAnnouncement());
 
-        checkTypeOfNotification = new boolean[4];
         checkTypeOfNotification[0] = Data.currentUser.getSetting().isReceiveSyllabus();
         checkTypeOfNotification[1] = Data.currentUser.getSetting().isReceiveDeadline();
         checkTypeOfNotification[2] = Data.currentUser.getSetting().isReceiveAnnouncement();
         checkTypeOfNotification[3] = Data.currentUser.getSetting().isReceiveNews();
     }
 
-    void loadNotifications(){
+    public static void loadNotifications(){
         LoginSuccess.notificationArrayList.clear();
         LoginSuccess.notificationDetailArrayList.clear();
         LoginSuccess.notificationIconArrayList.clear();

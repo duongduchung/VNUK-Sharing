@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_all"
+        android:title="All"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_news"
+        android:title="News"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_dayoff"
+        android:title="Day off"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_deadline"
+        android:title="Deadline"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_syllabus"
+        android:title="Syllabus"
+        app:showAsAction="never"/>
+</menu>
